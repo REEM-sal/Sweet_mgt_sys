@@ -1,0 +1,5 @@
+P001,Product One,A great product,19.99,1kg,In Stock,8
+1,Chocolate cake,Rich chocolate cake with a creamy frosting,7.06,500g,In Stock,9
+4,Macarons,Colorful almond macarons with various fillings!,12.52,150g,Out Stock,3
+5,Brownies,Decadent chocolate brownies with walnuts        ,5.64,250g,In Stock,3
+Total Amount: $7.06
