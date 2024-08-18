@@ -29,23 +29,29 @@ public class Admin {
     private String sec;
     private String third;
     private String adminName;
-   
-    private boolean setrecipesFlag;
+    private boolean PostsFlag;
     private boolean adminLogin;
-    private boolean contentFlag;
+    private boolean productFlag;
     private boolean feedbackFlagFlag;
     private boolean userAccountsFlag;
     private boolean orderCustomerFlag;
-   
+    private boolean recipesFlag;
     private int adminRoleChoice;
+    private boolean generateReportsFlag ; 
+    private boolean viewUserStatsFlag ;
 
     public Admin() {
         adminLogin = true;
-        contentFlag = false;
+        productFlag = false;
         feedbackFlagFlag = false;
         userAccountsFlag = false;
+        PostsFlag = false;
+        recipesFlag = false;
+        generateReportsFlag = false;
+        viewUserStatsFlag = false;
     }
-
+    
+   
     public String getFirst() {
         return first;
     }
@@ -85,20 +91,51 @@ public class Admin {
     }
     
     public boolean isProductsFlag() {
-        return contentFlag;
+        return productFlag;
     }
 
-    public void setProductsFlag(boolean productsFlag) {
-        this.contentFlag = productsFlag;
-    }
-    public void setrecipes(boolean setrecipesFlag) {
-        this.setrecipesFlag = setrecipesFlag;
+    public void setProductsFlag(boolean productFlag) {
+        this.productFlag = productFlag;
     }
     
+    public void setRecipes(boolean recipesFlag) {
+        this.recipesFlag = recipesFlag;
+    }
+   
+    public void setPosts(boolean PostsFlag) {
+        this.PostsFlag = PostsFlag;
+    }
+    public void setViewUserStatsFlag(boolean flag) {
+        this.viewUserStatsFlag = flag;
+    }
 
+    public boolean isViewUserStatsFlag() {
+        return viewUserStatsFlag;
+    }
+    public void setGenerateReportsFlag(boolean flag) {
+        this.generateReportsFlag = flag;
+    }
 
+    public boolean isGenerateReportsFlag() {
+        return generateReportsFlag;
+    }
+    
     public boolean isUserAccountsFlag() {
         return userAccountsFlag;
+    }
+    public String getFinancialReportContent() {
+        StringBuilder reportContent = new StringBuilder();
+
+        try (BufferedReader reader = new BufferedReader(new FileReader(REPORT_FILE_PATH))) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                reportContent.append(line).append("\n");
+            }
+        } catch (IOException e) {
+            logger.log(Level.SEVERE, "Error reading financial report", e);
+        }
+
+        return reportContent.toString();
     }
 
     public void setUserAccountsFlag(boolean userAccountsFlag) {
@@ -126,6 +163,7 @@ public class Admin {
     public void Admin_menu(String AdminName) {
         setProductsFlag(false);
         setUserAccountsFlag(false);
+        setRecipes(false);
         setAdminName(AdminName);
         int choice;
         Scanner scanner = new Scanner(System.in);
@@ -161,7 +199,10 @@ public class Admin {
         {managePosts();
         Admin_menu(AdminName);}
         
-        case 5-> generateFinancialReports();
+        case 5->
+        
+        {generateFinancialReports();}
+        
         case 6 -> gatherAndDisplayUserStatistics();
         case 7 -> identifyBestSellingProducts();
 
@@ -172,6 +213,9 @@ public class Admin {
         }
     }
 }
+    public boolean isrecipes() {
+        return recipesFlag;
+    }
   
     public void menuManageAccountUser() {
         int choice;
@@ -342,6 +386,7 @@ public void editAdminProfile(){
         }
     
     public void manageRecipes() {
+  
         int choice;
         Scanner scanner = new Scanner(System.in);
         logger.log(Level.INFO, "\n\u001B[34m" + "----- Manage Recipes -----" + "\n" +
@@ -665,22 +710,25 @@ public void editAdminProfile(){
         System.out.println(recipeDisplay.toString());
         manageRecipes();
     }
-    public boolean isrecipes() {
-        return recipesFlag;
-    }
-    private boolean recipesFlag;
+   
     public void whatAdminEnter(String AdminChoice){
         if (AdminChoice.equals("1")){
         	setUserAccountsFlag(true);
         } else if (AdminChoice.equals("2")) {
         	setfeedback(true);
         } else if (AdminChoice.equals("3")) {
-            setrecipes(true);
+        	setRecipes(true);
         }
+        else if (AdminChoice.equals("4")) {
+        	setPosts(true);
+        }
+        
         else {
         	setUserAccountsFlag(false);
-        	setrecipes(false);
+        	setRecipes(false);
         	setfeedback(false);
+        	setPosts(false);
+        	
         }
     }
     public void editRecipe() {
@@ -986,7 +1034,7 @@ public void editAdminProfile(){
             logger.log(Level.SEVERE, "Error writing financial report", e);
         }
         
-        Admin_menu(getAdminName());
+      
     }
 
     private double calculateExpenses(int totalItems) {

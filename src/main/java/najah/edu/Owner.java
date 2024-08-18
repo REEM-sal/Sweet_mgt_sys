@@ -1,3 +1,4 @@
+//////////////// وهي الاونر ///////
 package najah.edu;
 
 import java.io.BufferedReader;
@@ -35,6 +36,7 @@ public class Owner {
 	    private boolean  manageOrdersFlag;
 	    private boolean monitorSalesFlag;
 	    private boolean bestSellingProductsFlag;
+
 	    private boolean dynamicDiscountFlag;
 	    private boolean notificationsFlag;
 	    private boolean trackOrdersFlag;
@@ -50,6 +52,7 @@ public class Owner {
 	        notificationsFlag = false;
 	        trackOrdersFlag = false;
 	        gmail = new Gmail();
+	      
 	    }
 	
 	  
@@ -66,7 +69,12 @@ public class Owner {
 	    public String getCustomerName() {
 	        return customerName;
 	    }
-
+	    public boolean isProductsFlag() {
+	        return manageProductsFlag;
+	    }
+	    public void setProductsFlag(boolean productsFlag) {
+	        this.manageProductsFlag = productsFlag;
+	    }
 	    public void setCustomerName(String customerName) {
 	        this.customerName = customerName;
 	    }
@@ -74,6 +82,7 @@ public class Owner {
 	        return phoneCustomer;
 	    }
 	    private boolean ownerLogin;
+	    
 	    public boolean isOwnerLogin() {
 	        return ownerLogin;
 	    }
@@ -83,10 +92,13 @@ public class Owner {
 	    public void setPhoneCustomer(String phoneCustomer) {
 	        this.phoneCustomer = phoneCustomer;
 	    }
-	    
+	    public void login(String username, String password) {
+	        if (username.equals("Yara@gmail.com") && password.equals("121")) {
+	            setOwnerLogin(true); 
+	            }
+	    }
 	  
-
-	            public void owner_Menu(String ownerName) {
+        public void owner_Menu(String ownerName) {
 	                Scanner scanner = new Scanner(System.in);
 	                int choice;
 	                do {
@@ -95,11 +107,9 @@ public class Owner {
 	                            "|      1. Manage Products           |\n" +
 	                            "|      2. Monitor Sales             |\n" +
 	                            "|      3. Identify Best-selling Products |\n" +
-	                            "|      4. Manage Orders             |\n" +  // تم تعديل النص هنا
-	                            "|      5. Implement Dynamic Discount|\n" +
+	                            "|      4. Manage Orders             |\n" +  	                            "|      5. Implement Dynamic Discount|\n" +
 	                            "|      6. Receive Notifications     |\n" +
-	                            "|      7. Exit                      |\n" +  // تم تعديل النص هنا
-	                            "|                                   |\n" +
+	                            "|      7. Exit                      |\n" +  	                            "|                                   |\n" +
 	                            "------------------------------------\n");
 	                    logger.log(Level.INFO, "Enter your choice: " + "\u001B[0m");
 	                    choice = scanner.nextInt();
@@ -117,10 +127,9 @@ public class Owner {
 	                            identifyBestSellingProducts();
 	                        }
 	                        case 4 -> {
-	                            manageOrdersFlag = true;  // تأكد من تعريف manageOrdersFlag إذا كان مطلوباً
-	                            Order order = new Order(); // أو استخدم الطريقة المناسبة لإنشاء كائن Order
-	                            order.manageOrders();     // استدعاء دالة manageOrders
-	                        }
+	                            manageOrdersFlag = true;  
+	                            Order order = new Order(); 
+	                            order.manageOrders();     	                        }
 	                        case 5 -> {
 	                            dynamicDiscountFlag = true;
 	                            implementDynamicDiscount();
@@ -129,9 +138,9 @@ public class Owner {
 	                            notificationsFlag = true;
 	                            receiveNotifications("shipped");
 	                            receiveNotifications("delivered");
-	                            receiveNotifications("canceled");
+	                           
 	                        }
-	                        case 7 -> logger.log(Level.INFO, "Exiting..."); // تغيير الخيار الأخير إلى 7
+	                        case 7 -> logger.log(Level.INFO, "Exiting..."); 
 	                        default -> logger.log(Level.WARNING, "\u001B[1m" + "\u001B[31mInvalid choice! Please enter a valid choice." + "\u001B[0m");
 	                    }
 	                } while (choice != 7); // تغيير الشرط إلى 7
@@ -145,12 +154,8 @@ public class Owner {
 	            case "shipped":
 	                message = "The order status has changed to shipped.";
 	                break;
-	            case "pending":
-	                message = "The order status is still pending.";
-	                break;
-	            case "in transit":
-	                message = "The order is now in transit.";
-	                break;
+	           
+	          
 	            case "delivered":
 	                message = "The order has been delivered.";
 	                break;
@@ -310,9 +315,9 @@ public class Owner {
 	        }
 	    }
 
-	    private void monitorSales() {
+	    public void monitorSales() {
 	       
-	        Map<String, Double> productPrices = loadProductPrices();
+	       
 	        Map<String, Double> salesTotals = new HashMap<>();
 	        
 	        try (BufferedReader salesReader = new BufferedReader(new FileReader(SALES_FILE_PATH))) {
@@ -354,15 +359,7 @@ public class Owner {
 	        return productPrices;
 	    }
 
-
-
-
-
-	  
-
-
-
-	    private void identifyBestSellingProducts() {
+	    public void identifyBestSellingProducts() {
 	        String salesFilePath = "src/main/resources/myData/sales.txt";
 
 	        Map<String, Integer> productSalesCount = new HashMap<>();
@@ -397,8 +394,11 @@ public class Owner {
 
 	        if (bestSellingProduct != null) {
 	            logger.log(Level.INFO, "Best Selling Product: " + bestSellingProduct + " with " + maxSales + " units sold.");
+	            bestSellingProductsFlag = true;
 	        } else {
 	            logger.log(Level.INFO, "No sales data available.");
+	            bestSellingProductsFlag = false;
+
 	        }
 	    }
 	    private double price;
@@ -410,7 +410,7 @@ public class Owner {
 	        }
 	        this.price = this.price * (1 - discountPercentage / 100);
 	    }
-	    private void implementDynamicDiscount() {
+	    public void implementDynamicDiscount() {
 	        Scanner scanner = new Scanner(System.in);
 	        logger.log(Level.INFO, "Enter discount percentage (e.g., 10 for 10%): ");
 	        String input = scanner.nextLine();
@@ -546,14 +546,35 @@ public class Owner {
 	    public void setMonitorSalesFlag(boolean monitorSalesFlag) {
 	        this.monitorSalesFlag = monitorSalesFlag;
 	    }
-
+	    public void whatAdminEnter(String AdminChoice){
+	        if (AdminChoice.equals("1")){
+	        	setManageProductsFlag(true);
+	        } else if (AdminChoice.equals("2")) {
+	        	setMonitorSalesFlag(true);
+	        } else if (AdminChoice.equals("3")) {
+	        	setBestSellingProductsFlag(true);
+	        }
+	        else if (AdminChoice.equals("4")) {
+	        	setTrackOrdersFlag(true);
+	        }
+	        
+	        else {
+	        	setManageProductsFlag(false);
+	        	setMonitorSalesFlag(false);
+	        	setBestSellingProductsFlag(false);
+	        	setTrackOrdersFlag(false);
+	        	
+	        }
+	    }
 	    public boolean isBestSellingProductsFlag() {
 	        return bestSellingProductsFlag;
 	    }
 
 	    public void setBestSellingProductsFlag(boolean bestSellingProductsFlag) {
-	        this.bestSellingProductsFlag = bestSellingProductsFlag;
+	    	 this.bestSellingProductsFlag = bestSellingProductsFlag;
 	    }
+	   
+
 
 	    public boolean isDynamicDiscountFlag() {
 	        return dynamicDiscountFlag;
@@ -581,9 +602,7 @@ public class Owner {
 
 
 
-
 	    public void displayAvailableProducts() {
-	        // تحقق من تهيئة availableProducts قبل استخدامها
 	        if (availableProducts == null || availableProducts.isEmpty()) {
 	            System.out.println("No products available.");
 	        } else {
@@ -593,5 +612,6 @@ public class Owner {
 	            }
 	        }
 	    }
+
 
 }
