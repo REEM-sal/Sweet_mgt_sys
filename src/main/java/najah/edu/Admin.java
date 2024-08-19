@@ -15,6 +15,9 @@ import java.util.Map;
 import java.util.Scanner;
 import java.util.logging.Level;
 public class Admin {
+		    private static final String INVALID_CHOICE_MESSAGE = "\u001B[31mInvalid choice! Please enter a valid choice.";
+
+	    private static final String A_FILE_PATH = "src/main/resources/myData/Admin.txt";
 	 private static final String RECIPES_FILE_PATH = "src/main/resources/myData/recipes.txt";
 	    private static final String POSTS_FILE_PATH = "src/main/resources/myData/posts.txt";
 	    private static final String BENEFICIARY_FILE_PATH = "src/main/resources/myData/BeneficiaryData.txt";
@@ -23,12 +26,9 @@ public class Admin {
 	    private static final String ENTER_YOUR_CHOICE = "Enter your choice: ";
 	    public static final String BOLD = "\u001B[1m";
 	    public static final String RESET_COLOR = "\u001B[0m";
-	    private static final String A_FILE_PATH = "src/main/resources/myData/Admin.txt";
-	    private static final String INVALID_CHOICE_MESSAGE = "\u001B[31mInvalid choice! Please enter a valid choice.";
-
     Order order = new Order();
     Product product = new Product();
-    
+    Report report = new Report();
     BeneficiaryUser beneficiaryUser = new BeneficiaryUser();
     Owner owner = new Owner();
     private String first;
@@ -214,8 +214,8 @@ public class Admin {
 
         case 8 -> logger.log(Level.INFO, "Exiting...");
         default -> {
-            logger.log(Level.WARNING, BOLD + "\u001B[31mInvalid choice! Please enter a valid choice." + RESET_COLOR);
-            Admin_menu(AdminName);
+ logger.log(Level.WARNING, INVALID_CHOICE_MESSAGE);
+		Admin_menu(AdminName);
         }
     }
 }
@@ -239,7 +239,7 @@ public class Admin {
            
             case 3 -> Admin_menu(getAdminName());
             default -> {
-                logger.log(Level.WARNING, BOLD + "\u001B[31mInvalid choice! Please enter a valid choice." + "\u001B[0m");
+             logger.log(Level.WARNING, INVALID_CHOICE_MESSAGE);
                 menuManageAccountUser();
             }
         }
@@ -255,7 +255,7 @@ public void editAdminProfile(){
             "|   3. edit Gmail      |\n"+
             "|   4. back            |\n"+
             "-----------------------\n");
-    logger.log(Level.INFO,"Enter your choice: "+ RESET_COLOR);
+    logger.log(Level.INFO,ENTER_YOUR_CHOICE+ RESET_COLOR);
     choice = scanner.nextInt();
     String choice2 ;
     String oldPass ;
@@ -292,7 +292,7 @@ public void editAdminProfile(){
     	  Admin_menu(getAdminName());
     }
     else {
-        logger.log(Level.WARNING,BOLD+"\u001B[31mInvalid choice! Please enter a valid choice."+RESET_COLOR);
+   logger.log(Level.WARNING, INVALID_CHOICE_MESSAGE);
     }
 }
 
@@ -326,7 +326,7 @@ public void editAdminProfile(){
     }
     public void fileFunction(){
 
-        try (RandomAccessFile raf = new RandomAccessFile("src/main/resources/myData/AdminData.txt", "rw")) {
+        try (RandomAccessFile raf = new RandomAccessFile(A_FILE_PATH, "rw")) {
             String s;
             while ((s = raf.readLine()) != null) {
                 String[] loginCustomer = s.split(",");
@@ -342,7 +342,7 @@ public void editAdminProfile(){
     }
         public void deleteFileFunction(){
 
-            try (RandomAccessFile raf = new RandomAccessFile("src/main/resources/myData/AdminData.txt", "rw")) {
+            try (RandomAccessFile raf = new RandomAccessFile(A_FILE_PATH, "rw")) {
                 // Seek to the beginning of the file
                 long start = 0;
                 long currentPos = raf.getFilePointer();
@@ -370,19 +370,13 @@ public void editAdminProfile(){
             }
 
         }
-        public void writeToFile(String dataToWrite){
-            try {
-
-
-            RandomAccessFile file = new RandomAccessFile(A_FILE_PATH, "rw");
-            file.seek(file.length());
-
-            file.writeBytes(dataToWrite);
-            file.close();
-        }
-    catch (IOException e) {
-            e.printStackTrace();
-        }
+ public void writeToFile(String dataToWrite) {
+            try (RandomAccessFile file = new RandomAccessFile(A_FILE_PATH, "rw")) {
+                file.seek(file.length()); 
+                file.writeBytes(dataToWrite); 
+                } catch (IOException e) {
+                e.printStackTrace(); 
+            }
         }
         public boolean truepass (String pass, String ConfirmPass){
             if(pass.equals(ConfirmPass)){
@@ -412,7 +406,7 @@ public void editAdminProfile(){
             case 4 -> deleteRecipe();
             case 5 -> Admin_menu(getAdminName());
             default -> {
-                logger.log(Level.WARNING, BOLD + "\u001B[31mInvalid choice! Please enter a valid choice." + "\u001B[0m");
+              logger.log(Level.WARNING, INVALID_CHOICE_MESSAGE);
                 manageRecipes();
             }
         }
@@ -428,7 +422,7 @@ public void editAdminProfile(){
                     "|     3. Delete User Account             |\n" +
                     "|     4. Back to Previous Menu           |\n" +
                     "-------------------------------------------\n");
-            logger.log(Level.INFO, "Enter your choice: " + RESET_COLOR);
+            logger.log(Level.INFO, ENTER_YOUR_CHOICE + RESET_COLOR);
             choice = scanner.nextInt();
             scanner.nextLine(); // Consume newline left-over
 
@@ -446,7 +440,7 @@ public void editAdminProfile(){
                     Admin_menu(getAdminName()); // Go back to the admin menu
                     return; // Exit the loop
                 default:
-                    logger.log(Level.WARNING, BOLD + "\u001B[31mInvalid choice! Please enter a valid choice." + RESET_COLOR);
+                 logger.log(Level.WARNING, INVALID_CHOICE_MESSAGE);
                     break;
             }
         }
@@ -667,7 +661,7 @@ public void editAdminProfile(){
             case 4 -> deletePost();
             case 5 -> Admin_menu(getAdminName());
             default -> {
-                logger.log(Level.WARNING,BOLD + "\u001B[31mInvalid choice! Please enter a valid choice." + "\u001B[0m");
+                logger.log(Level.WARNING, "\u001B[1m" + "\u001B[31mInvalid choice! Please enter a valid choice." + "\u001B[0m");
                 managePosts();
             }
         }
