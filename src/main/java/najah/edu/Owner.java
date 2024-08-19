@@ -1,4 +1,3 @@
-//////////////// وهي الاونر ///////
 package najah.edu;
 
 import java.io.BufferedReader;
@@ -6,14 +5,13 @@ import java.io.BufferedWriter;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.io.RandomAccessFile;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.Map;
 import java.util.HashMap;
-import io.cucumber.core.logging.Logger;
+
 
 import static najah.edu.Registration.logger;
 
@@ -145,7 +143,7 @@ public class Owner {
 	                        case 7 -> logger.log(Level.INFO, "Exiting..."); 
 	                        default -> logger.log(Level.WARNING, BOLD + "\u001B[31mInvalid choice! Please enter a valid choice." + RESET_COLOR );
 	                    }
-	                } while (choice != 7); // تغيير الشرط إلى 7
+	                } while (choice != 7); 
 	            }
 	    public void receiveNotifications(String orderStatus) {
 	        String email = "saady9055@gmail.com";
@@ -245,7 +243,7 @@ public class Owner {
 	        logger.log(Level.INFO, "Enter product ID to update: ");
 	        String productId = scanner.nextLine();
 	        
-	        // Retrieve the existing product by ID
+	       
 	        Product existingProduct = null;
 	        for (Product p : productManager.getProducts()) {
 	            if (p.getProductId().equals(productId)) {
@@ -259,7 +257,7 @@ public class Owner {
 	            return;
 	        }
 	        
-	        // Prompt user for new values, keeping existing values if input is empty
+	       
 	        logger.log(Level.INFO, "Enter new product name (or press Enter to keep current: {0}): ", existingProduct.getProductName());
 	        String productName = scanner.nextLine();
 	        if (!productName.isEmpty()) {
@@ -447,7 +445,7 @@ public class Owner {
 	                            String availability = parts[5];
 	                            int quantity = Integer.parseInt(parts[6].trim());
 
-	                            // Apply discount
+	                           
 	                            double discountedPrice = price * (1 - discountPercentage / 100);
 	                            String updatedProductLine = String.format("%s,%s,%s,%.2f,%s,%s,%d",
 	                                    id, name, description, discountedPrice, weight, availability, quantity);
@@ -476,9 +474,6 @@ public class Owner {
 	        }
 	    }
 
-
-
-	   
 
 	    public void setGmail(Gmail gmail) {
 	        this.gmail = gmail;
