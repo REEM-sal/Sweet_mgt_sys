@@ -237,7 +237,7 @@ public class Product {
         } catch (IOException e) {
             e.printStackTrace();
         } catch (NumberFormatException e) {
-            e.printStackTrace();
+           logger.log(Level.SEVERE, "NumberFormatException occurred", e);
         }
     }
 
