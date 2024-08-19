@@ -252,7 +252,7 @@ public void editAdminProfile(){
             "|   3. edit Gmail      |\n"+
             "|   4. back            |\n"+
             "-----------------------\n");
-    logger.log(Level.INFO,"Enter your choice: "+ RESET_COLOR);
+    logger.log(Level.INFO,ENTER_YOUR_CHOICE+ RESET_COLOR);
     choice = scanner.nextInt();
     String choice2 ;
     String oldPass ;
@@ -425,7 +425,7 @@ public void editAdminProfile(){
                     "|     3. Delete User Account             |\n" +
                     "|     4. Back to Previous Menu           |\n" +
                     "-------------------------------------------\n");
-            logger.log(Level.INFO, "Enter your choice: " + RESET_COLOR);
+            logger.log(Level.INFO, ENTER_YOUR_CHOICE + RESET_COLOR);
             choice = scanner.nextInt();
             scanner.nextLine(); // Consume newline left-over
 
