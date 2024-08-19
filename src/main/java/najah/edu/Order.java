@@ -501,39 +501,34 @@ public class Order {
         }
     }
 
-    public static void addToCart(int productId, String name, int quantity, double price) {
-        double newTotalPrice = price * quantity;
-        double totalPrice = 0.0;
+   public static void addToCart(int productId, String name, int quantity, double price) {
+    double newTotalPrice = price * quantity;
+    double totalPrice = 0.0;
 
-        // Read the current total price from the cart file if it exists
-        try {
-            BufferedReader cartReader = new BufferedReader(new FileReader(CART_FILE_PATH));
-            String line;
-            while ((line = cartReader.readLine()) != null) {
-                String[] cartDetails = line.split(",");
-                if (cartDetails.length == 4) {
-                    totalPrice += Double.parseDouble(cartDetails[3]);
-                }
+    try (BufferedReader cartReader = new BufferedReader(new FileReader(CART_FILE_PATH))) {
+        String line;
+        while ((line = cartReader.readLine()) != null) {
+            String[] cartDetails = line.split(",");
+            if (cartDetails.length == 4) {
+                totalPrice += Double.parseDouble(cartDetails[3]);
             }
-            cartReader.close();
-        } catch (FileNotFoundException e) {
-            // File not found, this means the cart is empty, so totalPrice remains 0.0
-        } catch (IOException e) {
-            logger.log(Level.SEVERE, "Error reading cart file", e);
         }
-
-        totalPrice += newTotalPrice;
-
-        // Append the new product and total price to the cart file
-        try {
-            BufferedWriter cartWriter = new BufferedWriter(new FileWriter(CART_FILE_PATH, true));
-            cartWriter.write(productId + "," + name + "," + quantity + "," + newTotalPrice + "\n");
-            cartWriter.write("Total Price," + totalPrice + "\n");
-            cartWriter.close();
-        } catch (IOException e) {
-            logger.log(Level.SEVERE, "Error writing to cart file", e);
-        }
+    } catch (FileNotFoundException e) {
+        
+    } catch (IOException e) {
+        logger.log(Level.SEVERE, "Error reading cart file", e);
     }
+
+    totalPrice += newTotalPrice;
+
+    try (BufferedWriter cartWriter = new BufferedWriter(new FileWriter(CART_FILE_PATH, true))) {
+        cartWriter.write(productId + "," + name + "," + quantity + "," + newTotalPrice + "\n");
+        cartWriter.write("Total Price," + totalPrice + "\n");
+    } catch (IOException e) {
+        logger.log(Level.SEVERE, "Error writing to cart file", e);
+    }
+}
+
 
   public static void viewCart() {
     try (BufferedReader cartReader = new BufferedReader(new FileReader(CART_FILE_PATH))) {
@@ -560,16 +555,15 @@ public class Order {
 }
   
     
-    public static void cancelOrder1() {
-        try {
-            BufferedWriter cartWriter = new BufferedWriter(new FileWriter(CART_FILE_PATH, false));
-            cartWriter.write(""); // Write an empty string to clear the file
-            cartWriter.close();
-            System.out.println("All orders have been cancelled and the cart is now empty.");
-        } catch (IOException e) {
-            logger.log(Level.SEVERE, "Error clearing cart file", e);
-        }
+   public static void cancelOrder1() {
+    try (BufferedWriter cartWriter = new BufferedWriter(new FileWriter(CART_FILE_PATH, false))) {
+        cartWriter.write(""); 
+        System.out.println("All orders have been cancelled and the cart is now empty.");
+    } catch (IOException e) {
+        logger.log(Level.SEVERE, "Error clearing cart file", e);
     }
+}
+
 
     public void addProductToOrder() {
         ifProductAdded = true;
@@ -611,109 +605,99 @@ public class Order {
     }
 
     public boolean editProductQuantity(int quantity) {
-        // Logic to edit quantity in cart
-        // Check if the quantity is allowed based on available stock
-        try {
-            BufferedReader contentReader = new BufferedReader(new FileReader("src/main/resources/myData/content.txt"));
-            String line;
-            while ((line = contentReader.readLine()) != null) {
-                String[] parts = line.split(",");
-                if (Integer.parseInt(parts[0]) == productId) {
-                    int availableQuantity = Integer.parseInt(parts[6]);
-                    if (quantity <= availableQuantity && quantity > 0) {
-                        cart.put(productId, quantity);
-                        updateCartFile();
-                        return true;
-                    }
-                }
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return false;
-    }
-    public static boolean createOrder(String customerId, String customerName, int productId, int quantity) {
-        try {
-            BufferedReader contentReader = new BufferedReader(new FileReader(CONTENT_FILE_PATH));
-            String line;
-            boolean productFound = false;
-            // Skip the header line
-            contentReader.readLine();
-
-            while ((line = contentReader.readLine()) != null) {
-                String[] productDetails = line.split(",");
-                int id = Integer.parseInt(productDetails[0]);
-                String name = productDetails[1];
-                double price = Double.parseDouble(productDetails[3]);
-                String availability = productDetails[5];
-                int availableQuantity = Integer.parseInt(productDetails[6]);
-
-                if (id == productId) {
-                    productFound = true;
-                    if (availability.equals("In Stock") && availableQuantity >= quantity) {
-                        addToCart(productId, name, quantity, price);
-                        saveOrder(customerId, customerName, productId, quantity, "pending");
-                        return true;
-                    } else {
-                        System.out.println("Product is not available in the required quantity.");
-                        return false;
-                    }
-                }
-            }
-            contentReader.close();
-            if (!productFound) {
-                System.out.println("Product not found.");
-                return false;
-            }
-        } catch (IOException e) {
-            logger.log(Level.SEVERE, "Error reading content file", e);
-            return false;
-        }
-        return false;
-    }
-
-    private static void saveOrder(String customerId, String customerName, int productId, int quantity, String status) {
-        try {
-            BufferedWriter orderWriter = new BufferedWriter(new FileWriter(ORDERS_FILE_PATH, true));
-            String orderId = UUID.randomUUID().toString().replace("-", "");
-            orderWriter.write(orderId + "," + customerId + "," + customerName + "," + productId + "," + quantity + "," + status + "\n");
-            orderWriter.close();
-        } catch (IOException e) {
-            logger.log(Level.SEVERE, "Error writing to orders file", e);
-        }
-    }
-    public boolean isOrderCreated() {
-        // Check if order was created
-        try {
-            BufferedReader ordersReader = new BufferedReader(new FileReader(ORDERS_FILE_PATH));
-            String line;
-            while ((line = ordersReader.readLine()) != null) {
-                if (line.contains(idCustomer) && line.contains("pending")) {
+    try (BufferedReader contentReader = new BufferedReader(new FileReader("src/main/resources/myData/content.txt"))) {
+        String line;
+        while ((line = contentReader.readLine()) != null) {
+            String[] parts = line.split(",");
+            if (Integer.parseInt(parts[0]) == productId) {
+                int availableQuantity = Integer.parseInt(parts[6]);
+                if (quantity <= availableQuantity && quantity > 0) {
+                    cart.put(productId, quantity);
+                    updateCartFile();
                     return true;
                 }
             }
-        } catch (IOException e) {
-            e.printStackTrace();
         }
-        return false;
+    } catch (IOException e) {
+        e.printStackTrace();
     }
+    return false;
+}
 
-    public String getOrderStatus() {
-        // Return order status for the given customer
-        try {
-            BufferedReader ordersReader = new BufferedReader(new FileReader(ORDERS_FILE_PATH));
-            String line;
-            while ((line = ordersReader.readLine()) != null) {
-                if (line.contains(idCustomer)) {
-                    String[] parts = line.split(",");
-                    return parts[4]; // Assuming status is in the 5th column
+  public static boolean createOrder(String customerId, String customerName, int productId, int quantity) {
+    try (BufferedReader contentReader = new BufferedReader(new FileReader(CONTENT_FILE_PATH))) {
+        String line;
+        boolean productFound = false;
+        contentReader.readLine();
+        while ((line = contentReader.readLine()) != null) {
+            String[] productDetails = line.split(",");
+            int id = Integer.parseInt(productDetails[0]);
+            String name = productDetails[1];
+            double price = Double.parseDouble(productDetails[3]);
+            String availability = productDetails[5];
+            int availableQuantity = Integer.parseInt(productDetails[6]);
+            if (id == productId) {
+                productFound = true;
+                if (availability.equals("In Stock") && availableQuantity >= quantity) {
+                    addToCart(productId, name, quantity, price);
+                    saveOrder(customerId, customerName, productId, quantity, "pending");
+                    return true;
+                } else {
+                    System.out.println("Product is not available in the required quantity.");
+                    return false;
                 }
             }
-        } catch (IOException e) {
-            e.printStackTrace();
         }
-        return "";
+        if (!productFound) {
+            System.out.println("Product not found.");
+            return false;
+        }
+    } catch (IOException e) {
+        logger.log(Level.SEVERE, "Error reading content file", e);
+        return false;
     }
+    return false;
+}
+
+private static void saveOrder(String customerId, String customerName, int productId, int quantity, String status) {
+    try (BufferedWriter orderWriter = new BufferedWriter(new FileWriter(ORDERS_FILE_PATH, true))) {
+        String orderId = UUID.randomUUID().toString().replace("-", "");
+        orderWriter.write(orderId + "," + customerId + "," + customerName + "," + productId + "," + quantity + "," + status + "\n");
+    } catch (IOException e) {
+        logger.log(Level.SEVERE, "Error writing to orders file", e);
+    }
+}
+
+   public boolean isOrderCreated() {
+    try (BufferedReader ordersReader = new BufferedReader(new FileReader(ORDERS_FILE_PATH))) {
+        String line;
+        while ((line = ordersReader.readLine()) != null) {
+            if (line.contains(idCustomer) && line.contains("pending")) {
+                return true;
+            }
+        }
+    } catch (IOException e) {
+        e.printStackTrace();
+    }
+    return false;
+}
+
+   public String getOrderStatus() {
+    // Return order status for the given customer
+    try (BufferedReader ordersReader = new BufferedReader(new FileReader(ORDERS_FILE_PATH))) {
+        String line;
+        while ((line = ordersReader.readLine()) != null) {
+            if (line.contains(idCustomer)) {
+                String[] parts = line.split(",");
+                return parts[5]; // Assuming status is in the 6th column (index 5)
+            }
+        }
+    } catch (IOException e) {
+        e.printStackTrace();
+    }
+    return "";
+}
+
 
     public boolean cancelOrder() {
         // Logic to cancel the order
