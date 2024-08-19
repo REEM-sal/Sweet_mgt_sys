@@ -48,13 +48,14 @@ public class Order {
     private String deliveryDate;
     private String status;
     private float orderPrice;
-    private boolean ifCustomerShowPendingOrder;
+    private boolean PendingOrderflag;
     private boolean ifOrderExist;
     private boolean ifOrderAdded; // Flag to check if order was added
     private boolean ifOrderUpdated; // Flag to check if order was updated
     private boolean ifOrderDeleted; // Flag to check if order was deleted
     private boolean ifProductAdded; // Flag to check if product was added to order
     private Order order;
+    private boolean viewOrdersFlag;
     private String gmailIs;
     boolean ifCustomerShowPending ;
 
@@ -69,15 +70,19 @@ public class Order {
         this.status = status;
     }
    
-   
+    public void setViewOrdersFlag(boolean flag) {
+        this.viewOrdersFlag = flag;
+    }
+
+    public boolean isViewOrdersFlag() {
+        return this.viewOrdersFlag;
+    }
 
     public void viewOrders() {
         try (BufferedReader ordersReader = new BufferedReader(new FileReader(ORDERS_FILE_PATH))) {
             String line;
             while ((line = ordersReader.readLine()) != null) {
-                // Print each line to the console or log it
-                System.out.println(line); // Or use logger.log(Level.INFO, line);
-            }
+                System.out.println(line);             }
         } catch (IOException e) {
             logger.log(Level.SEVERE, "Error reading orders file", e);
         }
@@ -91,19 +96,7 @@ public class Order {
         this.customerName = customerName;
     }
 
-    private void viewAllOrderToAdmin() {
-        try (RandomAccessFile ref = new RandomAccessFile("src/main/resources/myData/orders.txt", "rw")) {
-            String line;
-            while ((line = ref.readLine()) != null) {
-                String[] orderDetails = line.split(",");
-                printOrderDetails(orderDetails);
-            }
-        } catch (FileNotFoundException e) {
-            throw new RuntimeException(e);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-    }
+   
 
     private void printOrderDetails(String[] orderDetails) {
         logger.info("\u001B[34m Order ID: \u001B[35m " + orderDetails[0] + " |" +
@@ -151,11 +144,11 @@ public class Order {
     }
 
     public boolean isIfCustomerShowPendingOrder() {
-        return ifCustomerShowPendingOrder;
+        return PendingOrderflag;
     }
 
     public void setIfCustomerShowPendingOrder(boolean flag) {
-        this.ifCustomerShowPendingOrder = flag;
+        this.PendingOrderflag = flag;
     }
 
     public void viewPendingOrder(String status, String idCustomer) {

@@ -20,16 +20,15 @@ public class Admin {
 	    private static final String BENEFICIARY_FILE_PATH = "src/main/resources/myData/BeneficiaryData.txt";
 	    private static final String CONTENT_FILE_PATH = "src/main/resources/myData/content.txt";
 	    private static final String REPORT_FILE_PATH = "src/main/resources/myData/financial_report.html";
-<<<<<<< HEAD
 	    private static final String ENTER_YOUR_CHOICE = "Enter your choice: ";
-=======
-	   
->>>>>>> 2169660d81ed23f27c60faa1d167ca75dea6a539
 	    public static final String BOLD = "\u001B[1m";
 	    public static final String RESET_COLOR = "\u001B[0m";
+	    private static final String A_FILE_PATH = "src/main/resources/myData/Admin.txt";
+	    private static final String INVALID_CHOICE_MESSAGE = "\u001B[31mInvalid choice! Please enter a valid choice.";
+
     Order order = new Order();
     Product product = new Product();
-    Report report = new Report();
+    
     BeneficiaryUser beneficiaryUser = new BeneficiaryUser();
     Owner owner = new Owner();
     private String first;
@@ -184,11 +183,7 @@ public class Admin {
                 "|    7. Identify best-selling products        |\n" +
                 "|    8. Exit                                 |\n" +
                 "----------------------------------------------\n");
-<<<<<<< HEAD
         logger.log(Level.INFO, ENTER_YOUR_CHOICE + RESET_COLOR);
-=======
-        logger.log(Level.INFO, "Enter your choice: " + RESET_COLOR);
->>>>>>> 2169660d81ed23f27c60faa1d167ca75dea6a539
         choice = scanner.nextInt();
 
         switch (choice) {
@@ -219,7 +214,7 @@ public class Admin {
 
         case 8 -> logger.log(Level.INFO, "Exiting...");
         default -> {
-            logger.log(Level.WARNING, "\u001B[1m" + "\u001B[31mInvalid choice! Please enter a valid choice." + "\u001B[0m");
+            logger.log(Level.WARNING, BOLD + "\u001B[31mInvalid choice! Please enter a valid choice." + RESET_COLOR);
             Admin_menu(AdminName);
         }
     }
@@ -236,11 +231,7 @@ public class Admin {
                 "|     2. BeneficiaryUser      |\n" +
                 "|     3. Back                 |\n" +
                 "-------------------------------\n");
-<<<<<<< HEAD
         logger.log(Level.INFO,ENTER_YOUR_CHOICE +  RESET_COLOR);
-=======
-        logger.log(Level.INFO, "Enter your choice: " +  RESET_COLOR);
->>>>>>> 2169660d81ed23f27c60faa1d167ca75dea6a539
         choice = scanner.nextInt();
         switch (choice) {
             case 1 -> editAdminProfile();
@@ -383,7 +374,7 @@ public void editAdminProfile(){
             try {
 
 
-            RandomAccessFile file = new RandomAccessFile("src/main/resources/myData/AdminData.txt", "rw");
+            RandomAccessFile file = new RandomAccessFile(A_FILE_PATH, "rw");
             file.seek(file.length());
 
             file.writeBytes(dataToWrite);
@@ -411,11 +402,7 @@ public void editAdminProfile(){
                 "|     4. Delete Recipe       |\n" +
                 "|     5. Back                |\n" +
                 "-----------------------------\n");
-<<<<<<< HEAD
         logger.log(Level.INFO, ENTER_YOUR_CHOICE + RESET_COLOR);
-=======
-        logger.log(Level.INFO, "Enter your choice: " + RESET_COLOR);
->>>>>>> 2169660d81ed23f27c60faa1d167ca75dea6a539
         choice = scanner.nextInt();
 
         switch (choice) {
@@ -670,11 +657,7 @@ public void editAdminProfile(){
                 "|     4. Delete Post        |\n" +
                 "|     5. Back               |\n" +
                 "-----------------------------\n");
-<<<<<<< HEAD
         logger.log(Level.INFO, ENTER_YOUR_CHOICE + RESET_COLOR);
-=======
-        logger.log(Level.INFO, "Enter your choice: " + RESET_COLOR);
->>>>>>> 2169660d81ed23f27c60faa1d167ca75dea6a539
         choice = scanner.nextInt();
 
         switch (choice) {
@@ -684,7 +667,7 @@ public void editAdminProfile(){
             case 4 -> deletePost();
             case 5 -> Admin_menu(getAdminName());
             default -> {
-                logger.log(Level.WARNING, "\u001B[1m" + "\u001B[31mInvalid choice! Please enter a valid choice." + "\u001B[0m");
+                logger.log(Level.WARNING,BOLD + "\u001B[31mInvalid choice! Please enter a valid choice." + "\u001B[0m");
                 managePosts();
             }
         }
@@ -1079,11 +1062,7 @@ public void manageFeedback() {
                "| 3. Delete feedback                    |\n" +
                "| 4. Return to admin menu               |\n" +
                "-----------------------------------------\n" + RESET_COLOR);
-<<<<<<< HEAD
     logger.log(Level.INFO, ENTER_YOUR_CHOICE + RESET_COLOR);
-=======
-    logger.log(Level.INFO, "Enter your choice: " + RESET_COLOR);
->>>>>>> 2169660d81ed23f27c60faa1d167ca75dea6a539
     int choice = scanner.nextInt();
     scanner.nextLine();  // Consume newline left-over
 
