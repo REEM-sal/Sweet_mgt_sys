@@ -236,43 +236,9 @@ public class Order {
         this.status = newStatus;
     }
 
-    public void editTheOrder(String newStatus) {
-        try (RandomAccessFile ref = new RandomAccessFile("src/main/resources/myData/orders.txt", "rw")) {
-            String line;
-            StringBuilder fileContent = new StringBuilder();
-            while ((line = ref.readLine()) != null) {
-                String[] orderDetails = line.split(",");
-                if (Integer.parseInt(orderDetails[0]) == this.orderId) {
-                    orderDetails[3] = newStatus; // Assuming the status is at index 3
-                    line = String.join(",", orderDetails);
-                }
-                fileContent.append(line).append("\n");
-            }
-            ref.seek(0); // Move the pointer to the beginning of the file
-            ref.writeBytes(fileContent.toString());
-            ifOrderUpdated = true; // Set the flag to true if the order was updated
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-    }
+   
 
-    public void deleteOrder(String fileName) {
-        try (RandomAccessFile ref = new RandomAccessFile("src/main/resources/myData/" + fileName, "rw")) {
-            String line;
-            StringBuilder fileContent = new StringBuilder();
-            while ((line = ref.readLine()) != null) {
-                String[] orderDetails = line.split(",");
-                if (Integer.parseInt(orderDetails[0]) != this.orderId) {
-                    fileContent.append(line).append("\n");
-                }
-            }
-            ref.setLength(0); // Clear the file
-            ref.writeBytes(fileContent.toString()); // Write the updated content
-            ifOrderDeleted = true; // Set the flag to true if the order was deleted
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-    }
+   
 
     public void addNewOrderToCustomer(String customerName, String idCustomer, String orderLine) {
         try (RandomAccessFile ref = new RandomAccessFile("src/main/resources/myData/orders.txt", "rw")) {
