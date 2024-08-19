@@ -28,7 +28,7 @@ public class Admin {
 	    public static final String RESET_COLOR = "\u001B[0m";
     Order order = new Order();
     Product product = new Product();
-    Report report = new Report();
+    
     BeneficiaryUser beneficiaryUser = new BeneficiaryUser();
     Owner owner = new Owner();
     private String first;
