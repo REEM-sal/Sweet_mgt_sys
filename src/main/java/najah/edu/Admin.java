@@ -370,19 +370,13 @@ public void editAdminProfile(){
             }
 
         }
-        public void writeToFile(String dataToWrite){
-            try {
-
-
-            RandomAccessFile file = new RandomAccessFile(A_FILE_PATH, "rw");
-            file.seek(file.length());
-
-            file.writeBytes(dataToWrite);
-            file.close();
-        }
-    catch (IOException e) {
-            e.printStackTrace();
-        }
+ public void writeToFile(String dataToWrite) {
+            try (RandomAccessFile file = new RandomAccessFile(A_FILE_PATH, "rw")) {
+                file.seek(file.length()); 
+                file.writeBytes(dataToWrite); 
+                } catch (IOException e) {
+                e.printStackTrace(); 
+            }
         }
         public boolean truepass (String pass, String ConfirmPass){
             if(pass.equals(ConfirmPass)){
