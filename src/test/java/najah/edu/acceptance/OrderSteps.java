@@ -24,7 +24,7 @@ public class OrderSteps {
 
 	@Then("the orders should be displayed")
 	public void theOrdersShouldBeDisplayed() {
-	 
+	   Assert.assertTrue(order.isViewOrdersFlag());
 	}
 
 	@Given("the customer has selected products")
@@ -39,7 +39,7 @@ public class OrderSteps {
 
 	@When("the customer creates a new order")
 	public void theCustomerCreatesANewOrder() {
-	
+	  Assert.assertTrue(Order.createOrder("customerId123", "customerName", 1, 2));
 	}
 
 	@Then("the order should be saved with status {string}")
@@ -49,7 +49,8 @@ public class OrderSteps {
 
 	@Given("the customer has a pending order")
 	public void theCustomerHasAPendingOrder() {
-		 order.setIfCustomerShowPendingOrder(true);
+		order.setIfCustomerShowPendingOrder(true);
+        Assert.assertTrue(order.isIfCustomerShowPendingOrder());
 	}
 
 	@When("the customer views their orders")
@@ -70,7 +71,7 @@ public class OrderSteps {
 
 	@When("the admin updates the order status to {string}")
 	public void theAdminUpdatesTheOrderStatusTo(String string) {
-	   
+	    order.setStatusOrder(newStatus);
 	}
 
 	@Then("the order status should be updated")
