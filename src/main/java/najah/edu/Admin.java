@@ -20,7 +20,11 @@ public class Admin {
 	    private static final String BENEFICIARY_FILE_PATH = "src/main/resources/myData/BeneficiaryData.txt";
 	    private static final String CONTENT_FILE_PATH = "src/main/resources/myData/content.txt";
 	    private static final String REPORT_FILE_PATH = "src/main/resources/myData/financial_report.html";
+<<<<<<< HEAD
 	    private static final String ENTER_YOUR_CHOICE = "Enter your choice: ";
+=======
+	   
+>>>>>>> 2169660d81ed23f27c60faa1d167ca75dea6a539
 	    public static final String BOLD = "\u001B[1m";
 	    public static final String RESET_COLOR = "\u001B[0m";
     Order order = new Order();
@@ -180,7 +184,11 @@ public class Admin {
                 "|    7. Identify best-selling products        |\n" +
                 "|    8. Exit                                 |\n" +
                 "----------------------------------------------\n");
+<<<<<<< HEAD
         logger.log(Level.INFO, ENTER_YOUR_CHOICE + RESET_COLOR);
+=======
+        logger.log(Level.INFO, "Enter your choice: " + RESET_COLOR);
+>>>>>>> 2169660d81ed23f27c60faa1d167ca75dea6a539
         choice = scanner.nextInt();
 
         switch (choice) {
@@ -228,7 +236,11 @@ public class Admin {
                 "|     2. BeneficiaryUser      |\n" +
                 "|     3. Back                 |\n" +
                 "-------------------------------\n");
+<<<<<<< HEAD
         logger.log(Level.INFO,ENTER_YOUR_CHOICE +  RESET_COLOR);
+=======
+        logger.log(Level.INFO, "Enter your choice: " +  RESET_COLOR);
+>>>>>>> 2169660d81ed23f27c60faa1d167ca75dea6a539
         choice = scanner.nextInt();
         switch (choice) {
             case 1 -> editAdminProfile();
@@ -399,7 +411,11 @@ public void editAdminProfile(){
                 "|     4. Delete Recipe       |\n" +
                 "|     5. Back                |\n" +
                 "-----------------------------\n");
+<<<<<<< HEAD
         logger.log(Level.INFO, ENTER_YOUR_CHOICE + RESET_COLOR);
+=======
+        logger.log(Level.INFO, "Enter your choice: " + RESET_COLOR);
+>>>>>>> 2169660d81ed23f27c60faa1d167ca75dea6a539
         choice = scanner.nextInt();
 
         switch (choice) {
@@ -654,7 +670,11 @@ public void editAdminProfile(){
                 "|     4. Delete Post        |\n" +
                 "|     5. Back               |\n" +
                 "-----------------------------\n");
+<<<<<<< HEAD
         logger.log(Level.INFO, ENTER_YOUR_CHOICE + RESET_COLOR);
+=======
+        logger.log(Level.INFO, "Enter your choice: " + RESET_COLOR);
+>>>>>>> 2169660d81ed23f27c60faa1d167ca75dea6a539
         choice = scanner.nextInt();
 
         switch (choice) {
@@ -1059,7 +1079,11 @@ public void manageFeedback() {
                "| 3. Delete feedback                    |\n" +
                "| 4. Return to admin menu               |\n" +
                "-----------------------------------------\n" + RESET_COLOR);
+<<<<<<< HEAD
     logger.log(Level.INFO, ENTER_YOUR_CHOICE + RESET_COLOR);
+=======
+    logger.log(Level.INFO, "Enter your choice: " + RESET_COLOR);
+>>>>>>> 2169660d81ed23f27c60faa1d167ca75dea6a539
     int choice = scanner.nextInt();
     scanner.nextLine();  // Consume newline left-over
 

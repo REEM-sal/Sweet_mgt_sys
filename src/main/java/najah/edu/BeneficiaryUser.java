@@ -178,7 +178,11 @@ public class BeneficiaryUser {
                "|      4. Provide feedback          |\n" +  // Added feedback option
                "|                                  |\n" +
                "-----------------------------------\n");
+<<<<<<< HEAD
     logger.log(Level.INFO, ENTER_YOUR_CHOICE + RESET_COLOR);
+=======
+    logger.log(Level.INFO, "Enter your choice: " + RESET_COLOR);
+>>>>>>> 2169660d81ed23f27c60faa1d167ca75dea6a539
 
 
        choice = scanner.nextInt();
@@ -224,7 +228,11 @@ public class BeneficiaryUser {
 	                "|      6. Back                     |\n" +
 	                "|                                  |\n" +
 	                "-----------------------------------\n");
+<<<<<<< HEAD
 	        logger.log(Level.INFO, ENTER_YOUR_CHOICE + RESET_COLOR);
+=======
+	        logger.log(Level.INFO, "Enter your choice: " + RESET_COLOR);
+>>>>>>> 2169660d81ed23f27c60faa1d167ca75dea6a539
 
 	        int choice = scanner.nextInt();
 	        scanner.nextLine(); // Consume newline left-over
@@ -377,7 +385,11 @@ public class BeneficiaryUser {
               |                                    | 
               --------------------------------------
               """);
+<<<<<<< HEAD
            logger.log(Level.INFO, ENTER_YOUR_CHOICE + RESET_COLOR);
+=======
+           logger.log(Level.INFO, "Enter your choice: " + RESET_COLOR);
+>>>>>>> 2169660d81ed23f27c60faa1d167ca75dea6a539
            int choice = scanner.nextInt();
            scanner.nextLine();  // Consume newline
 
