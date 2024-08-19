@@ -15,6 +15,8 @@ import java.util.Map;
 import java.util.Scanner;
 import java.util.logging.Level;
 public class Admin {
+		    private static final String INVALID_CHOICE_MESSAGE = "\u001B[31mInvalid choice! Please enter a valid choice.";
+
 	    private static final String A_FILE_PATH = "src/main/resources/myData/Admin.txt";
 	 private static final String RECIPES_FILE_PATH = "src/main/resources/myData/recipes.txt";
 	    private static final String POSTS_FILE_PATH = "src/main/resources/myData/posts.txt";
@@ -212,8 +214,8 @@ public class Admin {
 
         case 8 -> logger.log(Level.INFO, "Exiting...");
         default -> {
-            logger.log(Level.WARNING, "\u001B[1m" + "\u001B[31mInvalid choice! Please enter a valid choice." + "\u001B[0m");
-            Admin_menu(AdminName);
+ logger.log(Level.WARNING, INVALID_CHOICE_MESSAGE);
+		Admin_menu(AdminName);
         }
     }
 }
@@ -237,7 +239,7 @@ public class Admin {
            
             case 3 -> Admin_menu(getAdminName());
             default -> {
-                logger.log(Level.WARNING, BOLD + "\u001B[31mInvalid choice! Please enter a valid choice." + "\u001B[0m");
+             logger.log(Level.WARNING, INVALID_CHOICE_MESSAGE);
                 menuManageAccountUser();
             }
         }
@@ -290,7 +292,7 @@ public void editAdminProfile(){
     	  Admin_menu(getAdminName());
     }
     else {
-        logger.log(Level.WARNING,BOLD+"\u001B[31mInvalid choice! Please enter a valid choice."+RESET_COLOR);
+   logger.log(Level.WARNING, INVALID_CHOICE_MESSAGE);
     }
 }
 
@@ -410,7 +412,7 @@ public void editAdminProfile(){
             case 4 -> deleteRecipe();
             case 5 -> Admin_menu(getAdminName());
             default -> {
-                logger.log(Level.WARNING, BOLD + "\u001B[31mInvalid choice! Please enter a valid choice." + "\u001B[0m");
+              logger.log(Level.WARNING, INVALID_CHOICE_MESSAGE);
                 manageRecipes();
             }
         }
@@ -444,7 +446,7 @@ public void editAdminProfile(){
                     Admin_menu(getAdminName()); // Go back to the admin menu
                     return; // Exit the loop
                 default:
-                    logger.log(Level.WARNING, BOLD + "\u001B[31mInvalid choice! Please enter a valid choice." + RESET_COLOR);
+                 logger.log(Level.WARNING, INVALID_CHOICE_MESSAGE);
                     break;
             }
         }
