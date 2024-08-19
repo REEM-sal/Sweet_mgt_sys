@@ -209,10 +209,9 @@ public class Order {
         return ifOrderExist;
     }
 
-    private void setIfOrderExist(boolean flag) {
+   public void setIfOrderExist(boolean flag) {
         this.ifOrderExist = flag;
     }
-
     public void searchAboutCustomer(String fileName, long orderId) {
         try (RandomAccessFile ref = new RandomAccessFile("src/main/resources/myData/" + fileName, "rw")) {
             String line;
