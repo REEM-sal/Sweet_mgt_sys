@@ -1095,8 +1095,7 @@ private void viewFeedback(String feedbackFilePath) {
 private void editFeedback(String feedbackFilePath, Scanner scanner) {
     List<String> feedbackList = readFeedbackFromFile(feedbackFilePath);
     if (feedbackList == null) {
-        return; // Error message already logged in readFeedbackFromFile
-    }
+        return;     }
 
     logger.log(Level.INFO, "\u001B[32m" + "----- Select Feedback to Edit -----" + "\u001B[0m");
     for (int i = 0; i < feedbackList.size(); i++) {
@@ -1104,8 +1103,7 @@ private void editFeedback(String feedbackFilePath, Scanner scanner) {
     }
     logger.log(Level.INFO, "Enter the number of the feedback to edit: " + "\u001B[0m");
     int feedbackNumber = scanner.nextInt();
-    scanner.nextLine();  // Consume newline left-over
-
+    scanner.nextLine();  
     if (feedbackNumber < 1 || feedbackNumber > feedbackList.size()) {
         logger.log(Level.WARNING, BOLD + "\u001B[31mInvalid number! Please enter a valid number." + RESET_COLOR);
         return;
