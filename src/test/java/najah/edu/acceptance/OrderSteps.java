@@ -70,7 +70,7 @@ public class OrderSteps {
 	}
 
 	@When("the admin updates the order status to {string}")
-	public void theAdminUpdatesTheOrderStatusTo(String string) {
+	public void theAdminUpdatesTheOrderStatusTo(String newStatus) {
 	    order.setStatusOrder(newStatus);
 	}
 
