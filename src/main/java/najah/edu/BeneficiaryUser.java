@@ -364,40 +364,45 @@ public class BeneficiaryUser {
 
    public void BrowseProductsMenu() {
        Scanner scanner = new Scanner(System.in);
-       boolean running = true;
-       
-       while (running) {
-           logger.log(Level.INFO, """
+        boolean running = true;
+
+    while (running) {
+        logger.log(Level.INFO, """
               
               \u001B[35m---------------------------------
               |                                    |
               |      1. Show all products          |
               |      2. Search products            |
               |      3. Back                       |
+              |      4. Exit                       |  // Added exit option
               |                                    | 
               --------------------------------------
               """);
-           logger.log(Level.INFO, ENTER_YOUR_CHOICE + RESET_COLOR);
-           int choice = scanner.nextInt();
-           scanner.nextLine();  // Consume newline
+        logger.log(Level.INFO, ENTER_YOUR_CHOICE + RESET_COLOR);
+        int choice = scanner.nextInt();
+        scanner.nextLine();  // Consume newline
 
-           switch (choice) {
-               case 1:
-                   showAllProducts();
-                   break;
-               case 2:
-                   logger.log(Level.INFO, "Enter the search term: ");
-                   String searchTerm = scanner.nextLine();
-                   searchProducts(searchTerm);
-                   break;
-               case 3:
-            	   Customer_menu(getUserName());
-                   break;
-               default:
-                   logger.log(Level.INFO, "Invalid choice. Please try again.");
-                   break;
-           }
-       }
+        switch (choice) {
+            case 1:
+                showAllProducts();
+                break;
+            case 2:
+                logger.log(Level.INFO, "Enter the search term: ");
+                String searchTerm = scanner.nextLine();
+                searchProducts(searchTerm);
+                break;
+            case 3:
+                Customer_menu(getUserName());
+                break;
+            case 4: // Handle the exit option
+                logger.log(Level.INFO, "Exiting the menu.");
+                running = false; 
+                break;
+            default:
+                logger.log(Level.INFO, "Invalid choice. Please try again.");
+                break;
+        }
+    }
    }
 
    private void showAllProducts() {
