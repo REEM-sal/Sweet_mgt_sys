@@ -10,11 +10,7 @@ import java.util.List;
 import java.util.Scanner;
 import java.util.logging.Level;
 
-import java.util.logging.Level;
 import java.util.logging.Logger;
-import static najah.edu.Registration.logger;
-
-import  najah.edu.Owner;
 public class BeneficiaryUser {
     private static final String FILE_PATH = "src/main/resources/myData/BeneficiaryData.txt";
     private static List<BeneficiaryUser> customers = new ArrayList<>();
@@ -23,7 +19,6 @@ public class BeneficiaryUser {
     public static final String RESET_COLOR = "\u001B[0m";
 	 private static final String CONTENT_FILE_PATH = "src/main/resources/myData/content.txt";
 	 private static final String ENTER_YOUR_CHOICE = "Enter your choice: ";
-	 private Product productManager = new Product();
 	 private Gmail gmail;
     Order order =new Order();
    Owner owner = new Owner();
@@ -205,13 +200,10 @@ public class BeneficiaryUser {
     	}
    }
   
- 
-
-   
    public void managePersonalAccount() {
 	    Scanner scanner = new Scanner(System.in);
 	    logger.log(Level.INFO, "Enter your email: ");
-	    String email = scanner.nextLine(); // Get user's email
+	    String email = scanner.nextLine(); 
 
 	    while (true) {
 	        logger.log(Level.INFO, "\n\u001B[32m" + " -------  Manage Personal Account  ---------" + "\n" +
@@ -227,7 +219,7 @@ public class BeneficiaryUser {
 	        logger.log(Level.INFO, ENTER_YOUR_CHOICE + RESET_COLOR);
 
 	        int choice = scanner.nextInt();
-	        scanner.nextLine(); // Consume newline left-over
+	        scanner.nextLine(); 
 
 	        switch (choice) {
 	            case 1:
@@ -273,40 +265,40 @@ public class BeneficiaryUser {
   
    public void updateUserInFile(String email, int fieldIndex, String newValue) {
 	    List<String> lines = new ArrayList<>();
-	    boolean userFound = false; // Flag to check if the user was found and updated
+	    boolean userFound = false; 
 
 	    // Read the file and update the relevant user's line
 	    try (BufferedReader reader = new BufferedReader(new FileReader(FILE_PATH))) {
 	        String line;
 	        while ((line = reader.readLine()) != null) {
 	            String[] fields = line.split(",");
-	            if (fields[1].trim().equals(email)) { // Check if email matches
+	            if (fields[1].trim().equals(email)) { 
 	                userFound = true;
 	                switch (fieldIndex) {
 	                    case 0:
-	                        fields[0] = newValue; // Update name
+	                        fields[0] = newValue; 
 	                        break;
 	                    case 1:
-	                        fields[1] = newValue; // Update email
+	                        fields[1] = newValue; 
 	                        break;
 	                    case 2:
-	                        fields[2] = newValue; // Update password
+	                        fields[2] = newValue;
 	                        break;
 	                    case 3:
-	                        fields[3] = newValue; // Update address
+	                        fields[3] = newValue; 
 	                        break;
 	                    case 5:
-	                        fields[5] = newValue; // Update phone number
+	                        fields[5] = newValue; 
 	                        break;
 	                    default:
 	                        logger.log(Level.WARNING, "Invalid field index: " + fieldIndex);
 	                        return;
 	                }
-	                // Join updated fields into a single line
+	               
 	                lines.add(String.join(",", fields));
 	                logger.log(Level.INFO, "User with email " + email + " updated successfully.");
 	            } else {
-	                // Add unchanged line
+	            
 	                lines.add(line);
 	            }
 	        }
@@ -315,7 +307,7 @@ public class BeneficiaryUser {
 	        return;
 	    }
 
-	    // Write the updated content back to the file
+	  
 	    if (userFound) {
 	        try (BufferedWriter writer = new BufferedWriter(new FileWriter(FILE_PATH))) {
 	            for (String updatedLine : lines) {
@@ -374,13 +366,13 @@ public class BeneficiaryUser {
               |      1. Show all products          |
               |      2. Search products            |
               |      3. Back                       |
-              |      4. Exit                       |  // Added exit option
+              |      4. Exit                       |  
               |                                    | 
               --------------------------------------
               """);
         logger.log(Level.INFO, ENTER_YOUR_CHOICE + RESET_COLOR);
         int choice = scanner.nextInt();
-        scanner.nextLine();  // Consume newline
+        scanner.nextLine(); 
 
         switch (choice) {
             case 1:
@@ -394,7 +386,7 @@ public class BeneficiaryUser {
             case 3:
                 Customer_menu(getUserName());
                 break;
-            case 4: // Handle the exit option
+            case 4: 
                 logger.log(Level.INFO, "Exiting the menu.");
                 running = false; 
                 break;
@@ -445,9 +437,6 @@ public class BeneficiaryUser {
        return products;
    }
 
-  
-
-
 
    public void menuCustomerAdmin() {
        int choice;
@@ -477,8 +466,6 @@ public class BeneficiaryUser {
 public void addNewCustomer(){
 
 }
-
-
 
 
    public boolean truepass (String pass, String ConfirmPass){
@@ -520,7 +507,6 @@ public void deleteLine() {
            currentLine++;
        }
 
-       // Save the rest of the file after the line to be deleted
        long end = raf.length();
        byte[] remainingBytes = new byte[(int) (end - currentPos)];
        raf.read(remainingBytes);
@@ -576,7 +562,7 @@ public void deleteLine() {
 	        return Integer.parseInt(value);
 	    } catch (NumberFormatException e) {
 	        logger.log(Level.WARNING, "Invalid number format: " + value, e);
-	        return -1; // or any default value that makes sense for your application
+	        return -1; 
 	    }
 	}
    public void searchTheCustomerNewLine() {
