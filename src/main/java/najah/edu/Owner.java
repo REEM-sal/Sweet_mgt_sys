@@ -23,6 +23,8 @@ public class Owner {
 	 private List<String> emailMessages = new ArrayList<>();
 	 private static final String CONTENT_FILE_PATH = "src/main/resources/myData/content.txt";
 	    private static final String SALES_FILE_PATH = "src/main/resources/myData/sales.txt";
+	    public static final String BOLD = "\u001B[1m";
+	    public static final String RESET_COLOR = "\u001B[0m";
 	    private String idCustomer;
 	    private String customerName;
 	    private String phoneCustomer;
@@ -111,7 +113,7 @@ public class Owner {
 	                            "|      6. Receive Notifications     |\n" +
 	                            "|      7. Exit                      |\n" +  	                            "|                                   |\n" +
 	                            "------------------------------------\n");
-	                    logger.log(Level.INFO, "Enter your choice: " + "\u001B[0m");
+	                    logger.log(Level.INFO, "Enter your choice: " + RESET_COLOR );
 	                    choice = scanner.nextInt();
 	                    switch (choice) {
 	                        case 1 -> {
@@ -141,7 +143,7 @@ public class Owner {
 	                           
 	                        }
 	                        case 7 -> logger.log(Level.INFO, "Exiting..."); 
-	                        default -> logger.log(Level.WARNING, "\u001B[1m" + "\u001B[31mInvalid choice! Please enter a valid choice." + "\u001B[0m");
+	                        default -> logger.log(Level.WARNING, BOLD + "\u001B[31mInvalid choice! Please enter a valid choice." + RESET_COLOR );
 	                    }
 	                } while (choice != 7); // تغيير الشرط إلى 7
 	            }
@@ -201,14 +203,14 @@ public class Owner {
 	           |                                    | 
 	           --------------------------------------
 	           """);
-	        logger.log(Level.INFO, "Enter your choice: " + "\u001B[0m");
+	        logger.log(Level.INFO, "Enter your choice: " + RESET_COLOR );
 	        choice = scanner.nextInt();
 	        scanner.nextLine(); // Consume newline left-over
 	        switch (choice) {
 	            case 1 -> addProduct(scanner);
 	            case 2 -> updateProduct(scanner);
 	            case 3 -> deleteProduct(scanner);
-	            default -> logger.log(Level.INFO, "\u001B[1m" + "\u001B[31mInvalid choice! Please enter a valid choice.\u001B[0m");
+	            default -> logger.log(Level.INFO, BOLD + "\u001B[31mInvalid choice! Please enter a valid choice.\u001B[0m");
 	        }
 	    }
 

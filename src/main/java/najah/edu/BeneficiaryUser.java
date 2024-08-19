@@ -19,8 +19,10 @@ public class BeneficiaryUser {
     private static final String FILE_PATH = "src/main/resources/myData/BeneficiaryData.txt";
     private static List<BeneficiaryUser> customers = new ArrayList<>();
     private static final Logger logger = Logger.getLogger(BeneficiaryUser.class.getName());
-
+    public static final String BOLD = "\u001B[1m";
+    public static final String RESET_COLOR = "\u001B[0m";
 	 private static final String CONTENT_FILE_PATH = "src/main/resources/myData/content.txt";
+	 private static final String ENTER_YOUR_CHOICE = "Enter your choice: ";
 	 private Product productManager = new Product();
 	 private Gmail gmail;
     Order order =new Order();
@@ -57,7 +59,7 @@ public class BeneficiaryUser {
    }
 
    public void setGmail(String gmail) {
-       Gmail = gmail;
+       Gmail1 = gmail;
    }
 
    public String getPassword() {
@@ -93,7 +95,7 @@ public class BeneficiaryUser {
 
 
    String userName;
-   String Gmail;
+   String Gmail1;
    String Password;
    String address;
    int id;
@@ -176,7 +178,7 @@ public class BeneficiaryUser {
                "|      4. Provide feedback          |\n" +  // Added feedback option
                "|                                  |\n" +
                "-----------------------------------\n");
-    logger.log(Level.INFO, "Enter your choice: " + "\u001B[0m");
+    logger.log(Level.INFO, ENTER_YOUR_CHOICE + RESET_COLOR);
 
 
        choice = scanner.nextInt();
@@ -199,7 +201,7 @@ public class BeneficiaryUser {
        }
       
        else {
-    	    logger.log(Level.WARNING, "\u001B[1m" + "\u001B[31mInvalid choice! Please enter one, two, or three.\u001B[0m");
+    	    logger.log(Level.WARNING,BOLD + "\u001B[31mInvalid choice! Please enter one, two, or three.\u001B[0m");
     	}
    }
   
@@ -222,7 +224,7 @@ public class BeneficiaryUser {
 	                "|      6. Back                     |\n" +
 	                "|                                  |\n" +
 	                "-----------------------------------\n");
-	        logger.log(Level.INFO, "Enter your choice: " + "\u001B[0m");
+	        logger.log(Level.INFO, ENTER_YOUR_CHOICE + RESET_COLOR);
 
 	        int choice = scanner.nextInt();
 	        scanner.nextLine(); // Consume newline left-over
@@ -343,7 +345,7 @@ public class BeneficiaryUser {
        
      
        else {
-           logger.log(Level.WARNING,"\u001B[1m"+"\u001B[31mInvalid choice! Please enter a valid choice."+"\u001B[0m");
+           logger.log(Level.WARNING,BOLD+"\u001B[31mInvalid choice! Please enter a valid choice."+RESET_COLOR);
            back();
        }
    }
@@ -375,7 +377,7 @@ public class BeneficiaryUser {
               |                                    | 
               --------------------------------------
               """);
-           logger.log(Level.INFO, "Enter your choice: " + "\u001B[0m");
+           logger.log(Level.INFO, ENTER_YOUR_CHOICE + RESET_COLOR);
            int choice = scanner.nextInt();
            scanner.nextLine();  // Consume newline
 
@@ -452,7 +454,7 @@ public class BeneficiaryUser {
                "|     3. Delete user Account.    |\n"+
                "|                                    |\n"+
                "-------------------------------------\n");
-       logger.log(Level.INFO,"Enter your choice: "+"\u001B[0m");
+       logger.log(Level.INFO,ENTER_YOUR_CHOICE+RESET_COLOR);
        choice = scanner.nextInt();
        if (choice == 1) {
            printCustomerAccount();
@@ -461,7 +463,7 @@ public class BeneficiaryUser {
        } else if (choice == 3) {
 
        } else {
-           logger.log(Level.WARNING,"\u001B[1m"+"\u001B[31mInvalid choice! Please enter a valid choice."+"\u001B[0m");
+           logger.log(Level.WARNING,BOLD+"\u001B[31mInvalid choice! Please enter a valid choice."+RESET_COLOR);
        }
    }
   public void printCustomerAccount(){
@@ -594,7 +596,7 @@ public void deleteLine() {
 public void feedback() {
     Scanner scanner = new Scanner(System.in);
     logger.log(Level.INFO, "\n\u001B[32m" + "----- Provide Feedback -----" + "\n" +
-               "Please enter your feedback below:" + "\u001B[0m");
+               "Please enter your feedback below:" + RESET_COLOR);
     String userFeedback = scanner.nextLine();
 
     String feedbackFilePath = "src/main/resources/myData/Feedback.txt";
@@ -604,7 +606,7 @@ public void feedback() {
         writer.newLine();
         logger.log(Level.INFO, "\u001B[32mThank you for your feedback!\u001B[0m");
     } catch (IOException e) {
-        logger.log(Level.SEVERE, "\u001B[1m" + "\u001B[31mError writing feedback: " + e.getMessage() + "\u001B[0m");
+        logger.log(Level.SEVERE, BOLD + "\u001B[31mError writing feedback: " + e.getMessage() + RESET_COLOR);
     }
 }
 }

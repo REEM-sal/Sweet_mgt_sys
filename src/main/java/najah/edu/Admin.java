@@ -20,6 +20,9 @@ public class Admin {
 	    private static final String BENEFICIARY_FILE_PATH = "src/main/resources/myData/BeneficiaryData.txt";
 	    private static final String CONTENT_FILE_PATH = "src/main/resources/myData/content.txt";
 	    private static final String REPORT_FILE_PATH = "src/main/resources/myData/financial_report.html";
+	    private static final String ENTER_YOUR_CHOICE = "Enter your choice: ";
+	    public static final String BOLD = "\u001B[1m";
+	    public static final String RESET_COLOR = "\u001B[0m";
     Order order = new Order();
     Product product = new Product();
     Report report = new Report();
@@ -177,7 +180,7 @@ public class Admin {
                 "|    7. Identify best-selling products        |\n" +
                 "|    8. Exit                                 |\n" +
                 "----------------------------------------------\n");
-        logger.log(Level.INFO, "Enter your choice: " + "\u001B[0m");
+        logger.log(Level.INFO, ENTER_YOUR_CHOICE + RESET_COLOR);
         choice = scanner.nextInt();
 
         switch (choice) {
@@ -225,7 +228,7 @@ public class Admin {
                 "|     2. BeneficiaryUser      |\n" +
                 "|     3. Back                 |\n" +
                 "-------------------------------\n");
-        logger.log(Level.INFO, "Enter your choice: " + "\u001B[0m");
+        logger.log(Level.INFO,ENTER_YOUR_CHOICE +  RESET_COLOR);
         choice = scanner.nextInt();
         switch (choice) {
             case 1 -> editAdminProfile();
@@ -233,7 +236,7 @@ public class Admin {
            
             case 3 -> Admin_menu(getAdminName());
             default -> {
-                logger.log(Level.WARNING, "\u001B[1m" + "\u001B[31mInvalid choice! Please enter a valid choice." + "\u001B[0m");
+                logger.log(Level.WARNING, BOLD + "\u001B[31mInvalid choice! Please enter a valid choice." + "\u001B[0m");
                 menuManageAccountUser();
             }
         }
@@ -249,7 +252,7 @@ public void editAdminProfile(){
             "|   3. edit Gmail      |\n"+
             "|   4. back            |\n"+
             "-----------------------\n");
-    logger.log(Level.INFO,"Enter your choice: "+"\u001B[0m");
+    logger.log(Level.INFO,"Enter your choice: "+ RESET_COLOR);
     choice = scanner.nextInt();
     String choice2 ;
     String oldPass ;
@@ -257,28 +260,28 @@ public void editAdminProfile(){
     String newPassCon ;
 
     if (choice == 1) {
-        logger.log(Level.INFO,"Enter The new user Name:"+"\u001B[0m");
+        logger.log(Level.INFO,"Enter The new user Name:"+ RESET_COLOR);
         choice2 = scanner1.nextLine();
         editeUserName(choice2);
-        logger.log(Level.INFO,"The user name has been changed successfully"+"\u001B[0m");
+        logger.log(Level.INFO,"The user name has been changed successfully"+ RESET_COLOR);
         editAdminProfile();
     }
     else if (choice ==2) {
-        logger.log(Level.INFO,"Enter The old password:"+"\u001B[0m");
+        logger.log(Level.INFO,"Enter The old password:"+ RESET_COLOR);
         oldPass = scanner1.nextLine();
-        logger.log(Level.INFO,"Enter The new password:"+"\u001B[0m");
+        logger.log(Level.INFO,"Enter The new password:"+ RESET_COLOR);
         newPass = scanner1.nextLine();
-        logger.log(Level.INFO,"Confirm The  password:"+"\u001B[0m");
+        logger.log(Level.INFO,"Confirm The  password:"+ RESET_COLOR);
         newPassCon = scanner1.nextLine();
         editePassword(oldPass,newPass,newPassCon);
         editAdminProfile();
 
     }
     else if (choice ==3) {
-        logger.log(Level.INFO,"Enter The new Gmail:"+"\u001B[0m");
+        logger.log(Level.INFO,"Enter The new Gmail:"+RESET_COLOR);
         choice2 = scanner1.nextLine();
         editeGmail(choice2);
-        logger.log(Level.INFO,"The Gmail has been changed successfully"+"\u001B[0m");
+        logger.log(Level.INFO,"The Gmail has been changed successfully"+RESET_COLOR);
         editAdminProfile();
 
     }
@@ -286,7 +289,7 @@ public void editAdminProfile(){
     	  Admin_menu(getAdminName());
     }
     else {
-        logger.log(Level.WARNING,"\u001B[1m"+"\u001B[31mInvalid choice! Please enter a valid choice."+"\u001B[0m");
+        logger.log(Level.WARNING,BOLD+"\u001B[31mInvalid choice! Please enter a valid choice."+RESET_COLOR);
     }
 }
 
@@ -302,14 +305,14 @@ public void editAdminProfile(){
         if(truepass(newPass,newPassCon)){
             deleteFileFunction();
             writeToFile(getFirst()+","+getSec()+","+newPass);
-            logger.log(Level.INFO,"\u001B[35m"+"The Password has been changed successfully"+"\u001B[0m");
+            logger.log(Level.INFO,"\u001B[35m"+"The Password has been changed successfully"+RESET_COLOR);
 
         }
         
 
           }
         else
-        logger.log(Level.WARNING,"\u001B[1m"+"\u001B[31mThe password is incorrect"+"\u001B[0m");
+        logger.log(Level.WARNING,BOLD+"\u001B[31mThe password is incorrect"+RESET_COLOR);
 
     }
 
@@ -396,7 +399,7 @@ public void editAdminProfile(){
                 "|     4. Delete Recipe       |\n" +
                 "|     5. Back                |\n" +
                 "-----------------------------\n");
-        logger.log(Level.INFO, "Enter your choice: " + "\u001B[0m");
+        logger.log(Level.INFO, ENTER_YOUR_CHOICE + RESET_COLOR);
         choice = scanner.nextInt();
 
         switch (choice) {
@@ -406,7 +409,7 @@ public void editAdminProfile(){
             case 4 -> deleteRecipe();
             case 5 -> Admin_menu(getAdminName());
             default -> {
-                logger.log(Level.WARNING, "\u001B[1m" + "\u001B[31mInvalid choice! Please enter a valid choice." + "\u001B[0m");
+                logger.log(Level.WARNING, BOLD + "\u001B[31mInvalid choice! Please enter a valid choice." + "\u001B[0m");
                 manageRecipes();
             }
         }
@@ -422,7 +425,7 @@ public void editAdminProfile(){
                     "|     3. Delete User Account             |\n" +
                     "|     4. Back to Previous Menu           |\n" +
                     "-------------------------------------------\n");
-            logger.log(Level.INFO, "Enter your choice: " + "\u001B[0m");
+            logger.log(Level.INFO, "Enter your choice: " + RESET_COLOR);
             choice = scanner.nextInt();
             scanner.nextLine(); // Consume newline left-over
 
@@ -440,7 +443,7 @@ public void editAdminProfile(){
                     Admin_menu(getAdminName()); // Go back to the admin menu
                     return; // Exit the loop
                 default:
-                    logger.log(Level.WARNING, "\u001B[1m" + "\u001B[31mInvalid choice! Please enter a valid choice." + "\u001B[0m");
+                    logger.log(Level.WARNING, BOLD + "\u001B[31mInvalid choice! Please enter a valid choice." + RESET_COLOR);
                     break;
             }
         }
@@ -651,7 +654,7 @@ public void editAdminProfile(){
                 "|     4. Delete Post        |\n" +
                 "|     5. Back               |\n" +
                 "-----------------------------\n");
-        logger.log(Level.INFO, "Enter your choice: " + "\u001B[0m");
+        logger.log(Level.INFO, ENTER_YOUR_CHOICE + RESET_COLOR);
         choice = scanner.nextInt();
 
         switch (choice) {
@@ -1055,8 +1058,8 @@ public void manageFeedback() {
                "| 2. Edit feedback                      |\n" +
                "| 3. Delete feedback                    |\n" +
                "| 4. Return to admin menu               |\n" +
-               "-----------------------------------------\n" + "\u001B[0m");
-    logger.log(Level.INFO, "Enter your choice: " + "\u001B[0m");
+               "-----------------------------------------\n" + RESET_COLOR);
+    logger.log(Level.INFO, ENTER_YOUR_CHOICE + RESET_COLOR);
     int choice = scanner.nextInt();
     scanner.nextLine();  // Consume newline left-over
 
@@ -1073,7 +1076,7 @@ public void manageFeedback() {
         case 4:
         	Admin_menu(getAdminName());
         default:
-            logger.log(Level.WARNING, "\u001B[1m" + "\u001B[31mInvalid choice! Please enter a valid choice." + "\u001B[0m");
+            logger.log(Level.WARNING, BOLD + "\u001B[31mInvalid choice! Please enter a valid choice." + RESET_COLOR);
            
             
     }
@@ -1087,7 +1090,7 @@ private void viewFeedback(String feedbackFilePath) {
             logger.log(Level.INFO, line);
         }
     } catch (IOException e) {
-        logger.log(Level.SEVERE, "\u001B[1m" + "\u001B[31mError reading feedback: " + e.getMessage() + "\u001B[0m");
+        logger.log(Level.SEVERE, BOLD + "\u001B[31mError reading feedback: " + e.getMessage() + RESET_COLOR);
     }
     
 }
@@ -1107,11 +1110,11 @@ private void editFeedback(String feedbackFilePath, Scanner scanner) {
     scanner.nextLine();  // Consume newline left-over
 
     if (feedbackNumber < 1 || feedbackNumber > feedbackList.size()) {
-        logger.log(Level.WARNING, "\u001B[1m" + "\u001B[31mInvalid number! Please enter a valid number." + "\u001B[0m");
+        logger.log(Level.WARNING, BOLD + "\u001B[31mInvalid number! Please enter a valid number." + RESET_COLOR);
         return;
     }
 
-    logger.log(Level.INFO, "Enter the new feedback: " + "\u001B[0m");
+    logger.log(Level.INFO, "Enter the new feedback: " + RESET_COLOR);
     String newFeedback = scanner.nextLine();
     feedbackList.set(feedbackNumber - 1, newFeedback);
 
@@ -1124,17 +1127,15 @@ private void editFeedback(String feedbackFilePath, Scanner scanner) {
 private void deleteFeedback(String feedbackFilePath, Scanner scanner) {
     List<String> feedbackList = readFeedbackFromFile(feedbackFilePath);
     if (feedbackList == null) {
-        return; // Error message already logged in readFeedbackFromFile
-    }
+        return;     }
 
-    logger.log(Level.INFO, "\u001B[32m" + "----- Select Feedback to Delete -----" + "\u001B[0m");
+    logger.log(Level.INFO, "\u001B[32m" + "----- Select Feedback to Delete -----" + RESET_COLOR);
     for (int i = 0; i < feedbackList.size(); i++) {
         logger.log(Level.INFO, (i + 1) + ". " + feedbackList.get(i));
     }
-    logger.log(Level.INFO, "Enter the number of the feedback to delete: " + "\u001B[0m");
+    logger.log(Level.INFO, "Enter the number of the feedback to delete: " + RESET_COLOR);
     int feedbackNumber = scanner.nextInt();
-    scanner.nextLine();  // Consume newline left-over
-
+    scanner.nextLine();  
     if (feedbackNumber < 1 || feedbackNumber > feedbackList.size()) {
         logger.log(Level.WARNING, "\u001B[1m" + "\u001B[31mInvalid number! Please enter a valid number." + "\u001B[0m");
         return;
@@ -1156,7 +1157,7 @@ private List<String> readFeedbackFromFile(String feedbackFilePath) {
             feedbackList.add(line);
         }
     } catch (IOException e) {
-        logger.log(Level.SEVERE, "\u001B[1m" + "\u001B[31mError reading feedback: " + e.getMessage() + "\u001B[0m");
+        logger.log(Level.SEVERE,  BOLD + "\u001B[31mError reading feedback: " + e.getMessage() + RESET_COLOR);
         return null;
     }
     return feedbackList;
@@ -1169,7 +1170,7 @@ private void writeFeedbackToFile(String feedbackFilePath, List<String> feedbackL
             writer.newLine();
         }
     } catch (IOException e) {
-        logger.log(Level.SEVERE, "\u001B[1m" + "\u001B[31mError writing feedback: " + e.getMessage() + "\u001B[0m");
+        logger.log(Level.SEVERE,  BOLD+ "\u001B[31mError writing feedback: " + e.getMessage() + RESET_COLOR);
     }
 }
 
