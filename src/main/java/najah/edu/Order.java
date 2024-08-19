@@ -152,32 +152,34 @@ public class Order {
     }
 
     public void viewPendingOrder(String status, String idCustomer) {
-        boolean pendingOrderFound = false;
-        int countPending = 0;
-
-        try (RandomAccessFile ref = new RandomAccessFile("src/main/resources/myData/orders.txt", "rw")) {
+        try (BufferedReader ordersReader = new BufferedReader(new FileReader("src/main/resources/myData/orders.txt"))) {
             String line;
-            while ((line = ref.readLine()) != null) {
+            boolean orderFound = false;
+            System.out.println("\n----- Pending Orders -----");
+            while ((line = ordersReader.readLine()) != null) {
                 String[] orderDetails = line.split(",");
-                if (orderDetails[3].equalsIgnoreCase(status)) {
-                    countPending++;
-                    pendingOrderFound = true;
-                    printPendingOrder1(orderDetails);
+                System.out.println("Line read: " + line);
+                System.out.println("Order details length: " + orderDetails.length);
+                // Ensure there are enough elements in the array before accessing them
+                if (orderDetails.length > 5) {
+                    if (orderDetails[5].equals(status) && orderDetails[1].equals(idCustomer)) {
+                        System.out.println("Order ID: " + orderDetails[0] +
+                                           ", Customer ID: " + orderDetails[1] +
+                                           ", Customer Name: " + orderDetails[2] +
+                                           ", Product ID: " + orderDetails[3] +
+                                           ", Quantity: " + orderDetails[4] +
+                                           ", Status: " + orderDetails[5]);
+                        orderFound = true;
+                    }
+                } else {
+                    System.out.println("Skipping line due to insufficient fields: " + line);
                 }
             }
-
-            if (!pendingOrderFound) {
-                logger.info("No pending orders found for status: " + status);
-            } else {
-                logger.info("Total pending orders found: " + countPending);
+            if (!orderFound) {
+                System.out.println("No pending orders found for customer ID: " + idCustomer);
             }
-
-            setIfCustomerShowPendingOrder(pendingOrderFound);
-
-        } catch (FileNotFoundException e) {
-            throw new RuntimeException(e);
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            e.printStackTrace();
         }
     }
 
