@@ -25,6 +25,7 @@ public class Admin {
 	    public static final String RESET_COLOR = "\u001B[0m";
     Order order = new Order();
     Product product = new Product();
+    Report report = new Report();
     BeneficiaryUser beneficiaryUser = new BeneficiaryUser();
     Owner owner = new Owner();
     private String first;
@@ -521,8 +522,10 @@ public void editAdminProfile(){
         StringBuilder fileContent = new StringBuilder();
         boolean userFound = false;
 
+        // Step 1: Read existing data
         try (BufferedReader br = new BufferedReader(new FileReader(BENEFICIARY_FILE_PATH))) {
-
+            
+            // Get user details to be updated
             logger.log(Level.INFO, "Enter the name of the user to update: ");
             String nameToUpdate = scanner.nextLine();
             
@@ -532,6 +535,7 @@ public void editAdminProfile(){
                 if (userDetails.length >= 6 && userDetails[0].equalsIgnoreCase(nameToUpdate)) {
                     userFound = true;
 
+                    // Ask user which details to update
                     String newEmail = userDetails[1];
                     String newPassword = userDetails[2];
                     String newAddress = userDetails[3];
@@ -546,7 +550,7 @@ public void editAdminProfile(){
                     logger.log(Level.INFO, "5. Phone Number");
                     logger.log(Level.INFO, "6. Cancel");
                     int updateChoice = scanner.nextInt();
-                    scanner.nextLine(); 
+                    scanner.nextLine(); // Consume newline left-over
 
                     switch (updateChoice) {
                         case 1:
@@ -970,22 +974,22 @@ public void editAdminProfile(){
 
         try (BufferedReader reader = new BufferedReader(new FileReader(CONTENT_FILE_PATH))) {
             String line;
-            boolean isHeader = true; 
+            boolean isHeader = true; // Skip header line
 
             while ((line = reader.readLine()) != null) {
                 if (isHeader) {
                     isHeader = false;
-                    continue; 
+                    continue; // Skip header line
                 }
 
                 String[] parts = line.split(",");
-                if (parts.length == 7) { 
+                if (parts.length == 7) { // Ensure there are 7 columns
                     try {
-                      
+                        // Read quantity and price
                         double quantity = Double.parseDouble(parts[6].trim());
                         double price = Double.parseDouble(parts[3].trim());
 
-                       
+                        // Calculate revenue
                         totalRevenue += quantity * price;
                         totalItems += (int) quantity;
                     } catch (NumberFormatException e) {
@@ -999,7 +1003,7 @@ public void editAdminProfile(){
             logger.log(Level.SEVERE, "Error reading content file", e);
         }
 
-        
+        // Calculate expenses based on total items
         totalExpenses = calculateExpenses(totalItems); 
         double profit = totalRevenue - totalExpenses;
 
@@ -1057,7 +1061,7 @@ public void manageFeedback() {
                "-----------------------------------------\n" + RESET_COLOR);
     logger.log(Level.INFO, ENTER_YOUR_CHOICE + RESET_COLOR);
     int choice = scanner.nextInt();
-    scanner.nextLine(); 
+    scanner.nextLine();  // Consume newline left-over
 
     switch (choice) {
         case 1:
