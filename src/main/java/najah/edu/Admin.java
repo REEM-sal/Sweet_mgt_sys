@@ -15,6 +15,7 @@ import java.util.Map;
 import java.util.Scanner;
 import java.util.logging.Level;
 public class Admin {
+	    private static final String A_FILE_PATH = "src/main/resources/myData/Admin.txt";
 	 private static final String RECIPES_FILE_PATH = "src/main/resources/myData/recipes.txt";
 	    private static final String POSTS_FILE_PATH = "src/main/resources/myData/posts.txt";
 	    private static final String BENEFICIARY_FILE_PATH = "src/main/resources/myData/BeneficiaryData.txt";
@@ -323,7 +324,7 @@ public void editAdminProfile(){
     }
     public void fileFunction(){
 
-        try (RandomAccessFile raf = new RandomAccessFile("src/main/resources/myData/AdminData.txt", "rw")) {
+        try (RandomAccessFile raf = new RandomAccessFile(A_FILE_PATH, "rw")) {
             String s;
             while ((s = raf.readLine()) != null) {
                 String[] loginCustomer = s.split(",");
@@ -339,7 +340,7 @@ public void editAdminProfile(){
     }
         public void deleteFileFunction(){
 
-            try (RandomAccessFile raf = new RandomAccessFile("src/main/resources/myData/AdminData.txt", "rw")) {
+            try (RandomAccessFile raf = new RandomAccessFile(A_FILE_PATH, "rw")) {
                 // Seek to the beginning of the file
                 long start = 0;
                 long currentPos = raf.getFilePointer();
@@ -371,7 +372,7 @@ public void editAdminProfile(){
             try {
 
 
-            RandomAccessFile file = new RandomAccessFile("src/main/resources/myData/AdminData.txt", "rw");
+            RandomAccessFile file = new RandomAccessFile(A_FILE_PATH, "rw");
             file.seek(file.length());
 
             file.writeBytes(dataToWrite);
