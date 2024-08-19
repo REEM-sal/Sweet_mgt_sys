@@ -474,19 +474,15 @@ public void addNewCustomer(){
        }
        return false;
    }
-   public void writeToFile(String dataToWrite,String fileName){
-       try {
+  public void writeToFile(String dataToWrite, String fileName) {
+    try (RandomAccessFile file = new RandomAccessFile("src/main/resources/myData/" + fileName + ".txt", "rw")) {
+        file.seek(file.length());
+        file.writeBytes(dataToWrite);
+    } catch (IOException e) {
+        e.printStackTrace();
+    }
+}
 
-
-           RandomAccessFile file = new RandomAccessFile("src/main/resources/myData/"+fileName+".txt", "rw");
-
-           file.seek(file.length());
-           file.writeBytes(dataToWrite);
-           file.close();
-       }
-       catch (IOException e) {
-           e.printStackTrace();
-       }}
 public void setTheCustomerIs(int numberOfLineCustomer){
        setNumberOfLine(numberOfLineCustomer);
 }
