@@ -237,27 +237,6 @@ public class Order {
     }
 
    
-
-   
-
-    public void addNewOrderToCustomer(String customerName, String idCustomer, String orderLine) {
-        try (RandomAccessFile ref = new RandomAccessFile("src/main/resources/myData/orders.txt", "rw")) {
-            ref.seek(ref.length()); // Move to the end of the file
-            ref.writeBytes(orderLine); // Write the new order line
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
-    public void addNewOrderPending(String orderLine) {
-        try (RandomAccessFile ref = new RandomAccessFile("src/main/resources/myData/pending_orders.txt", "rw")) {
-            ref.seek(ref.length()); // Move to the end of the file
-            ref.writeBytes(orderLine); // Write the new order line
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
     public void manageOrders() {
         int choice;
         Scanner scanner = new Scanner(System.in);
