@@ -387,7 +387,6 @@ public class Order {
                         newStatus = parts[3];
                     }
 
-                    // إنشاء السطر المحدث للطلب
                     String updatedOrder = idToUpdate + "," + newOrderDate + "," + newDeliveryDate + "," + newStatus;
                     orders.add(updatedOrder);
                 } else {
@@ -419,7 +418,6 @@ public class Order {
 
     public void Admin_menu(String adminName) {
         System.out.println("Returning to admin menu for: " + adminName);
-        // هنا يتم تنفيذ منطق قائمة المسؤول
     }
 
     public String getAdminName() {
@@ -537,31 +535,30 @@ public class Order {
         }
     }
 
-    public static void viewCart() {
-        try {
-            BufferedReader cartReader = new BufferedReader(new FileReader(CART_FILE_PATH));
-            String line;
-            double totalPrice = 0.0;
-            System.out.println("\n----- Cart Contents -----");
-            while ((line = cartReader.readLine()) != null) {
-                String[] cartDetails = line.split(",");
-                if (cartDetails[0].equals("Total Price")) {
-                    totalPrice = Double.parseDouble(cartDetails[1]);
-                } else {
-                    System.out.println("Product ID: " + cartDetails[0] +
-                            ", Name: " + cartDetails[1] +
-                            ", Quantity: " + cartDetails[2] +
-                            ", Price: " + cartDetails[3]);
-                }
+  public static void viewCart() {
+    try (BufferedReader cartReader = new BufferedReader(new FileReader(CART_FILE_PATH))) {
+        String line;
+        double totalPrice = 0.0;
+        System.out.println("\n----- Cart Contents -----");
+        while ((line = cartReader.readLine()) != null) {
+            String[] cartDetails = line.split(",");
+            if (cartDetails[0].equals("Total Price")) {
+                totalPrice = Double.parseDouble(cartDetails[1]);
+            } else {
+                System.out.println("Product ID: " + cartDetails[0] +
+                        ", Name: " + cartDetails[1] +
+                        ", Quantity: " + cartDetails[2] +
+                        ", Price: " + cartDetails[3]);
             }
-            System.out.println("Total Price: " + totalPrice);
-            cartReader.close();
-        } catch (FileNotFoundException e) {
-            System.out.println("Cart is empty.");
-        } catch (IOException e) {
-            logger.log(Level.SEVERE, "Error reading cart file", e);
         }
-    }  
+        System.out.println("Total Price: " + totalPrice);
+    } catch (FileNotFoundException e) {
+        System.out.println("Cart is empty.");
+    } catch (IOException e) {
+        logger.log(Level.SEVERE, "Error reading cart file", e);
+    }
+}
+  
     
     public static void cancelOrder1() {
         try {
