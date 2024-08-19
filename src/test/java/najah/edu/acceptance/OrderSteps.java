@@ -66,7 +66,7 @@ public class OrderSteps {
 
 	@Given("the order exists")
 	public void theOrderExists() {
-	   
+	   order.setIfOrderExist(true);
 	}
 
 	@When("the admin updates the order status to {string}")
