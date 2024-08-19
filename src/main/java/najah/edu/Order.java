@@ -179,7 +179,7 @@ public class Order {
                 System.out.println("No pending orders found for customer ID: " + idCustomer);
             }
         } catch (IOException e) {
-            e.printStackTrace();
+            logger.log(Level.SEVERE, "Error reading orders file", e);
         }
     }
 
