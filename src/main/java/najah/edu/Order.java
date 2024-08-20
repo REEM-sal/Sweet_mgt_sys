@@ -175,14 +175,6 @@ public class Order {
             logger.log(Level.SEVERE, "Error reading orders file", e);
         }
     }
-
-    private void printPendingOrder1(String[] orderDetails) {
-        logger.info("\u001B[34m Order ID: \u001B[35m " + orderDetails[0] + " |" +
-                "\u001B[34m Order Date: \u001B[35m " + orderDetails[1] + " |" +
-                "\u001B[34m Delivery Date: \u001B[35m " + orderDetails[2] + " |" +
-                "\u001B[34m Status: \u001B[35m " + orderDetails[3] + " |");
-    }
-
    
 
     
