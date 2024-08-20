@@ -609,56 +609,9 @@ private static void saveOrder(String customerId, String customerName, int produc
     return false;
 }
 
-   public String getOrderStatus() {
-    // Return order status for the given customer
-    try (BufferedReader ordersReader = new BufferedReader(new FileReader(ORDERS_FILE_PATH))) {
-        String line;
-        while ((line = ordersReader.readLine()) != null) {
-            if (line.contains(idCustomer)) {
-                String[] parts = line.split(",");
-                return parts[5]; // Assuming status is in the 6th column (index 5)
-            }
-        }
-    } catch (IOException e) {
-        e.printStackTrace();
-    }
-    return "";
-}
 
 
-    public boolean cancelOrder() {
-        // Logic to cancel the order
-        try {
-            List<String> lines = Files.readAllLines(Paths.get(ORDERS_FILE_PATH));
-            List<String> newLines = new ArrayList<>();
-            boolean orderCanceled = false;
-            for (String line : lines) {
-                if (line.contains(idCustomer) && line.contains("pending")) {
-                    orderCanceled = true;
-                } else {
-                    newLines.add(line);
-                }
-            }
-            if (orderCanceled) {
-                Files.write(Paths.get(ORDERS_FILE_PATH), newLines);
-                return true;
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return false;
-    }
-
-    public boolean canEditQuantity() {
-        // Check if the quantity can be edited
-        // This could be based on business logic such as order status
-        return "pending".equals(orderStatus);
-    }
-
-    public boolean canEditProductQuantity(int productId) {
-        // Check if the quantity of the specific productId can be edited
-        return cart.containsKey(productId) && canEditQuantity();
-    }
+   
 
     private void updateCartFile() throws IOException {
         // Update the cart file with the current cart data
