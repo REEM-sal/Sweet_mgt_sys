@@ -212,11 +212,15 @@ public class Product {
     public List<Product> getProducts() {
         return products;
     }
-
-    private void loadProductsFromFile(String filePath) {
-        try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
-            String line;
-            reader.readLine();
+private void loadProductsFromFile(String filePath) {
+    try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
+        String line;
+        
+        // قراءة الخط الأول وتخزينه في متغير لتمثيل رؤوس الأعمدة
+        String headerLine = reader.readLine(); 
+        
+        // تحقق من أن الرأس غير فارغ أو غير صالح
+        if (headerLine != null && !headerLine.trim().isEmpty()) {
             while ((line = reader.readLine()) != null) {
                 String[] values = line.split(",");
                 if (values.length == 7) { // Check if the line has exactly 7 values
@@ -227,19 +231,22 @@ public class Product {
                     String weight = values[4];
                     String availability = values[5];
                     int quantity = Integer.parseInt(values[6]);
-
                     Product product = new Product(id, name, description, price, weight, availability, quantity);
                     products.add(product);
                 } else {
                     System.err.println("Skipping invalid line: " + line);
                 }
             }
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (NumberFormatException e) {
-           logger.log(Level.SEVERE, "NumberFormatException occurred", e);
+        } else {
+            System.err.println("Header line is missing or invalid.");
         }
+    } catch (IOException e) {
+        e.printStackTrace();
+    } catch (NumberFormatException e) {
+        logger.log(Level.SEVERE, "NumberFormatException occurred", e);
     }
+}
+
 
     public boolean isAddProductFlag() {
         return addProductFlag;
