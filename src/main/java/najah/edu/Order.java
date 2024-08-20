@@ -93,6 +93,9 @@ public class Order {
     }
 
   
+    private void setOrderPrice(float orderPrice) {
+        this.orderPrice = orderPrice;
+    }
 
     public void viewDeliveredOrder(String status) {
         boolean deliveredOrderFound = false;
