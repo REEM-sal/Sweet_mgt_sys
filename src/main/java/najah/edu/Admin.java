@@ -343,7 +343,6 @@ public void editAdminProfile(){
         public void deleteFileFunction(){
 
             try (RandomAccessFile raf = new RandomAccessFile(A_FILE_PATH, "rw")) {
-                // Seek to the beginning of the file
                 long start = 0;
                 long currentPos = raf.getFilePointer();
                 int currentLine = -1;
@@ -355,7 +354,6 @@ public void editAdminProfile(){
                     currentLine++;
                 }
 
-                // Save the rest of the file after the line to be deleted
                 long end = raf.length();
                 byte[] remainingBytes = new byte[(int) (end - currentPos)];
                 raf.read(remainingBytes);
@@ -503,8 +501,6 @@ public void editAdminProfile(){
         } catch (IOException e) {
             logger.log(Level.SEVERE, "An error occurred while updating the user account.", e);
         }
-
-        // Replace the original file with the updated file
         if (file.delete()) {
             if (!tempFile.renameTo(file)) {
                 logger.log(Level.SEVERE, "Failed to rename temporary file.");
@@ -518,11 +514,8 @@ public void editAdminProfile(){
         Scanner scanner = new Scanner(System.in);
         StringBuilder fileContent = new StringBuilder();
         boolean userFound = false;
-
-        // Step 1: Read existing data
         try (BufferedReader br = new BufferedReader(new FileReader(BENEFICIARY_FILE_PATH))) {
             
-            // Get user details to be updated
             logger.log(Level.INFO, "Enter the name of the user to update: ");
             String nameToUpdate = scanner.nextLine();
             
@@ -531,8 +524,6 @@ public void editAdminProfile(){
                 String[] userDetails = line.split(",");
                 if (userDetails.length >= 6 && userDetails[0].equalsIgnoreCase(nameToUpdate)) {
                     userFound = true;
-
-                    // Ask user which details to update
                     String newEmail = userDetails[1];
                     String newPassword = userDetails[2];
                     String newAddress = userDetails[3];
@@ -572,7 +563,7 @@ public void editAdminProfile(){
                             break;
                         case 6:
                             logger.log(Level.INFO, "Update canceled.");
-                            return; // Exit the method if canceled
+                            return; 
                         default:
                             logger.log(Level.WARNING, "Invalid choice! No changes made.");
                             break;
@@ -887,7 +878,6 @@ public void editAdminProfile(){
             while ((line = reader.readLine()) != null) {
                 String[] parts = line.split("\t");
                 if (parts[0].trim().equalsIgnoreCase(titleToEdit)) {
-                    // Prompt user for new data
                     System.out.println("Enter new title: ");
                     String newTitle = scanner.nextLine().trim();
                     System.out.println("Enter new content: ");
@@ -971,18 +961,18 @@ public void editAdminProfile(){
 
         try (BufferedReader reader = new BufferedReader(new FileReader(CONTENT_FILE_PATH))) {
             String line;
-            boolean isHeader = true; // Skip header line
+            boolean isHeader = true; 
 
             while ((line = reader.readLine()) != null) {
                 if (isHeader) {
                     isHeader = false;
-                    continue; // Skip header line
+                    continue;
                 }
 
                 String[] parts = line.split(",");
-                if (parts.length == 7) { // Ensure there are 7 columns
+                if (parts.length == 7) { 
                     try {
-                        // Read quantity and price
+                       
                         double quantity = Double.parseDouble(parts[6].trim());
                         double price = Double.parseDouble(parts[3].trim());
 
@@ -1000,7 +990,7 @@ public void editAdminProfile(){
             logger.log(Level.SEVERE, "Error reading content file", e);
         }
 
-        // Calculate expenses based on total items
+     
         totalExpenses = calculateExpenses(totalItems); 
         double profit = totalRevenue - totalExpenses;
 
@@ -1038,7 +1028,7 @@ public void editAdminProfile(){
     }
 
     private double calculateExpenses(int totalItems) {
-        return totalItems * 1.00; // Example expense rate per item
+        return totalItems * 1.00;
     }
 
     private String formatDouble(double value) {
@@ -1058,7 +1048,7 @@ public void manageFeedback() {
                "-----------------------------------------\n" + RESET_COLOR);
     logger.log(Level.INFO, ENTER_YOUR_CHOICE + RESET_COLOR);
     int choice = scanner.nextInt();
-    scanner.nextLine();  // Consume newline left-over
+    scanner.nextLine();  
 
     switch (choice) {
         case 1:
