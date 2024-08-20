@@ -132,6 +132,10 @@ public class Roles {
          Assert.assertEquals(false,beneficiaryUser.isMakePurchasesFlag());
       
     }
+	 @Then("The Beneficiary User address should be updated to {string}")
+    public void theBeneficiaryUserAddressShouldBeUpdatedTo(String expectedAddress) {
+        assertEquals(expectedAddress, beneficiaryUser.getAddress()); 
+    }
 	@Given("The Owner is logged into the system")
 	public void theOwnerIsLoggedIntoTheSystem() {
 		  owner.login("Yara@gmail.com", "121"); 
