@@ -44,7 +44,7 @@ public class OrderSteps {
 
 	@Then("the order should be saved with status {string}")
 	public void theOrderShouldBeSavedWithStatus(String string) {
-	   
+	   order.viewDeliveredOrder(expectedStatus);
 	}
 
 	@Given("the customer has a pending order")
