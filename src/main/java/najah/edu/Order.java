@@ -633,16 +633,7 @@ private static void saveOrder(String customerId, String customerName, int produc
     return false;
 }
 
-
-    public boolean isPromptForValidQuantity() {
-        // Logic to prompt for a valid quantity
-        return !editProductQuantity(quantity);
-    }
-
-    public void setOrderStatusFilter(String status) {
-        // Set the order status filter
-        this.orderStatus = status;
-    }
+   
 
     public void setOrderId(String orderId) {
         // Set the current order ID
@@ -664,10 +655,6 @@ private static void saveOrder(String customerId, String customerName, int produc
         return true; // Placeholder, replace with actual logic
     }
 
-    public boolean canCalculateOrderTotal() {
-        // Logic to calculate the total cost of the order
-        return true; // Placeholder, replace with actual logic
-    }
 
     public boolean isValidOption(int option1, int option2, int option3, int option4) {
         // Check if the provided option is valid
