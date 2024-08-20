@@ -212,46 +212,6 @@ public class BeneficiaryUser {
 	                "-----------------------------------\n");
 	        logger.log(Level.INFO, ENTER_YOUR_CHOICE + RESET_COLOR);
 
-	        int choice = scanner.nextInt();
-	        scanner.nextLine(); 
-
-	        switch (choice) {
-	            case 1:
-	                logger.log(Level.INFO, "Enter new name: ");
-	                String newName = scanner.nextLine();
-	                updateUserInFile(email, 0, newName);
-	                logger.log(Level.INFO, "Name updated successfully.");
-	                break;
-	            case 2:
-	                logger.log(Level.INFO, "Enter new email: ");
-	                String newEmail = scanner.nextLine();
-	                updateUserInFile(email, 1, newEmail);
-	                logger.log(Level.INFO, "Email updated successfully.");
-	                break;
-	            case 3:
-	                logger.log(Level.INFO, "Enter new password: ");
-	                String newPassword = scanner.nextLine();
-	                updateUserInFile(email, 2, newPassword);
-	                logger.log(Level.INFO, "Password updated successfully.");
-	                break;
-	            case 4:
-	                logger.log(Level.INFO, "Enter new address: ");
-	                String newAddress = scanner.nextLine();
-	                updateUserInFile(email, 3, newAddress);
-	                logger.log(Level.INFO, "Address updated successfully.");
-	                break;
-	            case 5:
-	                logger.log(Level.INFO, "Enter new phone number: ");
-	                String newPhone = scanner.nextLine();
-	                updateUserInFile(email, 5, newPhone);
-	                logger.log(Level.INFO, "Phone number updated successfully.");
-	                break;
-	            case 6:
-	                return; // Exit the method to go back
-	            default:
-	                logger.log(Level.WARNING, "Invalid choice. Please try again.");
-	                break;
-	        }
 	    }
 	}
 
@@ -362,58 +322,11 @@ public class BeneficiaryUser {
               --------------------------------------
               """);
         logger.log(Level.INFO, ENTER_YOUR_CHOICE + RESET_COLOR);
-        int choice = scanner.nextInt();
-        scanner.nextLine(); 
-
-        switch (choice) {
-            case 1:
-                showAllProducts();
-                break;
-            case 2:
-                logger.log(Level.INFO, "Enter the search term: ");
-                String searchTerm = scanner.nextLine();
-                searchProducts(searchTerm);
-                break;
-            case 3:
-                Customer_menu(getUserName());
-                break;
-            case 4: 
-                logger.log(Level.INFO, "Exiting the menu.");
-                running = false; 
-                break;
-            default:
-                logger.log(Level.INFO, "Invalid choice. Please try again.");
-                break;
-        }
+        
     }
    }
 
-   private void showAllProducts() {
-       List<String> products = readProductsFromFile();
-       if (products.isEmpty()) {
-           logger.log(Level.INFO, "No products available.");
-       } else {
-           logger.log(Level.INFO, "Products List:");
-           for (String product : products) {
-               logger.log(Level.INFO, product);
-           }
-       }
-   }
-
-   private void searchProducts(String searchTerm) {
-       List<String> products = readProductsFromFile();
-       boolean found = false;
-       logger.log(Level.INFO, "Search Results:");
-       for (String product : products) {
-           if (product.toLowerCase().contains(searchTerm.toLowerCase())) {
-               logger.log(Level.INFO, product);
-               found = true;
-           }
-       }
-       if (!found) {
-           logger.log(Level.INFO, "No products found matching: " + searchTerm);
-       }
-   }
+  
 
    private List<String> readProductsFromFile() {
        List<String> products = new ArrayList<>();
@@ -542,14 +455,6 @@ public void deleteLine() {
        return matchedProducts;
    }
 
-   private int parseInteger(String value) {
-	    try {
-	        return Integer.parseInt(value);
-	    } catch (NumberFormatException e) {
-	        logger.log(Level.WARNING, "Invalid number format: " + value, e);
-	        return -1; 
-	    }
-	}
    public void searchTheCustomerNewLine() {
        int count=-1;
        try (RandomAccessFile ref = new RandomAccessFile("src/main/resources/myData/content.txt", "rw")) {
