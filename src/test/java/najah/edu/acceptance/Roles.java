@@ -104,6 +104,16 @@ public class Roles {
     	 beneficiaryUser.setMakePurchasesFlag(true);
    	  assertTrue(beneficiaryUser.isMakePurchasesFlag());    
     }
+	 @When("The Beneficiary User provides feedback")
+    public void theBeneficiaryUserProvidesFeedback() {
+        beneficiaryUser.setfeedbackflag(true);
+    }
+
+    @Then("The Beneficiary User feedback flag should be set")
+    public void theBeneficiaryUserFeedbackFlagShouldBeSet() {
+        assertTrue(beneficiaryUser.isfeedbackflag());
+    }
+	
 	 @Then("The Beneficiary User should be able can manage personal account")
     public void theBeneficiaryUserShouldBeAbleCanManagePersonalAccount() {
     	beneficiaryUser.setSettingFlag(true);
