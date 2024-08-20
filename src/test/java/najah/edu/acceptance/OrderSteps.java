@@ -76,7 +76,8 @@ public class OrderSteps {
 
 	@Then("the order status should be updated")
 	public void theOrderStatusShouldBeUpdated() {
-	   
+	       
+
 	}
 
 	@When("the customer cancels the order")
