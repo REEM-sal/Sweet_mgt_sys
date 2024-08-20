@@ -397,7 +397,6 @@ public class Order {
         String line;
         boolean productFound = false;
         
-        // قراءة الخط الأول وتخطيه لأنه يحتوي على رؤوس الأعمدة
         String headerLine = contentReader.readLine(); 
         
         while ((line = contentReader.readLine()) != null) {
@@ -552,12 +551,13 @@ public class Order {
     }
     return false;
 }
-
- public static boolean createOrder(String customerId, String customerName, int productId, int quantity) {
+public static boolean createOrder(String customerId, String customerName, int productId, int quantity) {
     try (BufferedReader contentReader = new BufferedReader(new FileReader(CONTENT_FILE_PATH))) {
         String line;
         boolean productFound = false;
-        contentReader.readLine(); 
+        
+        // قراءة وتخزين سطر الرأس (إن وجد) لأغراض التحقق أو الاستخدام لاحقاً إذا لزم الأمر
+        String headerLine = contentReader.readLine(); 
         
         while ((line = contentReader.readLine()) != null) {
             String[] productDetails = line.split(",");
@@ -566,6 +566,7 @@ public class Order {
             double price = Double.parseDouble(productDetails[3]);
             String availability = productDetails[5];
             int availableQuantity = Integer.parseInt(productDetails[6]);
+            
             if (id == productId) {
                 productFound = true;
                 if (availability.equals("In Stock") && availableQuantity >= quantity) {
@@ -578,6 +579,7 @@ public class Order {
                 }
             }
         }
+        
         if (!productFound) {
             System.out.println("Product not found.");
             return false;
