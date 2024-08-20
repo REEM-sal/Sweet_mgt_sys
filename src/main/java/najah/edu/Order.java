@@ -299,7 +299,6 @@ public class Order {
                 if (parts.length > 0 && parts[0].trim().equals(idToUpdate)) {
                     found = true;
 
-                    // طلب إدخال التفاصيل الجديدة لكل حقل، مع تخطي أي حقل يتم الضغط على Enter فيه
                     System.out.println("Enter new order date (current: " + parts[1] + "):");
                     String newOrderDate = scanner.nextLine().trim();
                     if (newOrderDate.isEmpty()) {
@@ -387,7 +386,7 @@ public class Order {
                     makePurchasesMenu();
             }
     }
-   public static void addProductToCart() {
+  public static void addProductToCart() {
     Scanner scanner = new Scanner(System.in);
     System.out.print("Enter the product ID: ");
     int productId = scanner.nextInt();
@@ -397,8 +396,10 @@ public class Order {
     try (BufferedReader contentReader = new BufferedReader(new FileReader(CONTENT_FILE_PATH))) {
         String line;
         boolean productFound = false;
-        // Skip the header line
-        contentReader.readLine();
+        
+        // قراءة الخط الأول وتخطيه لأنه يحتوي على رؤوس الأعمدة
+        String headerLine = contentReader.readLine(); 
+        
         while ((line = contentReader.readLine()) != null) {
             String[] productDetails = line.split(",");
             int id = Integer.parseInt(productDetails[0]);
@@ -426,6 +427,7 @@ public class Order {
         logger.log(Level.SEVERE, "Error reading content file", e);
     }
 }
+
 
 
    public static void addToCart(int productId, String name, int quantity, double price) {
@@ -551,11 +553,12 @@ public class Order {
     return false;
 }
 
-  public static boolean createOrder(String customerId, String customerName, int productId, int quantity) {
+ public static boolean createOrder(String customerId, String customerName, int productId, int quantity) {
     try (BufferedReader contentReader = new BufferedReader(new FileReader(CONTENT_FILE_PATH))) {
         String line;
         boolean productFound = false;
-        contentReader.readLine();
+        contentReader.readLine(); 
+        
         while ((line = contentReader.readLine()) != null) {
             String[] productDetails = line.split(",");
             int id = Integer.parseInt(productDetails[0]);
@@ -585,6 +588,7 @@ public class Order {
     }
     return false;
 }
+
 
 private static void saveOrder(String customerId, String customerName, int productId, int quantity, String status) {
     try (BufferedWriter orderWriter = new BufferedWriter(new FileWriter(ORDERS_FILE_PATH, true))) {
