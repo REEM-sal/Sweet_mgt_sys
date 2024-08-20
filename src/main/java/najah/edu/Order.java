@@ -96,14 +96,7 @@ public class Order {
         this.customerName = customerName;
     }
 
-   
-
-    private void printOrderDetails(String[] orderDetails) {
-        logger.info("\u001B[34m Order ID: \u001B[35m " + orderDetails[0] + " |" +
-                "\u001B[34m Order Date: \u001B[35m " + orderDetails[1] + " |" +
-                "\u001B[34m Delivery Date: \u001B[35m " + orderDetails[2] + " |" +
-                "\u001B[34m Status: \u001B[35m " + orderDetails[3] + " |");
-    }
+  
 
     public void viewDeliveredOrder(String status) {
         boolean deliveredOrderFound = false;
