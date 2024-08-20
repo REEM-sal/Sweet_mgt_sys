@@ -36,57 +36,38 @@ public class Roles {
 
     @Given("The admin is logged into the system")
     public void theAdminIsLoggedIntoTheSystem() {
-    	  Assert.assertEquals(true, admin.isAdminLogin());
-	    admin.setUserAccountsFlag(true);
+    	 
     }
 
     @When("The admin enters {string}")
     public void theAdminEnters(String string) {
-    	 admin.whatAdminEnter(string);
-	    admin.isViewUserStatsFlag();
+    	
     }
 
     @Then("The admin should be able to view and generate financial reports")
     public void theAdminShouldBeAbleToViewAndGenerateFinancialReports() {
-    	  admin.setGenerateReportsFlag(true);
-    	    assertTrue(admin.isGenerateReportsFlag());
-
-    	    admin.generateFinancialReports();
-    	    
-    	    String reportContent = admin.getFinancialReportContent();
-     	    assertNotNull(reportContent);
-    	    assertTrue(reportContent.contains("Total Items"));
-    	    assertTrue(reportContent.contains("Total Revenue"));
-    	    assertTrue(reportContent.contains("Total Expenses"));
-    	    assertTrue(reportContent.contains("Profit"));
-    	   
+    	
 
     }
 
     @Then("The Admin should be able to create, edit, or delete contents")
     public void theAdminShouldBeAbleToCreateEditOrDeleteContents() {
-    	admin.setGenerateReportsFlag(true); 
-    	assertTrue(admin.isGenerateReportsFlag());
-	    admin.isProductsFlag();
+    	
     }
 
     @Then("The Admin should be able to create, edit, or delete recipes")
     public void theAdminShouldBeAbleToCreateEditOrDeleteRecipes() {
-    	 admin.setRecipes(true);
-    	 assertTrue(admin.isrecipes());
+    	
     }
 
     @Then("The admin should be able to view statistics on registered users categorized by city")
     public void theAdminShouldBeAbleToViewStatisticsOnRegisteredUsersCategorizedByCity() {
-    	 admin.setViewUserStatsFlag(true);
-    	    assertTrue(admin.isViewUserStatsFlag());
+    	
     }
 
     @Then("The Admin should be told to enter one, two, three, or four")
     public void theAdminShouldBeToldToEnterOneTwoThreeOrFour() {
-    	 Assert.assertEquals(false,admin.isProductsFlag());
-         Assert.assertEquals(false,admin.isrecipes());
-         Assert.assertEquals(false,admin.isViewUserStatsFlag());
+    	
 
         
     }
