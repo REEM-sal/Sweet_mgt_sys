@@ -295,22 +295,18 @@ public void editAdminProfile(){
         writeToFile(getFirst()+","+choice2+","+getThird());
 
     }
-    private void editePassword(String oldPass, String newPass, String newPassCon) {
-        fileFunction();
-        if(truepass(oldPass,getThird())){
-        if(truepass(newPass,newPassCon)){
+   private void editPassword(String oldPass, String newPass, String newPassCon) {
+    fileFunction();
+    if (truepass(oldPass, getThird())) {
+        if (truepass(newPass, newPassCon)) {
             deleteFileFunction();
-            writeToFile(getFirst()+","+getSec()+","+newPass);
-            logger.log(Level.INFO,"\u001B[35m"+"The Password has been changed successfully"+RESET_COLOR);
-
+            writeToFile(getFirst() + "," + getSec() + "," + newPass);
+            logger.log(Level.INFO, "\u001B[35m" + "The Password has been changed successfully" + RESET_COLOR);
         }
-        
-
-          }
-        else
-        logger.log(Level.WARNING,BOLD+"\u001B[31mThe password is incorrect"+RESET_COLOR);
-
+    } else {
+        logger.log(Level.WARNING, BOLD + "\u001B[31mThe password is incorrect" + RESET_COLOR);
     }
+}
 
     private void editeUserName(String choice2) {
         fileFunction();
