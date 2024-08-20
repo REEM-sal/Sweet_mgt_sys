@@ -43,7 +43,7 @@ public class OrderSteps {
 	}
 
 	@Then("the order should be saved with status {string}")
-	public void theOrderShouldBeSavedWithStatus(String string) {
+	public void theOrderShouldBeSavedWithStatus(String expectedStatus) {
 	   order.viewDeliveredOrder(expectedStatus);
 	}
 
