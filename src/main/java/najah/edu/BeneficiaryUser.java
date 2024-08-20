@@ -211,7 +211,7 @@ public class BeneficiaryUser {
 	                "|                                  |\n" +
 	                "-----------------------------------\n");
 	        logger.log(Level.INFO, ENTER_YOUR_CHOICE + RESET_COLOR);
-
+  break;
 	    }
 	}
 
@@ -264,7 +264,7 @@ public class BeneficiaryUser {
               --------------------------------------
               """);
         logger.log(Level.INFO, ENTER_YOUR_CHOICE + RESET_COLOR);
-        
+          break;
     }
    }
 
