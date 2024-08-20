@@ -37,11 +37,13 @@ public class Roles {
     @Given("The admin is logged into the system")
     public void theAdminIsLoggedIntoTheSystem() {
     	  Assert.assertEquals(true, admin.isAdminLogin());
+	    admin.setUserAccountsFlag(true);
     }
 
     @When("The admin enters {string}")
     public void theAdminEnters(String string) {
     	 admin.whatAdminEnter(string);
+	    admin.isViewUserStatsFlag();
     }
 
     @Then("The admin should be able to view and generate financial reports")
@@ -65,6 +67,7 @@ public class Roles {
     public void theAdminShouldBeAbleToCreateEditOrDeleteContents() {
     	admin.setGenerateReportsFlag(true); 
     	assertTrue(admin.isGenerateReportsFlag());
+	    admin.isProductsFlag();
     }
 
     @Then("The Admin should be able to create, edit, or delete recipes")
