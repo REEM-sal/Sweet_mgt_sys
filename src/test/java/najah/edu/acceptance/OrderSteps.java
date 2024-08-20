@@ -29,7 +29,7 @@ public class OrderSteps {
 
 	@Given("the customer has selected products")
 	public void theCustomerHasSelectedProducts() {
-	 
+	  order.canManageOrders();
 	}
 
 	@Given("the products are available in stock")
