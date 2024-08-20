@@ -36,6 +36,4 @@ jobs:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
           GMAIL_USERNAME: ${{ secrets.GMAIL_USERNAME }} # Add this line
           GMAIL_PASSWORD: ${{ secrets.GMAIL_PASSWORD }} # Add this line
-        run: mvn -B verify org.jacoco:jacoco-maven-plugin:report org.sonarsource.scanner.maven:sonar-maven-plugin:sonar \
-          -Dsonar.projectKey=sweet18-8-2024_Sweet_mgt_sys 
-        
+        run: mvn -B verify org.jacoco:jacoco-maven-plugin:report org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=sweet18-8-2024_Sweet_mgt_sys
