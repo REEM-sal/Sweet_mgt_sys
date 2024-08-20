@@ -132,7 +132,7 @@ public class Roles {
     @Then("The Beneficiary User should be told to enter one, two, or three")
     public void theBeneficiaryUserShouldBeToldToEnterOneTwoOrThree() {
     	 Assert.assertEquals(false,beneficiaryUser.isMakePurchasesFlag());
-         Assert.assertEquals(false,beneficiaryUser.isMakePurchasesFlag());
+         Assert.assertEquals(false,beneficiaryUser.isSettingFlag());
       
     }
 	 @Then("The Beneficiary User address should be updated to {string}")
