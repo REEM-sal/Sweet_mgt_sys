@@ -41,7 +41,6 @@ public class Owner {
 	    private boolean dynamicDiscountFlag;
 	    private boolean notificationsFlag;
 	    private boolean trackOrdersFlag;
-	    private Product productManager = new Product();
 
 	    public Owner() {
 	    	 emailMessages = new ArrayList<>();
@@ -144,8 +143,8 @@ public class Owner {
 	                        case 7 -> logger.log(Level.INFO, "Exiting..."); 
 	                        default -> logger.log(Level.WARNING, BOLD + "\u001B[31mInvalid choice! Please enter a valid choice." + RESET_COLOR );
 	                    }
-	                } while (choice != 7); // تغيير الشرط إلى 7
-	            }
+	                } while (choice != 7); 
+	                }
 	    public void receiveNotifications(String orderStatus) {
 	        String email = "saady9055@gmail.com";
 	        String subject = "Order Status Changed";
@@ -227,21 +226,7 @@ public class Owner {
 	        }
 	    }
 
-	    private Map<String, Double> loadProductPrices() {
-	        Map<String, Double> productPrices = new HashMap<>();
-	        try (BufferedReader contentReader = new BufferedReader(new FileReader(CONTENT_FILE_PATH))) {
-	            String line;
-	            while ((line = contentReader.readLine()) != null) {
-	                String[] parts = line.split(", ");
-	                String productName = parts[1];
-	                double price = Double.parseDouble(parts[3]);
-	                productPrices.put(productName, price);
-	            }
-	        } catch (IOException e) {
-	            logger.log(Level.SEVERE, "Error reading content file", e);
-	        }
-	        return productPrices;
-	    }
+	    
 
 	    public void identifyBestSellingProducts() {
 	        String salesFilePath = "src/main/resources/myData/sales.txt";
@@ -316,12 +301,12 @@ public class Owner {
 
 	                while ((line = reader.readLine()) != null) {
 	                    if (isHeader) {
-	                        updatedProducts.add(line);  // Add header line without modification
+	                        updatedProducts.add(line);  
 	                        isHeader = false;
 	                    } else {
 	                        String[] parts = line.split(",");
-	                        if (parts.length == 7) { // Ensure there are 7 columns
-	                            String id = parts[0];
+	                        if (parts.length == 7) { 
+	                        	String id = parts[0];
 	                            String name = parts[1];
 	                            String description = parts[2];
 	                            double price = Double.parseDouble(parts[3].trim());
@@ -329,7 +314,6 @@ public class Owner {
 	                            String availability = parts[5];
 	                            int quantity = Integer.parseInt(parts[6].trim());
 
-	                            // Apply discount
 	                            double discountedPrice = price * (1 - discountPercentage / 100);
 	                            String updatedProductLine = String.format("%s,%s,%s,%.2f,%s,%s,%d",
 	                                    id, name, description, discountedPrice, weight, availability, quantity);
@@ -483,8 +467,6 @@ public class Owner {
 	    public void setTrackOrdersFlag(boolean trackOrdersFlag) {
 	        this.trackOrdersFlag = trackOrdersFlag;
 	    }
-
-
 
 	    public void displayAvailableProducts() {
 	        if (availableProducts == null || availableProducts.isEmpty()) {
