@@ -32,12 +32,11 @@ public class Order {
 
    
     private int productId;
-    private int quantity;
+
     private String orderStatus = "pending";
   
     private static final Map<Integer, String> ORDER_STATUS = new HashMap<>();
-  
-    private Product productManager;
+ 
     private double totalAmount = 0.0;
     private static final String CONTENT_FILE_PATH = "src/main/resources/myData/content.txt";
 
@@ -88,10 +87,7 @@ public class Order {
         }
     }
 
-    private String getCustomerName() {
-        return this.customerName;
-    }
-
+  
     public void setCustomerName(String customerName) {
         this.customerName = customerName;
     }
@@ -182,10 +178,7 @@ public class Order {
         this.idCustomer = idCustomer;
     }
 
-    private void setOrderPrice(float orderPrice) {
-        this.orderPrice = orderPrice;
-    }
-
+   
     public String getFileOrderName() {
         return "orders.txt"; // Assuming the file name is orders.txt
     }
@@ -253,12 +246,9 @@ public class Order {
 
         List<String> orders = new ArrayList<>();
         boolean found = false;
-
-        // Read the file and filter out the order to delete
         try (BufferedReader reader = new BufferedReader(new FileReader(ORDERS_FILE_PATH))) {
             String line;
             while ((line = reader.readLine()) != null) {
-                // Assuming the ID is the first part of the line
                 String[] parts = line.split(",");
                 if (parts.length > 0 && parts[0].trim().equals(idToDelete)) {
                     found = true; // Mark as found if ID matches
@@ -271,7 +261,6 @@ public class Order {
         }
 
         if (found) {
-            // Write the updated orders back to the file
             try (BufferedWriter writer = new BufferedWriter(new FileWriter(ORDERS_FILE_PATH))) {
                 for (String order : orders) {
                     writer.write(order);
@@ -351,7 +340,7 @@ public class Order {
     }
 
     public String getAdminName() {
-        return "Admin"; // استبدل هذا المنطق بالمنطق الفعلي للحصول على اسم المسؤول
+        return "Admin"; 
     }
 
     public void makePurchasesMenu() {
@@ -427,8 +416,6 @@ public class Order {
     }
 }
 
-
-
    public static void addToCart(int productId, String name, int quantity, double price) {
     double newTotalPrice = price * quantity;
     double totalPrice = 0.0;
@@ -456,8 +443,6 @@ public class Order {
         logger.log(Level.SEVERE, "Error writing to cart file", e);
     }
 }
-
-
   public static void viewCart() {
     try (BufferedReader cartReader = new BufferedReader(new FileReader(CART_FILE_PATH))) {
         String line;
@@ -481,8 +466,6 @@ public class Order {
         logger.log(Level.SEVERE, "Error reading cart file", e);
     }
 }
-  
-    
    public static void cancelOrder1() {
     try (BufferedWriter cartWriter = new BufferedWriter(new FileWriter(CART_FILE_PATH, false))) {
         cartWriter.write(""); 
@@ -498,9 +481,6 @@ public class Order {
         System.out.println("Product added to order.");
     }
 
-   
-
-   
     public void setGmailIs(String email) {
         this.gmailIs = email;
     }
@@ -524,10 +504,7 @@ public class Order {
     public boolean editProductQuantity() {
         return true;
     }
-    
-    
    
-
     public void setProductId(int productId) {
         this.productId = productId;
     }
@@ -556,7 +533,6 @@ public static boolean createOrder(String customerId, String customerName, int pr
         String line;
         boolean productFound = false;
         
-        // قراءة وتخزين سطر الرأس (إن وجد) لأغراض التحقق أو الاستخدام لاحقاً إذا لزم الأمر
         String headerLine = contentReader.readLine(); 
         
         while ((line = contentReader.readLine()) != null) {
@@ -590,8 +566,6 @@ public static boolean createOrder(String customerId, String customerName, int pr
     }
     return false;
 }
-
-
 private static void saveOrder(String customerId, String customerName, int productId, int quantity, String status) {
     try (BufferedWriter orderWriter = new BufferedWriter(new FileWriter(ORDERS_FILE_PATH, true))) {
         String orderId = UUID.randomUUID().toString().replace("-", "");
@@ -639,31 +613,24 @@ private static void saveOrder(String customerId, String customerName, int produc
     return false;
 }
 
-   
-
     public void setOrderId(String orderId) {
-        // Set the current order ID
         this.idCustomer = orderId;
     }
 
     public boolean canManageOrders() {
-        // Logic to check if orders can be managed
         return true; // Placeholder, replace with actual logic
     }
 
     public boolean canSendEmailNotifications() {
-        // Logic to check if email notifications can be sent
-        return true; // Placeholder, replace with actual logic
+        return true; 
     }
 
     public boolean canViewPendingOrders() {
-        // Logic to check if pending orders can be viewed
-        return true; // Placeholder, replace with actual logic
+        return true; 
     }
 
 
     public boolean isValidOption(int option1, int option2, int option3, int option4) {
-        // Check if the provided option is valid
         List<Integer> validOptions = Arrays.asList(option1, option2, option3, option4);
         return validOptions.contains(Integer.parseInt(orderStatus));
     }
