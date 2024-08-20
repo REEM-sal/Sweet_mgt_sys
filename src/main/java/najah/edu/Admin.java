@@ -529,7 +529,7 @@ public void manageFeedback() {
         case 4:
         	Admin_menu(getAdminName());
         default:
-            logger.log(Level.WARNING, BOLD + "\u001B[31mInvalid choice! Please enter a valid choice." + RESET_COLOR);
+            logger.log(Level.WARNING, BOLD +INVALID_CHOICE_MESSAGE + RESET_COLOR);
            
             
     }
