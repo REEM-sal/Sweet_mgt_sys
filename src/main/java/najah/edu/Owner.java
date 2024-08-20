@@ -469,15 +469,15 @@ public class Owner {
 	    }
 
 	    public void displayAvailableProducts() {
-	        if (availableProducts == null || availableProducts.isEmpty()) {
-	            System.out.println("No products available.");
-	        } else {
-	            System.out.println("Available Products:");
-	            for (String product : availableProducts) {
-	                System.out.println(product);
-	            }
-	        }
-	    }
+        if (availableProducts == null || availableProducts.isEmpty()) {
+            logger.warning("No products available.");
+        } else {
+            logger.info("Available Products:");
+            for (String product : availableProducts) {
+                logger.info(product);
+            }
+        }
+    }
 
 
 }
