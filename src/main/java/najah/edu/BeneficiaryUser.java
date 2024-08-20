@@ -13,7 +13,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 public class BeneficiaryUser {
     private static final String FILE_PATH = "src/main/resources/myData/BeneficiaryData.txt";
-    private static List<BeneficiaryUser> customers = new ArrayList<>();
     private static final Logger logger = Logger.getLogger(BeneficiaryUser.class.getName());
     public static final String BOLD = "\u001B[1m";
     public static final String RESET_COLOR = "\u001B[0m";
