@@ -191,34 +191,14 @@ public class Registration {
         ifEmailFound = false;
     }
 
-    public void storeDataToFile(String dataToWrite) {
-        try {
-            // Open the file in write mode
-            RandomAccessFile file = new RandomAccessFile("src/main/resources/myData/BeneficiaryData.txt", "rw");
-
-            // Go to the end of the file
-            file.seek(file.length());
-
-            // Write the string to the file
-            file.writeBytes(dataToWrite);
-
-            // Close the file
-            file.close();
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+   public void storeDataToFile(String dataToWrite) {
+    try (RandomAccessFile file = new RandomAccessFile("src/main/resources/myData/BeneficiaryData.txt", "rw")) {
+        file.seek(file.length());
+        file.writeBytes(dataToWrite);
+    } catch (IOException e) {
+        e.printStackTrace();
     }
-
-
-
-
-
-
-
-
-
-
+}
 
     public boolean truepass (Registration ob, String pass, String ConfirmPass){
         if(pass.equals(ConfirmPass)){
@@ -236,8 +216,6 @@ public class Registration {
         }
 
     }
-
-    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     public void customerIslLogin(String email, String password) {
         numberOfLine=-1;
         try (RandomAccessFile ref = new RandomAccessFile("src/main/resources/myData/BeneficiaryData.txt", "rw")) {
@@ -305,8 +283,6 @@ public class Registration {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-
-
     }
 
     public void AdminLogin(String email, String password) {
@@ -365,9 +341,6 @@ public class Registration {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-
-
-
     }
 
     public void AdminWrongPass(String email, String password) {
@@ -388,8 +361,6 @@ public class Registration {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-
-
     }
 
     public void OwnerIsLogin(String enterEmail, String enterPassword) {
@@ -414,7 +385,6 @@ public class Registration {
             OwnerWrongEmail(enterEmail,enterPassword);
 
         } catch (IOException e) {
-
 
             throw new RuntimeException(e);
 
@@ -487,9 +457,6 @@ public class Registration {
 
     }
 
-
-
-
     public String enterEmail(){
         scanner = new Scanner(System.in);
         logger.log(Level.INFO,"\u001B[32m" + "Enter the email:" + "\u001B[0m");
@@ -500,8 +467,6 @@ public class Registration {
         logger.log(Level.INFO,"\u001B[32m"+ "Enter the password:" + "\u001B[0m");
         return scanner.nextLine();
     }
-
-
     public void searchIfEmailIsAlreadyExist(String enteredEmail) {
         try (RandomAccessFile ref = new RandomAccessFile("src/main/resources/myData/BeneficiaryData.txt", "rw")) {
             String s;
@@ -626,4 +591,3 @@ public class Registration {
         }
     }
 }
-
