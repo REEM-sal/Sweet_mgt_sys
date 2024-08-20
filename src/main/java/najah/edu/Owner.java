@@ -11,8 +11,6 @@ import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.Map;
 import java.util.HashMap;
-
-
 import static najah.edu.Registration.logger;
 
 
@@ -53,10 +51,7 @@ public class Owner {
 	        trackOrdersFlag = false;
 	        gmail = new Gmail();
 	      
-	    }
-	
-	  
-	    
+	    }    
 
 	    public String getIdCustomer() {
 	        return idCustomer;
@@ -203,7 +198,7 @@ public class Owner {
 	           """);
 	        logger.log(Level.INFO, "Enter your choice: " + RESET_COLOR );
 	        choice = scanner.nextInt();
-	        scanner.nextLine(); // Consume newline left-over
+	        scanner.nextLine(); 
 	        switch (choice) {
 	            case 1 -> addProduct(scanner);
 	            case 2 -> updateProduct(scanner);
@@ -237,8 +232,6 @@ public class Owner {
 	            logger.log(Level.INFO, "Failed to add product. Product ID may already exist.");
 	        }
 	    }
-
-
 	    private void updateProduct(Scanner scanner) {
 	        logger.log(Level.INFO, "Enter product ID to update: ");
 	        String productId = scanner.nextLine();
@@ -256,7 +249,6 @@ public class Owner {
 	            logger.log(Level.INFO, "Product ID not found.");
 	            return;
 	        }
-	        
 	       
 	        logger.log(Level.INFO, "Enter new product name (or press Enter to keep current: {0}): ", existingProduct.getProductName());
 	        String productName = scanner.nextLine();
@@ -292,8 +284,6 @@ public class Owner {
 	        if (!availability.isEmpty()) {
 	            existingProduct.setAvailability(availability);
 	        }
-	        
-	        
 	        
 	        boolean result = productManager.updateProduct(productId, existingProduct);
 	        if (result) {
