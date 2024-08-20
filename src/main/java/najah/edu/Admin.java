@@ -421,7 +421,7 @@ public void editAdminProfile(){
                     "|     4. Back to Previous Menu           |\n" +
                     "-------------------------------------------\n");
             logger.log(Level.INFO, ENTER_YOUR_CHOICE + RESET_COLOR);
-           
+             break;
         }
     }
    
