@@ -609,34 +609,30 @@ private static void saveOrder(String customerId, String customerName, int produc
     return false;
 }
 
-
-
-   
-
-    private void updateCartFile() throws IOException {
-        // Update the cart file with the current cart data
-        BufferedWriter cartWriter = new BufferedWriter(new FileWriter(CART_FILE_PATH));
+   private void updateCartFile() throws IOException {
+    // Update the cart file with the current cart data
+    try (BufferedWriter cartWriter = new BufferedWriter(new FileWriter(CART_FILE_PATH))) {
         for (Map.Entry<Integer, Integer> entry : cart.entrySet()) {
             cartWriter.write(entry.getKey() + "," + entry.getValue() + "\n");
         }
-        cartWriter.close();
-    }
+    } 
+}
 
-    public boolean isProductExisting() {
-        // Check if the product ID exists in the content file
-        try {
-            BufferedReader contentReader = new BufferedReader(new FileReader("src/main/resources/myData/content.txt"));
-            String line;
-            while ((line = contentReader.readLine()) != null) {
-                if (line.startsWith(String.valueOf(productId))) {
-                    return true;
-                }
+
+   public boolean isProductExisting() {
+    try (BufferedReader contentReader = new BufferedReader(new FileReader("src/main/resources/myData/content.txt"))) {
+        String line;
+        while ((line = contentReader.readLine()) != null) {
+            if (line.startsWith(String.valueOf(productId))) {
+                return true;
             }
-        } catch (IOException e) {
-            e.printStackTrace();
         }
-        return false;
+    } catch (IOException e) {
+        e.printStackTrace();
     }
+    return false;
+}
+
 
     public boolean isPromptForValidQuantity() {
         // Logic to prompt for a valid quantity
