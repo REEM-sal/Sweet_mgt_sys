@@ -118,7 +118,7 @@ public class Owner {
 	                    switch (choice) {
 	                        case 1 -> {
 	                            manageProductsFlag = true;
-	                            manageProductsMenu();
+	                            
 	                        }
 	                        case 2 -> {
 	                            monitorSalesFlag = true;
@@ -180,143 +180,8 @@ public class Owner {
 	    public List<String> getEmailMessages() {
 	        return emailMessages;
 	    }
-	    private void resetFlags() {
-	        manageProductsFlag = false;
-	        monitorSalesFlag = false;
-	        bestSellingProductsFlag = false;
-	        dynamicDiscountFlag = false;
-	        notificationsFlag = false;
-	        trackOrdersFlag = false;
-	    }
-
-
-	    public void manageProductsMenu() {
-	        int choice;
-	        Scanner scanner = new Scanner(System.in);
-	        logger.log(Level.INFO, """
-	           
-	           \u001B[35m---------------------------------
-	           |                                    |
-	           |      1. Add new product            |
-	           |      2. Update existing product    |
-	           |      3. Delete product             |
-	           |                                    | 
-	           --------------------------------------
-	           """);
-	        logger.log(Level.INFO, "Enter your choice: " + RESET_COLOR );
-	        choice = scanner.nextInt();
-	        scanner.nextLine(); // Consume newline left-over
-	        switch (choice) {
-	            case 1 -> addProduct(scanner);
-	            case 2 -> updateProduct(scanner);
-	            case 3 -> deleteProduct(scanner);
-	            default -> logger.log(Level.INFO, BOLD + "\u001B[31mInvalid choice! Please enter a valid choice.\u001B[0m");
-	        }
-	    }
-
-	    private void addProduct(Scanner scanner) {
-	        logger.log(Level.INFO, "Enter product ID: ");
-	        String productId = scanner.nextLine();
-	        logger.log(Level.INFO, "Enter product name: ");
-	        String productName = scanner.nextLine();
-	        logger.log(Level.INFO, "Enter product description: ");
-	        String description = scanner.nextLine();
-	        logger.log(Level.INFO, "Enter product price: ");
-	        double price = scanner.nextDouble();
-	        scanner.nextLine(); // Consume the newline
-	        logger.log(Level.INFO, "Enter product weight: ");
-	        String weight = scanner.nextLine();
-	        logger.log(Level.INFO, "Enter product availability: ");
-	        String availability = scanner.nextLine();
-	        logger.log(Level.INFO, "Enter product quantity: ");
-	        int quantity = scanner.nextInt();
-	        
-	        Product product = new Product(productId, productName, description, price, weight, availability, quantity);
-	        boolean result = productManager.addProduct(product);
-	        if (result) {
-	            logger.log(Level.INFO, "Product added successfully.");
-	        } else {
-	            logger.log(Level.INFO, "Failed to add product. Product ID may already exist.");
-	        }
-	    }
-
-
-	    private void updateProduct(Scanner scanner) {
-	        logger.log(Level.INFO, "Enter product ID to update: ");
-	        String productId = scanner.nextLine();
-	        
-	        // Retrieve the existing product by ID
-	        Product existingProduct = null;
-	        for (Product p : productManager.getProducts()) {
-	            if (p.getProductId().equals(productId)) {
-	                existingProduct = p;
-	                break;
-	            }
-	        }
-	        
-	        if (existingProduct == null) {
-	            logger.log(Level.INFO, "Product ID not found.");
-	            return;
-	        }
-	        
-	        // Prompt user for new values, keeping existing values if input is empty
-	        logger.log(Level.INFO, "Enter new product name (or press Enter to keep current: {0}): ", existingProduct.getProductName());
-	        String productName = scanner.nextLine();
-	        if (!productName.isEmpty()) {
-	            existingProduct.setProductName(productName);
-	        }
-	        
-	        logger.log(Level.INFO, "Enter new product description (or press Enter to keep current: {0}): ", existingProduct.getDescription());
-	        String description = scanner.nextLine();
-	        if (!description.isEmpty()) {
-	            existingProduct.setDescription(description);
-	        }
-	        
-	        logger.log(Level.INFO, "Enter new product price (or press Enter to keep current: {0}): ", existingProduct.getPrice());
-	        String priceInput = scanner.nextLine();
-	        if (!priceInput.isEmpty()) {
-	            try {
-	                double price = Double.parseDouble(priceInput);
-	                existingProduct.setPrice(price);
-	            } catch (NumberFormatException e) {
-	                logger.log(Level.WARNING, "Invalid price input.");
-	            }
-	        }
-	        
-	        logger.log(Level.INFO, "Enter new product weight (or press Enter to keep current: {0}): ", existingProduct.getWeight());
-	        String weight = scanner.nextLine();
-	        if (!weight.isEmpty()) {
-	            existingProduct.setWeight(weight);
-	        }
-	        
-	        logger.log(Level.INFO, "Enter new product availability (or press Enter to keep current: {0}): ", existingProduct.getAvailability());
-	        String availability = scanner.nextLine();
-	        if (!availability.isEmpty()) {
-	            existingProduct.setAvailability(availability);
-	        }
-	        
-	        
-	        
-	        boolean result = productManager.updateProduct(productId, existingProduct);
-	        if (result) {
-	            logger.log(Level.INFO, "Product updated successfully.");
-	        } else {
-	            logger.log(Level.INFO, "Failed to update product. Product ID may not exist.");
-	        }
-	    }
-
-
-	    private void deleteProduct(Scanner scanner) {
-	        logger.log(Level.INFO, "Enter product ID to delete: ");
-	        String productId = scanner.nextLine();
-	        boolean result = productManager.deleteProduct(productId);
-	        if (result) {
-	            logger.log(Level.INFO, "Product deleted successfully.");
-	        } else {
-	            logger.log(Level.INFO, "Failed to delete product. Product ID may not exist.");
-	        }
-	    }
-
+	   
+	
 	    public void monitorSales() {
 	       
 	       
