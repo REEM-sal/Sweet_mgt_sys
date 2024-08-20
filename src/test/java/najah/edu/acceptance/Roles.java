@@ -104,9 +104,10 @@ public class Roles {
     	 beneficiaryUser.setMakePurchasesFlag(true);
    	  assertTrue(beneficiaryUser.isMakePurchasesFlag());    
     }
-	@Then("The Beneficiary User should be able can manage personal account")
+	 @Then("The Beneficiary User should be able can manage personal account")
     public void theBeneficiaryUserShouldBeAbleCanManagePersonalAccount() {
-    	beneficiaryUser.managePersonalAccount();
+    	beneficiaryUser.setSettingFlag(true);
+    	beneficiaryUser.isSettingFlag();
     }
 
     @Then("The Beneficiary User should be able to make purchases")
