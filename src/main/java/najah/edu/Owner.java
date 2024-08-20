@@ -179,16 +179,7 @@ public class Owner {
 	    public List<String> getEmailMessages() {
 	        return emailMessages;
 	    }
-	    private void resetFlags() {
-	        manageProductsFlag = false;
-	        monitorSalesFlag = false;
-	        bestSellingProductsFlag = false;
-	        dynamicDiscountFlag = false;
-	        notificationsFlag = false;
-	        trackOrdersFlag = false;
-	    }
-
-
+	 
 	    public void manageProductsMenu() {
 	        int choice;
 	        Scanner scanner = new Scanner(System.in);
@@ -243,9 +234,7 @@ public class Owner {
 	    private void updateProduct(Scanner scanner) {
 	        logger.log(Level.INFO, "Enter product ID to update: ");
 	        String productId = scanner.nextLine();
-	        
-	        // Retrieve the existing product by ID
-	        Product existingProduct = null;
+	        	        Product existingProduct = null;
 	        for (Product p : productManager.getProducts()) {
 	            if (p.getProductId().equals(productId)) {
 	                existingProduct = p;
