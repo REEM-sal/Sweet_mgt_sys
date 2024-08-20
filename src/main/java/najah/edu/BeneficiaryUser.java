@@ -264,8 +264,57 @@ public class BeneficiaryUser {
               --------------------------------------
               """);
         logger.log(Level.INFO, ENTER_YOUR_CHOICE + RESET_COLOR);
-       
+     int choice = scanner.nextInt();
+        scanner.nextLine();  // Consume newline
+
+        switch (choice) {
+            case 1:
+                showAllProducts();
+                break;
+            case 2:
+                logger.log(Level.INFO, "Enter the search term: ");
+                String searchTerm = scanner.nextLine();
+                searchProducts(searchTerm);
+                break;
+            case 3:
+                Customer_menu(getUserName());
+                break;
+            case 4: // Handle the exit option
+                logger.log(Level.INFO, "Exiting the menu.");
+                running = false; 
+                break;
+            default:
+                logger.log(Level.INFO, "Invalid choice. Please try again.");
+                break;
+        }
     }
+   }
+
+   private void showAllProducts() {
+       List<String> products = readProductsFromFile();
+       if (products.isEmpty()) {
+           logger.log(Level.INFO, "No products available.");
+       } else {
+           logger.log(Level.INFO, "Products List:");
+           for (String product : products) {
+               logger.log(Level.INFO, product);
+           }
+       }
+   }
+
+   private void searchProducts(String searchTerm) {
+       List<String> products = readProductsFromFile();
+       boolean found = false;
+       logger.log(Level.INFO, "Search Results:");
+       for (String product : products) {
+           if (product.toLowerCase().contains(searchTerm.toLowerCase())) {
+               logger.log(Level.INFO, product);
+               found = true;
+           }
+       }
+       if (!found) {
+           logger.log(Level.INFO, "No products found matching: " + searchTerm);
+       }
    }
 
   
