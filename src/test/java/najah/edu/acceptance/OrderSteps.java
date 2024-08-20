@@ -55,7 +55,7 @@ public class OrderSteps {
 
 	@When("the customer views their orders")
 	public void theCustomerViewsTheirOrders() {
-
+ order.canViewPendingOrders();
 	}
 
 	@Then("the pending order should be displayed")
