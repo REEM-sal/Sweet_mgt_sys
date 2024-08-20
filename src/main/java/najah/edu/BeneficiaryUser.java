@@ -215,64 +215,6 @@ public class BeneficiaryUser {
 	    }
 	}
 
-   public void updateUserInFile(String email, int fieldIndex, String newValue) {
-	    List<String> lines = new ArrayList<>();
-	    boolean userFound = false; 
-
-	    try (BufferedReader reader = new BufferedReader(new FileReader(FILE_PATH))) {
-	        String line;
-	        while ((line = reader.readLine()) != null) {
-	            String[] fields = line.split(",");
-	            if (fields[1].trim().equals(email)) { 
-	                userFound = true;
-	                switch (fieldIndex) {
-	                    case 0:
-	                        fields[0] = newValue; 
-	                        break;
-	                    case 1:
-	                        fields[1] = newValue; 
-	                        break;
-	                    case 2:
-	                        fields[2] = newValue;
-	                        break;
-	                    case 3:
-	                        fields[3] = newValue; 
-	                        break;
-	                    case 5:
-	                        fields[5] = newValue; 
-	                        break;
-	                    default:
-	                        logger.log(Level.WARNING, "Invalid field index: " + fieldIndex);
-	                        return;
-	                }
-	               
-	                lines.add(String.join(",", fields));
-	                logger.log(Level.INFO, "User with email " + email + " updated successfully.");
-	            } else {
-	            
-	                lines.add(line);
-	            }
-	        }
-	    } catch (IOException e) {
-	        logger.log(Level.SEVERE, "Error reading file", e);
-	        return;
-	    }
-
-	  
-	    if (userFound) {
-	        try (BufferedWriter writer = new BufferedWriter(new FileWriter(FILE_PATH))) {
-	            for (String updatedLine : lines) {
-	                writer.write(updatedLine);
-	                writer.newLine();
-	            }
-	            logger.log(Level.INFO, "File updated successfully.");
-	        } catch (IOException e) {
-	            logger.log(Level.SEVERE, "Error writing file", e);
-	        }
-	    } else {
-	        logger.log(Level.WARNING, "User with email " + email + " not found.");
-	    }
-	}
 
    public void userAccountMenu(){
        if (browseProductsFlag){
