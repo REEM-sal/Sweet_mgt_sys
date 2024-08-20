@@ -38,4 +38,4 @@ jobs:
           GMAIL_PASSWORD: ${{ secrets.GMAIL_PASSWORD }} # Add this line
         run: mvn -B verify org.jacoco:jacoco-maven-plugin:report org.sonarsource.scanner.maven:sonar-maven-plugin:sonar \
           -Dsonar.projectKey=sweet18-8-2024_Sweet_mgt_sys \
-          -Dsonar.exclusions=src/main/java/Main.java
+         -Dsonar.exclusions=src/main/java/najah/Main.java
