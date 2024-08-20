@@ -191,15 +191,34 @@ public class Registration {
         ifEmailFound = false;
     }
 
-  public void storeDataToFile(String dataToWrite) {
-    try (RandomAccessFile file = new RandomAccessFile("src/main/resources/myData/BeneficiaryData.txt", "rw")) {
-        file.seek(file.length());
-        // Write the string to the file
-        file.writeBytes(dataToWrite);
-    } catch (IOException e) {
-        e.printStackTrace();
+    public void storeDataToFile(String dataToWrite) {
+        try {
+            // Open the file in write mode
+            RandomAccessFile file = new RandomAccessFile("src/main/resources/myData/BeneficiaryData.txt", "rw");
+
+            // Go to the end of the file
+            file.seek(file.length());
+
+            // Write the string to the file
+            file.writeBytes(dataToWrite);
+
+            // Close the file
+            file.close();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
-}
+
+
+
+
+
+
+
+
+
+
 
     public boolean truepass (Registration ob, String pass, String ConfirmPass){
         if(pass.equals(ConfirmPass)){
