@@ -23,7 +23,11 @@ Feature: User Roles
  Scenario: The Beneficiary User can browse sweets
     Given The Beneficiary User is logged into the system
     Then The Beneficiary User should be able to browse sweets
-
+    
+Scenario: The Beneficiary User can manage personal account
+    Given The Beneficiary User is logged into the system
+    Then The Beneficiary User should be able can manage personal account
+    
   Scenario: The Beneficiary User can make purchases
     Given The Beneficiary User is logged into the system
     Then The Beneficiary User should be able to make purchases
