@@ -139,9 +139,6 @@ public class BeneficiaryUser {
        this.makePurchasesFlag = makePurchasesFlag;
    }
 
- 
-
-
    private boolean  feedbackFlag;
 
    private boolean makePurchasesFlag;
@@ -156,8 +153,6 @@ public class BeneficiaryUser {
        return customerLogin;
    }
 
-
-
    public void Customer_menu (String CostName) {
        setUserName(CostName);
        setBrowseProductsFlag(false);
@@ -170,7 +165,7 @@ public class BeneficiaryUser {
                "|      1. Browse products           |\n" +
                "|      2. Make purchases            |\n" +
                "|      3. Manage personal account   |\n" +
-               "|      4. Provide feedback          |\n" +  // Added feedback option
+               "|      4. Provide feedback          |\n" +  
                "|                                  |\n" +
                "-----------------------------------\n");
     logger.log(Level.INFO, ENTER_YOUR_CHOICE + RESET_COLOR);
@@ -261,13 +256,10 @@ public class BeneficiaryUser {
 	    }
 	}
 
-
-  
    public void updateUserInFile(String email, int fieldIndex, String newValue) {
 	    List<String> lines = new ArrayList<>();
 	    boolean userFound = false; 
 
-	    // Read the file and update the relevant user's line
 	    try (BufferedReader reader = new BufferedReader(new FileReader(FILE_PATH))) {
 	        String line;
 	        while ((line = reader.readLine()) != null) {
@@ -551,8 +543,6 @@ public void deleteLine() {
        return matchedProducts;
    }
 
-  
-   
    private int parseInteger(String value) {
 	    try {
 	        return Integer.parseInt(value);
