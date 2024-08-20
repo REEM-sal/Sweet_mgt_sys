@@ -40,7 +40,6 @@ public class Admin {
     private boolean productFlag;
     private boolean feedbackFlagFlag;
     private boolean userAccountsFlag;
-    private boolean orderCustomerFlag;
     private boolean recipesFlag;
     private int adminRoleChoice;
     private boolean generateReportsFlag ; 
