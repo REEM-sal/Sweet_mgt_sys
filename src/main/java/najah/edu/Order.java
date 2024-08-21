@@ -429,7 +429,6 @@ public class Order {
     public void makePurchasesMenu() {
         if (testMode) {
         	 addProductToOrder();
-            viewOrders();
             cancelOrder1();
             return; 
             }
