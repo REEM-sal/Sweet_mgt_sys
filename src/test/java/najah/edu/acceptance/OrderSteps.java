@@ -82,7 +82,8 @@ public class OrderSteps {
 
 	@When("the customer cancels the order")
 	public void theCustomerCancelsTheOrder() {
-	    
+	    	    Order.cancelOrder1();
+
 	}
 
 	@Then("the order should be removed from the system")
