@@ -10,8 +10,6 @@ import java.util.logging.Logger;
 public class Registration {
     Order order = new Order();
 
-
-
     public int getNumberOfLine() {
         return numberOfLine;
     }
@@ -125,9 +123,6 @@ public class Registration {
         this.theUser = theUser;
     }
 
-
-
-
     public void setName(String name) {
         this.name = name;
     }
@@ -135,7 +130,6 @@ public class Registration {
     public String getName() {
         return name;
     }
-
 
     public String getEmail() {
         return email;
@@ -178,8 +172,6 @@ public class Registration {
 
         return adminloged;
     }
-
-    /////////////////////////////////////////////////////////////////////////////////////////
    
 
     public Registration() {
@@ -206,9 +198,6 @@ public class Registration {
         }
         return false;
     }
-
-
-
     public void isCustomerRegistrationCompleted (Registration o ,String pass, String conformPass){
         setCustomerRegistrationCompleted(false);
         if((truepass(o,pass,conformPass))){
@@ -486,8 +475,7 @@ public class Registration {
 
     }
     public void signupMenu(){
-
-        Scanner scanner = new Scanner(System.in);
+       Scanner scanner = new Scanner(System.in);
         Scanner scanner1 = new Scanner(System.in);
         logger.log(Level.INFO,"\u001B[35m"+"----- Welcome to signup Page -----");
         logger.log(Level.INFO,"Enter your name:");
