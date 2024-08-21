@@ -36,86 +36,108 @@ public class Roles {
 
     @Given("The admin is logged into the system")
     public void theAdminIsLoggedIntoTheSystem() {
-    	 
+    	  Assert.assertEquals(true, admin.isAdminLogin());
     }
 
     @When("The admin enters {string}")
     public void theAdminEnters(String string) {
-    	
+    	 admin.whatAdminEnter(string);
     }
 
     @Then("The admin should be able to view and generate financial reports")
     public void theAdminShouldBeAbleToViewAndGenerateFinancialReports() {
-    	
+    	  admin.setGenerateReportsFlag(true);
+    	    assertTrue(admin.isGenerateReportsFlag());
+
+    	    admin.generateFinancialReports();
+    	    
+    	    String reportContent = admin.getFinancialReportContent();
+     	    assertNotNull(reportContent);
+    	    assertTrue(reportContent.contains("Total Items"));
+    	    assertTrue(reportContent.contains("Total Revenue"));
+    	    assertTrue(reportContent.contains("Total Expenses"));
+    	    assertTrue(reportContent.contains("Profit"));
+    	   
 
     }
 
     @Then("The Admin should be able to create, edit, or delete contents")
     public void theAdminShouldBeAbleToCreateEditOrDeleteContents() {
-    	
+    	admin.setGenerateReportsFlag(true); 
+    	assertTrue(admin.isGenerateReportsFlag());
     }
 
     @Then("The Admin should be able to create, edit, or delete recipes")
     public void theAdminShouldBeAbleToCreateEditOrDeleteRecipes() {
-    	
+    	 admin.setRecipes(true);
+    	 assertTrue(admin.isrecipes());
     }
 
     @Then("The admin should be able to view statistics on registered users categorized by city")
     public void theAdminShouldBeAbleToViewStatisticsOnRegisteredUsersCategorizedByCity() {
-    	
+    	 admin.setViewUserStatsFlag(true);
+    	    assertTrue(admin.isViewUserStatsFlag());
     }
 
     @Then("The Admin should be told to enter one, two, three, or four")
     public void theAdminShouldBeToldToEnterOneTwoThreeOrFour() {
-    	
+    	 Assert.assertEquals(false,admin.isProductsFlag());
+         Assert.assertEquals(false,admin.isrecipes());
+         Assert.assertEquals(false,admin.isViewUserStatsFlag());
 
         
     }
 
     @Given("The Beneficiary User is logged into the system")
     public void theBeneficiaryUserIsLoggedIntoTheSystem() {
-   	
+   	 assertEquals(true, beneficiaryUser.isCustomerLogin());
         
     }
+    
 
     @When("The Beneficiary User enters {string}")
     public void theBeneficiaryUserEnters(String choice) {
-      
+        beneficiaryUser.theBeneficiaryUserEnter(choice);
     }
 
-    @Then("The Beneficiary User should be able to browse sweets")
-    public void theBeneficiaryUserShouldBeAbleToBrowseSweets() {
-    	
-    }
-	 @When("The Beneficiary User provides feedback")
+    @When("The Beneficiary User provides feedback")
     public void theBeneficiaryUserProvidesFeedback() {
-        
+        beneficiaryUser.setfeedbackflag(true);
     }
 
     @Then("The Beneficiary User feedback flag should be set")
     public void theBeneficiaryUserFeedbackFlagShouldBeSet() {
-       
-    }
-	
-	 @Then("The Beneficiary User should be able can manage personal account")
-    public void theBeneficiaryUserShouldBeAbleCanManagePersonalAccount() {
-    
+        assertTrue(beneficiaryUser.isfeedbackflag());
     }
 
+    @Then("The Beneficiary User should be able to browse sweets")
+    public void theBeneficiaryUserShouldBeAbleToBrowseSweets() {
+    	 beneficiaryUser.setMakePurchasesFlag(true);
+   	  assertTrue(beneficiaryUser.isMakePurchasesFlag());  
+   	
+    }
+    @Then("The Beneficiary User should be able can manage personal account")
+    public void theBeneficiaryUserShouldBeAbleCanManagePersonalAccount() {
+    	beneficiaryUser.setSettingFlag(true);
+    	beneficiaryUser.isSettingFlag();
+    }
     @Then("The Beneficiary User should be able to make purchases")
     public void theBeneficiaryUserShouldBeAbleToMakePurchases() {
-    	
-    	 
+    	 beneficiaryUser.setMakePurchasesFlag(true);
+    	  assertTrue(beneficiaryUser.isMakePurchasesFlag());
     }
 
     @Then("The Beneficiary User should be told to enter one, two, or three")
     public void theBeneficiaryUserShouldBeToldToEnterOneTwoOrThree() {
-    	 
+    	
+    	 Assert.assertEquals(false,beneficiaryUser.isMakePurchasesFlag());
+         Assert.assertEquals(false,beneficiaryUser.isSettingFlag());
+         
       
     }
-	 @Then("The Beneficiary User address should be updated to {string}")
+    @Then("The Beneficiary User address should be updated to {string}")
     public void theBeneficiaryUserAddressShouldBeUpdatedTo(String expectedAddress) {
-     
+        assertEquals(expectedAddress, beneficiaryUser.getAddress()); 
     }
 	@Given("The Owner is logged into the system")
 	public void theOwnerIsLoggedIntoTheSystem() {
