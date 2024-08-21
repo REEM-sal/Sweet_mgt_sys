@@ -601,6 +601,11 @@ private static void saveOrder(String customerId, String customerName, int produc
     }
 
 
+    public boolean isPromptForValidQuantity() {
+        // Logic to prompt for a valid quantity
+        return !editProductQuantity(quantity);
+    }
+
     public boolean isValidOption(int option1, int option2, int option3, int option4) {
         List<Integer> validOptions = Arrays.asList(option1, option2, option3, option4);
         return validOptions.contains(Integer.parseInt(orderStatus));
