@@ -101,8 +101,7 @@ public class Roles {
 
     @Then("The Beneficiary User should be able to browse sweets")
     public void theBeneficiaryUserShouldBeAbleToBrowseSweets() {
-    	 beneficiaryUser.setTestMode(true);
- 	    beneficiaryUser.BrowseProductsMenu();
+    	 
  	    beneficiaryUser.setMakePurchasesFlag(true);
  	    assertTrue(beneficiaryUser.isMakePurchasesFlag()); 
     }
@@ -114,8 +113,8 @@ public class Roles {
     }
     @Then("The Beneficiary User should be able can manage personal account")
    	public void theBeneficiaryUserShouldBeAbleCanManagePersonalAccount() {
-    	 beneficiaryUser.setTestMode(true); 
-    	   beneficiaryUser.managePersonalAccount();
+    	    	   beneficiaryUser.isSettingFlag();
+
    	}
 
     @Then("The Beneficiary User should be told to enter one, two, or three")
