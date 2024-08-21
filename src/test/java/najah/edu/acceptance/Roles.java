@@ -139,48 +139,59 @@ public class Roles {
     public void theBeneficiaryUserAddressShouldBeUpdatedTo(String expectedAddress) {
         assertEquals(expectedAddress, beneficiaryUser.getAddress()); 
     }
-	@Given("The Owner is logged into the system")
+		@Given("The Owner is logged into the system")
 	public void theOwnerIsLoggedIntoTheSystem() {
-		
+		  owner.login("Yara@gmail.com", "121"); 
+		    assertTrue("Owner should be logged in", owner.isOwnerLogin());
 	}
 
 	@When("The Owner enters {string}")
     public void theOwnerEnters(String string) {
-		
+		owner.whatAdminEnter(string);
        
     }
 
     @Then("The Owner should be able to add, edit, or delete products")
     public void theOwnerShouldBeAbleToAddEditOrDeleteProducts() {
-    	 
+    	  assertTrue(owner.isProductsFlag());
+    	  
        
     }
 
     @Then("The Owner should be able to monitor sales")
     public void theOwnerShouldBeAbleToMonitorSales() {
-    	
+    	 owner.setMonitorSalesFlag(true); 
+    	 assertTrue(owner.isMonitorSalesFlag());
+    	    owner.monitorSales();
     }
 
 
     @Then("The Owner should be able to apply discounts")
     public void theOwnerShouldBeAbleToApplyDiscounts() {
-      
+        assertTrue(owner.isDynamicDiscountFlag());
     }
 
    
 
     @Then("The Owner should be able to send email notifications for shipping, delivery")
     public void theOwnerShouldBeAbleToSendEmailNotificationsForShippingDelivery() {
-    	
-    	  
-    	   
+    	 owner.setNotificationsFlag(true);
+    	    assertTrue(owner.isNotificationsFlag());
+
+    	    owner.receiveNotifications("shipped");
+    	    
+    	    List<String> emailMessages = owner.getEmailMessages();
+    	    assertTrue(emailMessages.contains("The order status has changed to shipped."));
+      	    owner.receiveNotifications("delivered");
+    	    assertTrue(emailMessages.contains("The order has been delivered."));  
     }
 
     @Then("The Owner should be able to identifiy best selling")
     public void theOwnerShouldBeAbleToIdentifiyBestSelling() {
-    	
+    	 assertFalse(owner.isBestSellingProductsFlag());
+         owner.identifyBestSellingProducts();
+         assertTrue(owner.isBestSellingProductsFlag());
        
     }
-
    
 }
