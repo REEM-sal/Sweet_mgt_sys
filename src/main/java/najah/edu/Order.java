@@ -29,6 +29,7 @@ public class Order {
     private Scanner scanner = new Scanner(System.in);
     private static final String CART_FILE_PATH = "src/main/resources/myData/cart.txt";
     private Map<Integer, Integer> cart = new HashMap<>(); 
+     private boolean testMode = false;
  private Product productManager;
    
     private int productId;
