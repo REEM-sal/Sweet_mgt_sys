@@ -30,6 +30,8 @@ public class Order {
     private static final String CART_FILE_PATH = "src/main/resources/myData/cart.txt";
     private Map<Integer, Integer> cart = new HashMap<>(); 
      private boolean testMode = false;
+        private int quantity;
+
  private Product productManager;
    
     private int productId;
