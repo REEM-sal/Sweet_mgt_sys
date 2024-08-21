@@ -1,3 +1,4 @@
+//////////////// وهي الاونر ///////
 package najah.edu;
 
 import java.io.BufferedReader;
@@ -5,14 +6,14 @@ import java.io.BufferedWriter;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-
+import java.io.RandomAccessFile;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.Map;
 import java.util.HashMap;
-
+import io.cucumber.core.logging.Logger;
 
 import static najah.edu.Registration.logger;
 
@@ -37,10 +38,11 @@ public class Owner {
 	    private boolean  manageOrdersFlag;
 	    private boolean monitorSalesFlag;
 	    private boolean bestSellingProductsFlag;
-
+	    
 	    private boolean dynamicDiscountFlag;
 	    private boolean notificationsFlag;
 	    private boolean trackOrdersFlag;
+	    private Product productManager = new Product();
 
 	    public Owner() {
 	    	 emailMessages = new ArrayList<>();
@@ -116,7 +118,7 @@ public class Owner {
 	                    switch (choice) {
 	                        case 1 -> {
 	                            manageProductsFlag = true;
-	                            manageProductsMenu();
+	                           
 	                        }
 	                        case 2 -> {
 	                            monitorSalesFlag = true;
@@ -143,8 +145,8 @@ public class Owner {
 	                        case 7 -> logger.log(Level.INFO, "Exiting..."); 
 	                        default -> logger.log(Level.WARNING, BOLD + "\u001B[31mInvalid choice! Please enter a valid choice." + RESET_COLOR );
 	                    }
-	                } while (choice != 7); 
-	                }
+	                } while (choice != 7); // تغيير الشرط إلى 7
+	            }
 	    public void receiveNotifications(String orderStatus) {
 	        String email = "saady9055@gmail.com";
 	        String subject = "Order Status Changed";
@@ -178,27 +180,20 @@ public class Owner {
 	    public List<String> getEmailMessages() {
 	        return emailMessages;
 	    }
-	 
-	    public void manageProductsMenu() {
-	        int choice;
-	        Scanner scanner = new Scanner(System.in);
-	        logger.log(Level.INFO, """
-	           
-	           \u001B[35m---------------------------------
-	           |                                    |
-	           |      1. Add new product            |
-	           |      2. Update existing product    |
-	           |      3. Delete product             |
-	           |                                    | 
-	           --------------------------------------
-	           """);
-	        logger.log(Level.INFO, "Enter your choice: " + RESET_COLOR );
-	        choice = scanner.nextInt();
-	        scanner.nextLine(); // Consume newline left-over
-	       
+	    private void resetFlags() {
+	        manageProductsFlag = false;
+	        monitorSalesFlag = false;
+	        bestSellingProductsFlag = false;
+	        dynamicDiscountFlag = false;
+	        notificationsFlag = false;
+	        trackOrdersFlag = false;
 	    }
 
-	   public void monitorSales() {
+
+	
+
+	   
+	    public void monitorSales() {
 	       
 	       
 	        Map<String, Double> salesTotals = new HashMap<>();
@@ -226,7 +221,21 @@ public class Owner {
 	        }
 	    }
 
-	    
+	    private Map<String, Double> loadProductPrices() {
+	        Map<String, Double> productPrices = new HashMap<>();
+	        try (BufferedReader contentReader = new BufferedReader(new FileReader(CONTENT_FILE_PATH))) {
+	            String line;
+	            while ((line = contentReader.readLine()) != null) {
+	                String[] parts = line.split(", ");
+	                String productName = parts[1];
+	                double price = Double.parseDouble(parts[3]);
+	                productPrices.put(productName, price);
+	            }
+	        } catch (IOException e) {
+	            logger.log(Level.SEVERE, "Error reading content file", e);
+	        }
+	        return productPrices;
+	    }
 
 	    public void identifyBestSellingProducts() {
 	        String salesFilePath = "src/main/resources/myData/sales.txt";
@@ -301,12 +310,12 @@ public class Owner {
 
 	                while ((line = reader.readLine()) != null) {
 	                    if (isHeader) {
-	                        updatedProducts.add(line);  
+	                        updatedProducts.add(line);  // Add header line without modification
 	                        isHeader = false;
 	                    } else {
 	                        String[] parts = line.split(",");
-	                        if (parts.length == 7) { 
-	                        	String id = parts[0];
+	                        if (parts.length == 7) { // Ensure there are 7 columns
+	                            String id = parts[0];
 	                            String name = parts[1];
 	                            String description = parts[2];
 	                            double price = Double.parseDouble(parts[3].trim());
@@ -314,6 +323,7 @@ public class Owner {
 	                            String availability = parts[5];
 	                            int quantity = Integer.parseInt(parts[6].trim());
 
+	                            // Apply discount
 	                            double discountedPrice = price * (1 - discountPercentage / 100);
 	                            String updatedProductLine = String.format("%s,%s,%s,%.2f,%s,%s,%d",
 	                                    id, name, description, discountedPrice, weight, availability, quantity);
@@ -468,16 +478,18 @@ public class Owner {
 	        this.trackOrdersFlag = trackOrdersFlag;
 	    }
 
+
+
 	    public void displayAvailableProducts() {
-        if (availableProducts == null || availableProducts.isEmpty()) {
-            logger.warning("No products available.");
-        } else {
-            logger.info("Available Products:");
-            for (String product : availableProducts) {
-                logger.info(product);
-            }
-        }
-    }
+	        if (availableProducts == null || availableProducts.isEmpty()) {
+	            System.out.println("No products available.");
+	        } else {
+	            System.out.println("Available Products:");
+	            for (String product : availableProducts) {
+	                System.out.println(product);
+	            }
+	        }
+	    }
 
 
 }
