@@ -145,7 +145,10 @@ public class Roles {
     	  assertTrue(beneficiaryUser.isMakePurchasesFlag());
     	  assertTrue(beneficiaryUser.isMakePurchasesFlag());
     }
-
+ @Then("The Beneficiary User should be able can manage personal account")
+	public void theBeneficiaryUserShouldBeAbleCanManagePersonalAccount() {
+    	beneficiaryUser.isSettingFlag();
+	}
     @Then("The Beneficiary User should be told to enter one, two, or three")
     public void theBeneficiaryUserShouldBeToldToEnterOneTwoOrThree() {
     	 Assert.assertEquals(false,beneficiaryUser.isMakePurchasesFlag());
