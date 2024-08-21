@@ -19,7 +19,7 @@ public class OrderSteps {
 	@When("the admin views all orders")
 	public void theAdminViewsAllOrders() {
 		 order.setViewOrdersFlag(true);
-       Order. viewCart();
+        Order. viewCart();
 	}
 
 	@Then("the orders should be displayed")
@@ -34,7 +34,7 @@ public class OrderSteps {
 
 	@Given("the products are available in stock")
 	public void theProductsAreAvailableInStock() {
-	  
+		 order.isPromptForValidQuantity();
 	}
 
 	@When("the customer creates a new order")
@@ -76,7 +76,7 @@ public class OrderSteps {
 
 	@Then("the order status should be updated")
 	public void theOrderStatusShouldBeUpdated() {
-	       
+		
 
 	}
 
