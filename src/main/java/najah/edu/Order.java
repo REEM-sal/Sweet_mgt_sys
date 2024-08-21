@@ -501,7 +501,7 @@ public class Order {
     }
     return false;
 }
-public static boolean createOrder(String customerId, String customerName, int productId, int quantity) {
+public static boolean createOrder(customerId, String customerName, int productId, int quantity) {
     try (BufferedReader contentReader = new BufferedReader(new FileReader(CONTENT_FILE_PATH))) {
         String line;
         boolean productFound = false;
