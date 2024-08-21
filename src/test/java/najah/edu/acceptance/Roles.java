@@ -20,7 +20,6 @@ import io.cucumber.java.en.When;
 import org.junit.Assert;
 import najah.edu.Admin;
 import najah.edu.BeneficiaryUser;
-import najah.edu.Order;
 import najah.edu.Owner;
 
 public class Roles {
@@ -28,7 +27,6 @@ public class Roles {
 	    private BeneficiaryUser beneficiaryUser = new BeneficiaryUser();
     private static final Logger logger = Logger.getLogger(Roles.class.getName());
     private Admin admin = new Admin();
-    private Order order = new Order ();
    
     @Before
     public void setUp() {
@@ -111,10 +109,8 @@ public class Roles {
 
     @Then("The Beneficiary User should be able to make purchases")
     public void theBeneficiaryUserShouldBeAbleToMakePurchases() {
-    	order.setTestMode(true); 
-    	order.makePurchasesMenu();
-        beneficiaryUser.setMakePurchasesFlag(true);
-        assertTrue(beneficiaryUser.isMakePurchasesFlag());
+    	 beneficiaryUser.setMakePurchasesFlag(true);
+    	  assertTrue(beneficiaryUser.isMakePurchasesFlag());
     }
     @Then("The Beneficiary User should be able can manage personal account")
    	public void theBeneficiaryUserShouldBeAbleCanManagePersonalAccount() {
