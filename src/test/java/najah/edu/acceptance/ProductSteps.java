@@ -17,32 +17,27 @@ public class ProductSteps {
 
     @Given("the productId is {string}")
     public void theProductIdIs(String productId) {
-        // Set the product ID in context if needed
-        // This is just a placeholder since context management is not shown
+       productManager.getProductId();
     }
 
     @Given("the productName is {string}")
     public void theProductNameIs(String productName) {
-        // Set the product name in context if needed
-        // This is just a placeholder since context management is not shown
+          	productManager.getProductName();
     }
 
     @Given("the Description is {string}")
     public void theDescriptionIs(String description) {
-        // Set the product description in context if needed
-        // This is just a placeholder since context management is not shown
+      productManager.getDescription();
     }
 
     @Given("the price is {string}")
     public void thePriceIs(String price) {
-        // Set the product price in context if needed
-        // This is just a placeholder since context management is not shown
+     	productManager.getPrice();
     }
 
     @Given("the availability is {string}")
     public void theAvailabilityIs(String availability) {
-        // Set the product availability in context if needed
-        // This is just a placeholder since context management is not shown
+      productManager.getAvailability();
     }
 
     @Then("owner can add product")
