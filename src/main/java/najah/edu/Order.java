@@ -415,6 +415,7 @@ public class Order {
         }
         
     }
+    private boolean testMode = false;
     public void Admin_menu(String adminName) {
         System.out.println("Returning to admin menu for: " + adminName);
     }
@@ -422,39 +423,47 @@ public class Order {
     public String getAdminName() {
         return "Admin"; 
         }
-
-    public void makePurchasesMenu() {
-    	 int choice;
-         Scanner scanner = new Scanner(System.in);
-         logger.log(Level.INFO, "\n\u001B[34m" + "----- Make Purchases -----" + "\n" +
-                 "|     1. add Product         |\n" +
-                 "|     2. view Cart          |\n" +
-                 "|     3. cancel Order         |\n" +
-                 "|     4. Back                 |\n" +
-                 "-----------------------------\n");
-         logger.log(Level.INFO, "Enter your choice: " + "\u001B[0m");
-         choice = scanner.nextInt();
-
-            switch (choice) {
-                case 1:
-                	addProductToCart();
-                    break;
-                case 2:
-                	viewCart();
-                    break;
-                case 3:
-                	cancelOrder1();
-                    break;
-    
-                   
-                case 4:
-                    logger.info("Exiting Purchase Menu...");
-                    break;
-                default:
-                    logger.warning("Invalid choice! Please enter a valid choice.");
-                    makePurchasesMenu();
-            }
+    public void setTestMode(boolean testMode) {
+        this.testMode = testMode;
     }
+    public void makePurchasesMenu() {
+        if (testMode) {
+        	 addProductToOrder();
+            viewOrders();
+            cancelOrder1();
+            return; 
+            }
+
+        int choice;
+        Scanner scanner = new Scanner(System.in);
+        logger.log(Level.INFO, "\n\u001B[34m" + "----- Make Purchases -----" + "\n" +
+                "|     1. Add Product        |\n" +
+                "|     2. View Cart          |\n" +
+                "|     3. Cancel Order       |\n" +
+                "|     4. Back               |\n" +
+                "-----------------------------\n");
+        logger.log(Level.INFO, "Enter your choice: " + "\u001B[0m");
+        choice = scanner.nextInt();
+
+        switch (choice) {
+            case 1:
+                addProductToCart();
+                break;
+            case 2:
+                viewCart();
+                break;
+            case 3:
+                cancelOrder1();
+                break;
+            case 4:
+                logger.info("Exiting Purchase Menu...");
+                break;
+            default:
+                logger.warning("Invalid choice! Please enter a valid choice.");
+                makePurchasesMenu();
+        }
+    }
+
     public static void addProductToCart() {
         Scanner scanner = new Scanner(System.in);
 
@@ -504,7 +513,6 @@ public class Order {
         double newTotalPrice = price * quantity;
         double totalPrice = 0.0;
 
-        // Read the current total price from the cart file if it exists
         try {
             BufferedReader cartReader = new BufferedReader(new FileReader(CART_FILE_PATH));
             String line;
