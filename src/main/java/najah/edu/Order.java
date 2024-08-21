@@ -29,9 +29,6 @@ public class Order {
     private Scanner scanner = new Scanner(System.in);
     private static final String CART_FILE_PATH = "src/main/resources/myData/cart.txt";
     private Map<Integer, Integer> cart = new HashMap<>(); 
-     private boolean testMode = false;
-        private int quantity;
-
  private Product productManager;
    
     private int productId;
@@ -350,12 +347,6 @@ public class Order {
     }
 
     public void makePurchasesMenu() {
-        if (testMode) {
-        	 cancelOrder1();
-            viewOrders();
-           
-            return; 
-            }
     	 int choice;
          Scanner scanner = new Scanner(System.in);
          logger.log(Level.INFO, "\n\u001B[34m" + "----- Make Purchases -----" + "\n" +
@@ -386,16 +377,7 @@ public class Order {
             }
     }
 
- public static void cancelOrder1() {
-        try {
-            BufferedWriter cartWriter = new BufferedWriter(new FileWriter(CART_FILE_PATH, false));
-            cartWriter.write(""); // Write an empty string to clear the file
-            cartWriter.close();
-            System.out.println("All orders have been cancelled and the cart is now empty.");
-        } catch (IOException e) {
-            logger.log(Level.SEVERE, "Error clearing cart file", e);
-        }
-    }
+
    public static void addToCart(int productId, String name, int quantity, double price) {
     double newTotalPrice = price * quantity;
     double totalPrice = 0.0;
@@ -501,7 +483,7 @@ public class Order {
     }
     return false;
 }
-public static boolean createOrder(customerId, String customerName, int productId, int quantity) {
+public static boolean createOrder(String customerId, String customerName, int productId, int quantity) {
     try (BufferedReader contentReader = new BufferedReader(new FileReader(CONTENT_FILE_PATH))) {
         String line;
         boolean productFound = false;
@@ -602,11 +584,6 @@ private static void saveOrder(String customerId, String customerName, int produc
         return true; 
     }
 
-
-    public boolean isPromptForValidQuantity() {
-        // Logic to prompt for a valid quantity
-        return !editProductQuantity(quantity);
-    }
 
     public boolean isValidOption(int option1, int option2, int option3, int option4) {
         List<Integer> validOptions = Arrays.asList(option1, option2, option3, option4);
