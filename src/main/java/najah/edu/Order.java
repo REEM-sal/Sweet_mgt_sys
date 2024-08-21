@@ -206,7 +206,7 @@ public class Order {
         return ifOrderExist;
     }
 
-    private void setIfOrderExist(boolean flag) {
+    public void setIfOrderExist(boolean flag) {
         this.ifOrderExist = flag;
     }
 
