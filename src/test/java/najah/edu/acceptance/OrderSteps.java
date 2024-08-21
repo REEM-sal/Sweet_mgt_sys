@@ -19,7 +19,7 @@ public class OrderSteps {
 	@When("the admin views all orders")
 	public void theAdminViewsAllOrders() {
 		 order.setViewOrdersFlag(true);
-        order.viewOrders();
+       Order. viewCart();
 	}
 
 	@Then("the orders should be displayed")
