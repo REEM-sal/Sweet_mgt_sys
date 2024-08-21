@@ -360,13 +360,11 @@ public class Order {
 
             switch (choice) {
                 case 1:
-                	addProductToCart();
                     break;
                 case 2:
                 	viewCart();
                     break;
                 case 3:
-                	cancelOrder1();
                     break;
     
                    
@@ -378,46 +376,7 @@ public class Order {
                     makePurchasesMenu();
             }
     }
-  public static void addProductToCart() {
-    Scanner scanner = new Scanner(System.in);
-    System.out.print("Enter the product ID: ");
-    int productId = scanner.nextInt();
-    System.out.print("Enter the quantity: ");
-    int quantity = scanner.nextInt();
-    
-    try (BufferedReader contentReader = new BufferedReader(new FileReader(CONTENT_FILE_PATH))) {
-        String line;
-        boolean productFound = false;
-        
-        String headerLine = contentReader.readLine(); 
-        
-        while ((line = contentReader.readLine()) != null) {
-            String[] productDetails = line.split(",");
-            int id = Integer.parseInt(productDetails[0]);
-            String name = productDetails[1];
-            String description = productDetails[2];
-            double price = Double.parseDouble(productDetails[3]);
-            String weight = productDetails[4];
-            String availability = productDetails[5];
-            int availableQuantity = Integer.parseInt(productDetails[6]);
-            if (id == productId) {
-                productFound = true;
-                if (availability.equals("In Stock") && availableQuantity >= quantity) {
-                    addToCart(productId, name, quantity, price);
-                    System.out.println("Product added to cart successfully.");
-                } else {
-                    System.out.println("Product is not available in the required quantity.");
-                }
-                break;
-            }
-        }
-        if (!productFound) {
-            System.out.println("Product not found.");
-        }
-    } catch (IOException e) {
-        logger.log(Level.SEVERE, "Error reading content file", e);
-    }
-}
+
 
    public static void addToCart(int productId, String name, int quantity, double price) {
     double newTotalPrice = price * quantity;
@@ -469,14 +428,7 @@ public class Order {
         logger.log(Level.SEVERE, "Error reading cart file", e);
     }
 }
-   public static void cancelOrder1() {
-    try (BufferedWriter cartWriter = new BufferedWriter(new FileWriter(CART_FILE_PATH, false))) {
-        cartWriter.write(""); 
-        System.out.println("All orders have been cancelled and the cart is now empty.");
-    } catch (IOException e) {
-        logger.log(Level.SEVERE, "Error clearing cart file", e);
-    }
-}
+
 
 
     public void addProductToOrder() {
