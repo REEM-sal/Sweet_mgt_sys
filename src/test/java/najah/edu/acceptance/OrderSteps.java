@@ -39,7 +39,7 @@ public class OrderSteps {
 
 	@When("the customer creates a new order")
 	public void theCustomerCreatesANewOrder() {
-	  Assert.assertTrue(Order.createOrder("customerId123", "customerName", 1, 2));
+	  Assert.assertTrue(Order.createOrder(123, "customerName", 1, 2));
 	}
 
 	@Then("the order should be saved with status {string}")
