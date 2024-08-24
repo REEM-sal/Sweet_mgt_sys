@@ -12,6 +12,10 @@ import java.util.Scanner;
 import java.util.logging.Level;
 public class Admin {
 		    private static final String INVALID_CHOICE_MESSAGE = "\u001B[31mInvalid choice! Please enter a valid choice.";
+
+	 
+	    private static final String BENEFICIARY_FILE_PATH = "src/main/resources/myData/BeneficiaryData.txt";
+	    private static final String CONTENT_FILE_PATH = "src/main/resources/myData/content.txt";
 	    private static final String REPORT_FILE_PATH = "src/main/resources/myData/financial_report.html";
 	    private static final String ENTER_YOUR_CHOICE = "Enter your choice: ";
 	    public static final String BOLD = "\u001B[1m";
@@ -199,18 +203,133 @@ public class Admin {
 
    
     public void whatAdminEnter(String AdminChoice){
-      
+        if (AdminChoice.equals("1")){
+        	setUserAccountsFlag(true);
+        } else if (AdminChoice.equals("2")) {
+        	setfeedback(true);
+        } else if (AdminChoice.equals("3")) {
+        	setRecipes(true);
+        }
+        else if (AdminChoice.equals("4")) {
+        	setPosts(true);
+        }
+        
+        else {
+        	setUserAccountsFlag(false);
+        	setRecipes(false);
+        	setfeedback(false);
+        	setPosts(false);
+        	
+        }
     }
    
     public void generateFinancialReports() {
-     
+        logger.log(Level.INFO, "Generating financial reports...");
+
+        double totalRevenue = 0.0;
+        double totalExpenses = 0.0;
+        int totalItems = 0;
+
+        try (BufferedReader reader = new BufferedReader(new FileReader(CONTENT_FILE_PATH))) {
+            String line;
+            boolean isHeader = true; // Skip header line
+
+            while ((line = reader.readLine()) != null) {
+                if (isHeader) {
+                    isHeader = false;
+                    continue; // Skip header line
+                }
+
+                String[] parts = line.split(",");
+                if (parts.length == 7) { // Ensure there are 7 columns
+                    try {
+                        // Read quantity and price
+                        double quantity = Double.parseDouble(parts[6].trim());
+                        double price = Double.parseDouble(parts[3].trim());
+
+                        // Calculate revenue
+                        totalRevenue += quantity * price;
+                        totalItems += (int) quantity;
+                    } catch (NumberFormatException e) {
+                        logger.log(Level.WARNING, "Error parsing line: " + line, e);
+                    }
+                } else {
+                    logger.log(Level.WARNING, "Skipping invalid product line: " + line);
+                }
+            }
+        } catch (IOException e) {
+            logger.log(Level.SEVERE, "Error reading content file", e);
+        }
+
+        // Calculate expenses based on total items
+        totalExpenses = calculateExpenses(totalItems); 
+        double profit = totalRevenue - totalExpenses;
+
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(REPORT_FILE_PATH))) {
+            writer.write("<!DOCTYPE html>");
+            writer.write("<html>");
+            writer.write("<head>");
+            writer.write("<title>Financial Report</title>");
+            writer.write("<style>");
+            writer.write("body { font-family: Arial, sans-serif; margin: 20px; }");
+            writer.write("h1 { color: #2C3E50; }");
+            writer.write("table { width: 100%; border-collapse: collapse; margin-top: 20px; }");
+            writer.write("th, td { border: 1px solid #BDC3C7; padding: 10px; text-align: left; }");
+            writer.write("th { background-color: #3498DB; color: white; }");
+            writer.write("tr:nth-child(even) { background-color: #ECF0F1; }");
+            writer.write("tr:hover { background-color: #BDC3C7; }");
+            writer.write("</style>");
+            writer.write("</head>");
+            writer.write("<body>");
+            writer.write("<h1>Financial Report</h1>");
+            writer.write("<p>Date: " + java.time.LocalDate.now() + "</p>");
+            writer.write("<table>");
+            writer.write("<tr><th>Total Items</th><td>" + totalItems + "</td></tr>");
+            writer.write("<tr><th>Total Revenue</th><td>$" + formatDouble(totalRevenue) + "</td></tr>");
+            writer.write("<tr><th>Total Expenses</th><td>$" + formatDouble(totalExpenses) + "</td></tr>");
+            writer.write("<tr><th>Profit</th><td>$" + formatDouble(profit) + "</td></tr>");
+            writer.write("</table>");
+            writer.write("</body>");
+            writer.write("</html>");
+        } catch (IOException e) {
+            logger.log(Level.SEVERE, "Error writing financial report", e);
+        }
+        
       
     }
 
-  
+    private double calculateExpenses(int totalItems) {
+        return totalItems * 1.00; // Example expense rate per item
+    }
+
+    private String formatDouble(double value) {
+        DecimalFormat df = new DecimalFormat("#.##");
+        return df.format(value);
+    }
+
+
+
+
 
 
     public void identifyBestSellingProducts() {
-    	
+    	String salesFilePath = "src/main/resources/myData/sales.txt";
+
+
+
+        try (BufferedReader reader = new BufferedReader(new FileReader(salesFilePath))) {
+           
+        } catch (IOException e) {
+            logger.log(Level.SEVERE, "Error reading sales file: " + e.getMessage());
+            return;
+        }
+
+        if (bestSellingProduct != null) {
+            logger.log(Level.INFO, "Best Selling Product: " + bestSellingProduct + " with " + maxSales + " units sold.");
+        } else {
+            logger.log(Level.INFO, "No sales data available.");
+        }
+        Admin_menu(getAdminName());
+    }
 
 }
