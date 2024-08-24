@@ -332,25 +332,7 @@ public class Registration {
         }
     }
 
-    public void AdminWrongPass(String email, String password) {
-        try (RandomAccessFile ref = new RandomAccessFile("src/main/resources/myData/AdminData.txt", "rw")) {
-            String s;
-            while ((s = ref.readLine()) != null) {
-                String[] loginCustomer = s.split(",");
-                TrueEmail = loginCustomer[1];
-                TruePassword = loginCustomer[2];
-
-                if (TrueEmail.equals(email) && !TruePassword.equals(password)) {
-                    logger.log(Level.WARNING,"Admin password is Wrong! Try Again ");
-                    whoIsLogin();
-                    return;
-                }
-            }
-
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-    }
+   
 
     public void OwnerIsLogin(String enterEmail, String enterPassword) {
 
@@ -399,26 +381,7 @@ public class Registration {
             throw new RuntimeException(e);
         }
     }
-    private void OwnerWrongPassword(String enterEmail, String enterPassword) {
-        try (RandomAccessFile ref = new RandomAccessFile("src/main/resources/myData/owner.txt", "rw")) {
-            String s;
-            while ((s = ref.readLine()) != null) {
-                String[] loginCustomer = s.split(",");
-                TrueEmail = loginCustomer[1];
-                TruePassword = loginCustomer[2];
-
-                if (TrueEmail.equals(enterEmail) && !TruePassword.equals(enterPassword)) {
-                    logger.log(Level.WARNING,"Owner password is Wrong! Try Again ");
-                    whoIsLogin();
-                    return;
-                }
-            }
-
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-
-    }
+   
     public void whoIsLogin(){
         if(getTheUser() == 1){
             String enterEmail = enterEmail();
