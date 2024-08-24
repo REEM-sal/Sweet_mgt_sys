@@ -157,17 +157,17 @@ public class BeneficiaryUser {
    public void userAccountMenu(){
        if (browseProductsFlag){
          
-           back();
+         
        }
        else if (makePurchasesFlag) {
            
            order.makePurchasesMenu();
-           back();
+   
        }
     
        else {
            logger.log(Level.WARNING,BOLD+"\u001B[31mInvalid choice! Please enter a valid choice."+RESET_COLOR);
-           back();
+  
        }
    }
 
