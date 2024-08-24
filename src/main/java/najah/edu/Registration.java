@@ -481,7 +481,7 @@ public class Registration {
             String dD =getName()+"," +getEmail() + "," + getPassword() + "," + getComPassword() + "," + getId()+","+getPhone()+","+"\n";
             storeDataToFile(dD);
             logger.log(Level.INFO,"The registration process was completed successfully ");
-            loginMenu();
+          
 
         }
     }
@@ -497,7 +497,7 @@ public class Registration {
             storeDataToFile(dD);
             logger.log(Level.INFO,"The registration process was completed successfully\n");
 
-            loginMenu();
+         
 
         }
         else {
@@ -506,33 +506,5 @@ public class Registration {
     }
 
 
-    public void loginMenu (){
-        int  choice1 ;
-        Scanner scanner1 = new Scanner(System.in);
-        logger.log(Level.INFO, "\n\u001B[36m------ Welcome to login Page ------"+"\n"+
-                "|                                       |\n" +
-                "|          1. Admin                     |\n"+
-                "|          2. Beneficiary User          |\n"+
-                "|          3. Owner                     |\n"+
-                "|                                       |\n"+
-                "-----------------------------------------\n");
-        logger.log(Level.INFO,"Enter your choice: "+"\u001B[0m");
-        choice1 = scanner1.nextInt();
-        if (choice1 == 1){
-            setTheUser(1);
-            whoIsLogin();
-        }
-        else if (choice1 ==2){
-            setTheUser(2);
-            whoIsLogin();
-        }
-        else if (choice1==3) {
-            setTheUser(3);
-            whoIsLogin();
-
-        }
-        else{
-            logger.log(Level.WARNING,"Invalid choice! Please enter a valid choice.");
-        }
-    }
+   
 }
