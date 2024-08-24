@@ -49,10 +49,10 @@ public class Order {
     private float orderPrice;
     private boolean PendingOrderflag;
     private boolean ifOrderExist;
-    private boolean ifOrderAdded; // Flag to check if order was added
-    private boolean ifOrderUpdated; // Flag to check if order was updated
-    private boolean ifOrderDeleted; // Flag to check if order was deleted
-    private boolean ifProductAdded; // Flag to check if product was added to order
+    private boolean ifOrderAdded; 
+    private boolean ifOrderUpdated; 
+    private boolean ifOrderDeleted; 
+    private boolean ifProductAdded; 
     private Order order;
     private boolean viewOrdersFlag;
     private String gmailIs;
@@ -124,11 +124,8 @@ public class Order {
             throw new RuntimeException(e);
         }
     }
-   
-
-
-
-    private void printDeliveredOrder(String[] orderDetails) {
+  
+    public void printDeliveredOrder(String[] orderDetails) {
         logger.info("\u001B[34m Order ID: \u001B[35m " + orderDetails[0] + " |" +
                 "\u001B[34m Order Date: \u001B[35m " + orderDetails[1] + " |" +
                 "\u001B[34m Delivery Date: \u001B[35m " + orderDetails[2] + " |" +
@@ -152,7 +149,6 @@ public class Order {
                 String[] orderDetails = line.split(",");
                 System.out.println("Line read: " + line);
                 System.out.println("Order details length: " + orderDetails.length);
-                // Ensure there are enough elements in the array before accessing them
                 if (orderDetails.length > 5) {
                     if (orderDetails[5].equals(status) && orderDetails[1].equals(idCustomer)) {
                         System.out.println("Order ID: " + orderDetails[0] +
@@ -174,7 +170,6 @@ public class Order {
             logger.log(Level.SEVERE, "Error reading orders file", e);
         }
     }
-   
 
     
     public void setIdCustomer(String idCustomer) {
