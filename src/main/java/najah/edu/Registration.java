@@ -172,16 +172,7 @@ public class Registration {
 
         return adminloged;
     }
-   
-
-    public Registration() {
-        theUser = 0;
-        adminloged = false;
-        customerLogin = false;
-        OwnerLogin = false;
-        customerRegistrationCompleted = false;
-        ifEmailFound = false;
-    }
+ 
 
    public void storeDataToFile(String dataToWrite) {
     try (RandomAccessFile file = new RandomAccessFile("src/main/resources/myData/BeneficiaryData.txt", "rw")) {
@@ -432,38 +423,7 @@ public class Registration {
 
     }
     public void signupMenu(){
-       Scanner scanner = new Scanner(System.in);
-        Scanner scanner1 = new Scanner(System.in);
-        logger.log(Level.INFO,"\u001B[35m"+"----- Welcome to signup Page -----");
-        logger.log(Level.INFO,"Enter your name:");
-        setName(scanner.next());
-        logger.log(Level.INFO,"Enter your Email:");
-        setEmail(scanner.next());
-        logger.log(Level.INFO,"Enter your ID:");
-        setId(scanner.nextInt());
-        logger.log(Level.INFO,"Enter your PhoneNumber:");
-        setPhone(scanner.nextInt());
-        logger.log(Level.INFO,"Enter your Address e.g(Nablus/Palestine Street/Al Quds Bakery)");
-        setAddress(scanner1.nextLine());
-        logger.log(Level.INFO,"Enter your Password:");
-        setPassword(scanner.next());
-        logger.log(Level.INFO,"ConFirmed your Password:");
-        setComPassword(scanner.next());
-        searchIfEmailIsAlreadyExist(getEmail());
-        if(isIfEmailFound()){
-            logger.log(Level.WARNING,"This email is already exist");
-            returnEnterEmail();
-
-        }
-        else if(!truepass(this,getPassword(),getComPassword())){
-            returnEnterPass(this);
-        }
-        else {
-            String dD =getName()+"," +getEmail() + "," + getPassword() + "," + getAddress() + "," + getId()+","+getPhone()+","+"\n";
-            storeDataToFile(dD);
-            logger.log(Level.INFO, "The registration process was completed successfully");
-
-        }
+      
     }
 
     public void returnEnterEmail() {
