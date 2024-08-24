@@ -154,51 +154,6 @@ public class BeneficiaryUser {
    }
 
 
-
-   public void Customer_menu (String CostName) {
-       setUserName(CostName);
-       setBrowseProductsFlag(false);
-       setMakePurchasesFlag(false);
-       setSettingFlag(false);
-       int choice;
-       Scanner scanner = new Scanner(System.in);
-       logger.log(Level.INFO, "\n\u001B[32m" + " -------  Welcome " +  CostName  + " ---------" + "\n" +
-               "|                                  |\n" +
-               "|      1. Browse products           |\n" +
-               "|      2. Make purchases            |\n" +
-               "|      3. Manage personal account   |\n" +
-               "|      4. Provide feedback          |\n" +  // Added feedback option
-               "|                                  |\n" +
-               "-----------------------------------\n");
-    logger.log(Level.INFO, ENTER_YOUR_CHOICE + RESET_COLOR);
-
-
-       choice = scanner.nextInt();
-       if (choice == 1) {
-        
-         
-       } else if (choice == 2) {
-          
-
-       } else if (choice == 3) {
-    	  
-
-       }
-       else if (choice == 4) {
-    	 
-
-       }
-      
-       else {
-    	    logger.log(Level.WARNING,BOLD + "\u001B[31mInvalid choice! Please enter one, two, or three.\u001B[0m");
-    	}
-   }
-  
- 
-
-
-  
-
    public void userAccountMenu(){
        if (browseProductsFlag){
          
@@ -209,28 +164,12 @@ public class BeneficiaryUser {
            order.makePurchasesMenu();
            back();
        }
-       
-       
-     
+    
        else {
            logger.log(Level.WARNING,BOLD+"\u001B[31mInvalid choice! Please enter a valid choice."+RESET_COLOR);
            back();
        }
    }
-   public void back() {
-       logger.log(Level.INFO, """
-
-               1) back\s
-               2) Exit""");
-       int choice;
-       Scanner scanner = new Scanner(System.in);
-       choice = scanner.nextInt();
-       if (choice == 1)
-           Customer_menu(getUserName());
-       System.exit(0);
-   }
-
-   
 
    private List<String> readProductsFromFile() {
        List<String> products = new ArrayList<>();
@@ -258,13 +197,9 @@ public void addNewCustomer(){
 
 
 
-
- 
-
 public void setTheCustomerIs(int numberOfLineCustomer){
        setNumberOfLine(numberOfLineCustomer);
 }
-
   
 
 public void deleteLine() {
@@ -274,21 +209,6 @@ public void deleteLine() {
        long currentPos = raf.getFilePointer();
        int currentLine = -1;
 
-       while (currentLine < getNumberOfLine()){
-           start = currentPos;
-           raf.readLine();
-           currentPos = raf.getFilePointer();
-           currentLine++;
-       }
-
-       long end = raf.length();
-       byte[] remainingBytes = new byte[(int) (end - currentPos)];
-       raf.read(remainingBytes);
-
-       raf.seek(start);
-       raf.write(remainingBytes);
-       raf.setLength(start + remainingBytes.length);
-       raf.close();
 
    } catch (IOException e) {
        throw new RuntimeException(e);
@@ -318,25 +238,12 @@ public void deleteLine() {
    }
 
    private List<String> searchProductsByCriteria(String criteria) {
-       List<String> products = readProductsFromFile();
-       List<String> matchedProducts = new ArrayList<>();
-       for (String product : products) {
-           if (product.toLowerCase().contains(criteria.toLowerCase())) {
-               matchedProducts.add(product);
+      
            }
-       }
-       return matchedProducts;
-   }
-
+     
   
    
    private int parseInteger(String value) {
-	    try {
-	        return Integer.parseInt(value);
-	    } catch (NumberFormatException e) {
-	        logger.log(Level.WARNING, "Invalid number format: " + value, e);
-	        return -1; 
-	    }
-	}
+	   
 
 }
