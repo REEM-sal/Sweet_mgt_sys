@@ -42,6 +42,7 @@ public class Roles {
     @When("The admin enters {string}")
     public void theAdminEnters(String string) {
     	 admin.whatAdminEnter(string);
+	     admin.Admin_menu(string);
     }
 
     @Then("The admin should be able to view and generate financial reports")
