@@ -131,7 +131,7 @@ public class Owner {
 	                        case 4 -> {
 	                            manageOrdersFlag = true;  
 	                            Order order = new Order(); 
-	                            order.manageOrders();     	                        }
+	                              	                        }
 	                        case 5 -> {
 	                            dynamicDiscountFlag = true;
 	                            implementDynamicDiscount();
