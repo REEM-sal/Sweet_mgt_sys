@@ -308,20 +308,37 @@ public class Admin {
     }
 
 
-
-
-
-
     public void identifyBestSellingProducts() {
     	String salesFilePath = "src/main/resources/myData/sales.txt";
 
-
+        Map<String, Integer> productSalesCount = new HashMap<>();
 
         try (BufferedReader reader = new BufferedReader(new FileReader(salesFilePath))) {
-           
+            String line;
+            while ((line = reader.readLine()) != null) {
+                if (!line.trim().isEmpty()) { 	                    String[] parts = line.split(", ");
+                    if (parts.length >= 4) { 	                        String productName = parts[1];
+                        int quantity = Integer.parseInt(parts[2]);
+
+                        productSalesCount.merge(productName, quantity, Integer::sum);
+                    } else {
+                        logger.log(Level.WARNING, "Skipping invalid sales line: " + line);
+                    }
+                }
+            }
         } catch (IOException e) {
             logger.log(Level.SEVERE, "Error reading sales file: " + e.getMessage());
             return;
+        }
+
+        String bestSellingProduct = null;
+        int maxSales = 0;
+
+        for (Map.Entry<String, Integer> entry : productSalesCount.entrySet()) {
+            if (entry.getValue() > maxSales) {
+                maxSales = entry.getValue();
+                bestSellingProduct = entry.getKey();
+            }
         }
 
         if (bestSellingProduct != null) {
