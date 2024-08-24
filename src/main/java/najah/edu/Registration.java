@@ -319,10 +319,7 @@ public class Registration {
                 TrueEmail = loginCustomer[1];
                 TruePassword = loginCustomer[2];
 
-                if (TrueEmail.equals(email) && !TruePassword.equals(password)) {
-                    AdminWrongPass(email,password);
-                    return;
-                }
+               
             }
             logger.log(Level.WARNING,"Admin Email is Wrong! Try Again");
             whoIsLogin();
@@ -369,10 +366,7 @@ public class Registration {
                 TrueEmail = loginCustomer[1];
                 TruePassword = loginCustomer[2];
 
-                if (TrueEmail.equals(enterEmail) && !TruePassword.equals(enterPassword)) {
-                	OwnerWrongPassword(enterEmail,enterPassword);
-                    return;
-                }
+               
             }
             logger.log(Level.WARNING,"Owner Email is Wrong! Try Again");
             whoIsLogin();
