@@ -13,9 +13,7 @@ import java.util.logging.Level;
 public class Admin {
 		    private static final String INVALID_CHOICE_MESSAGE = "\u001B[31mInvalid choice! Please enter a valid choice.";
 
-	    private static final String A_FILE_PATH = "src/main/resources/myData/Admin.txt";
-	 private static final String RECIPES_FILE_PATH = "src/main/resources/myData/recipes.txt";
-	    private static final String POSTS_FILE_PATH = "src/main/resources/myData/posts.txt";
+	 
 	    private static final String BENEFICIARY_FILE_PATH = "src/main/resources/myData/BeneficiaryData.txt";
 	    private static final String CONTENT_FILE_PATH = "src/main/resources/myData/content.txt";
 	    private static final String REPORT_FILE_PATH = "src/main/resources/myData/financial_report.html";
