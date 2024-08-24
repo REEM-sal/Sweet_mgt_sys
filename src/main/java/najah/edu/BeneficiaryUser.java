@@ -242,8 +242,11 @@ public void deleteLine() {
            }
      
   
-   
-   private int parseInteger(String value) {
-	   
-
-}
+    private int parseInteger(String value) {
+	    try {
+	        return Integer.parseInt(value);
+	    } catch (NumberFormatException e) {
+	        logger.log(Level.WARNING, "Invalid number format: " + value, e);
+	        return -1; // or any default value that makes sense for your application
+	    }
+	}
