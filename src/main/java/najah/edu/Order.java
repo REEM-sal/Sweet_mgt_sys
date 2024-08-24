@@ -217,7 +217,32 @@ public class Order {
     }
 
    
- 
+    public void manageOrders() {
+        int choice;
+        Scanner scanner = new Scanner(System.in);
+        logger.log(Level.INFO, "\n\u001B[34m" + "----- Manage Orders -----" + "\n" +
+                "|     1. View Orders          |\n" +
+                "|     2. Update Order         |\n" +
+                "|     3. Delete Order         |\n" +
+                "|     4. Back                 |\n" +
+                "-----------------------------\n");
+        logger.log(Level.INFO, "Enter your choice: " + "\u001B[0m");
+        choice = scanner.nextInt();
+
+        switch (choice) {
+            case 1 -> viewOrders();
+            case 2 ->
+            case 3 ->
+            case 4 -> Admin_menu(getAdminName());
+           
+            default -> {
+                logger.log(Level.WARNING, "\u001B[1m" + "\u001B[31mInvalid choice! Please enter a valid choice." + "\u001B[0m");
+                manageOrders();
+            }
+        }
+    }
+
+   
 
     public void Admin_menu(String adminName) {
         System.out.println("Returning to admin menu for: " + adminName);
