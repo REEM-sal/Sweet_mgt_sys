@@ -381,7 +381,7 @@ public class Registration {
             String enterPassword = enterPass();
             customerIslLogin(enterEmail,enterPassword);
             if(customerLogin==true);
-            customer.Customer_menu(customerName);
+          
             customer.setTheCustomerIs(getNumberOfLine());
 
         }   else if (getTheUser() == 3) {
