@@ -125,12 +125,7 @@ public class Order {
         }
     }
   
-    public void printDeliveredOrder(String[] orderDetails) {
-        logger.info("\u001B[34m Order ID: \u001B[35m " + orderDetails[0] + " |" +
-                "\u001B[34m Order Date: \u001B[35m " + orderDetails[1] + " |" +
-                "\u001B[34m Delivery Date: \u001B[35m " + orderDetails[2] + " |" +
-                "\u001B[34m Status: \u001B[35m " + orderDetails[3] + " |");
-    }
+   
 
     public boolean isIfCustomerShowPendingOrder() {
         return PendingOrderflag;
@@ -260,33 +255,6 @@ public class Order {
     }
 
 
-   public static void addToCart(int productId, String name, int quantity, double price) {
-    double newTotalPrice = price * quantity;
-    double totalPrice = 0.0;
-
-    try (BufferedReader cartReader = new BufferedReader(new FileReader(CART_FILE_PATH))) {
-        String line;
-        while ((line = cartReader.readLine()) != null) {
-            String[] cartDetails = line.split(",");
-            if (cartDetails.length == 4) {
-                totalPrice += Double.parseDouble(cartDetails[3]);
-            }
-        }
-    } catch (FileNotFoundException e) {
-        
-    } catch (IOException e) {
-        logger.log(Level.SEVERE, "Error reading cart file", e);
-    }
-
-    totalPrice += newTotalPrice;
-
-    try (BufferedWriter cartWriter = new BufferedWriter(new FileWriter(CART_FILE_PATH, true))) {
-        cartWriter.write(productId + "," + name + "," + quantity + "," + newTotalPrice + "\n");
-        cartWriter.write("Total Price," + totalPrice + "\n");
-    } catch (IOException e) {
-        logger.log(Level.SEVERE, "Error writing to cart file", e);
-    }
-}
   public static void viewCart() {
     try (BufferedReader cartReader = new BufferedReader(new FileReader(CART_FILE_PATH))) {
         String line;
@@ -427,7 +395,6 @@ private static void saveOrder(String customerId, String customerName, int produc
 }
 
    private void updateCartFile() throws IOException {
-    // Update the cart file with the current cart data
     try (BufferedWriter cartWriter = new BufferedWriter(new FileWriter(CART_FILE_PATH))) {
         for (Map.Entry<Integer, Integer> entry : cart.entrySet()) {
             cartWriter.write(entry.getKey() + "," + entry.getValue() + "\n");
