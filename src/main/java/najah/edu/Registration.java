@@ -60,7 +60,21 @@ public class Registration {
     private boolean OwnerLogin;
     private boolean customerLoged;
 
-   
+    public boolean isCustomerLoged() {
+        return customerLoged;
+    }
+
+    public void setCustomerLoged(boolean customerLoged) {
+        this.customerLoged = customerLoged;
+    }
+
+    public boolean isOwnerLoged() {
+        return OwnerLoged;
+    }
+
+    public void setOwnerLoged(boolean OwnerLoged) {
+        this.OwnerLoged = OwnerLoged;
+    }
 
     private boolean OwnerLoged;
 
@@ -105,12 +119,18 @@ public class Registration {
         return theUser;
     }
 
-   
+    public void setTheUser(int theUser) {
+        this.theUser = theUser;
+    }
+
     public void setName(String name) {
         this.name = name;
     }
 
- 
+    public String getName() {
+        return name;
+    }
+
     public String getEmail() {
         return email;
     }
@@ -133,6 +153,10 @@ public class Registration {
 
     public void setComPassword(String comPassword) {
         this.comPassword = comPassword;
+    }
+
+    public int getId() {
+        return id;
     }
 
     public void setId(int id) {
