@@ -231,8 +231,7 @@ public class Order {
 
         switch (choice) {
             case 1 -> viewOrders();
-            case 2 ->
-            case 3 ->
+           
             case 4 -> Admin_menu(getAdminName());
            
             default -> {
