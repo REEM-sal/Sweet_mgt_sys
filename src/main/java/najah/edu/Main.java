@@ -28,9 +28,7 @@ public class Main {
         if (choice == 1) {
             ob.signupMenu();
 
-        } else if (choice == 2) {
-            ob.loginMenu();
-        } else if (choice == 3) {
+        }  else if (choice == 3) {
             System.exit(0);
         } else {
             logger.log(Level.WARNING,"\u001B[1m"+"\u001B[31mInvalid choice! Please enter a valid choice."+"\u001B[0m\n");
