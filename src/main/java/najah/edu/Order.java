@@ -188,24 +188,6 @@ public class Order {
    public void setIfOrderExist(boolean flag) {
         this.ifOrderExist = flag;
     }
-    public void searchAboutCustomer(String fileName, long orderId) {
-        try (RandomAccessFile ref = new RandomAccessFile("src/main/resources/myData/" + fileName, "rw")) {
-            String line;
-            while ((line = ref.readLine()) != null) {
-                String[] orderDetails = line.split(",");
-                if (Long.parseLong(orderDetails[0]) == orderId) {
-                    setIfOrderExist(true);
-                    setCustomerName(orderDetails[4]);
-                    setIdCustomer(orderDetails[5]);
-                    setOrderPrice(Float.parseFloat(orderDetails[6]));
-                    return;
-                }
-            }
-            setIfOrderExist(false);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-    }
 
     public void setStatusOrder(String newStatus) {
         this.status = newStatus;
