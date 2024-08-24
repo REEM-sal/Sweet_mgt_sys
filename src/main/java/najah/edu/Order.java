@@ -126,10 +126,6 @@ public class Order {
     }
   
     public void printDeliveredOrder(String[] orderDetails) {
-        logger.info("\u001B[34m Order ID: \u001B[35m " + orderDetails[0] + " |" +
-                "\u001B[34m Order Date: \u001B[35m " + orderDetails[1] + " |" +
-                "\u001B[34m Delivery Date: \u001B[35m " + orderDetails[2] + " |" +
-                "\u001B[34m Status: \u001B[35m " + orderDetails[3] + " |");
     }
 
     public boolean isIfCustomerShowPendingOrder() {
@@ -143,20 +139,7 @@ public class Order {
     public void viewPendingOrder(String status, String idCustomer) {
         try (BufferedReader ordersReader = new BufferedReader(new FileReader("src/main/resources/myData/orders.txt"))) {
             String line;
-            boolean orderFound = false;
-            System.out.println("\n----- Pending Orders -----");
-            while ((line = ordersReader.readLine()) != null) {
-                String[] orderDetails = line.split(",");
-                System.out.println("Line read: " + line);
-                System.out.println("Order details length: " + orderDetails.length);
-                if (orderDetails.length > 5) {
-                    if (orderDetails[5].equals(status) && orderDetails[1].equals(idCustomer)) {
-                        System.out.println("Order ID: " + orderDetails[0] +
-                                           ", Customer ID: " + orderDetails[1] +
-                                           ", Customer Name: " + orderDetails[2] +
-                                           ", Product ID: " + orderDetails[3] +
-                                           ", Quantity: " + orderDetails[4] +
-                                           ", Status: " + orderDetails[5]);
+         
                         orderFound = true;
                     }
                 } else {
@@ -198,36 +181,7 @@ public class Order {
         return "Admin"; 
     }
 
-    public void makePurchasesMenu() {
-    	 int choice;
-         Scanner scanner = new Scanner(System.in);
-         logger.log(Level.INFO, "\n\u001B[34m" + "----- Make Purchases -----" + "\n" +
-                 "|     1. add Product         |\n" +
-                 "|     2. view Cart          |\n" +
-                 "|     3. cancel Order         |\n" +
-                 "|     4. Back                 |\n" +
-                 "-----------------------------\n");
-         logger.log(Level.INFO, "Enter your choice: " + "\u001B[0m");
-         choice = scanner.nextInt();
-
-            switch (choice) {
-                case 1:
-                    break;
-                case 2:
-                	viewCart();
-                    break;
-                case 3:
-                    break;
-    
-                   
-                case 4:
-                    logger.info("Exiting Purchase Menu...");
-                    break;
-                default:
-                    logger.warning("Invalid choice! Please enter a valid choice.");
-                    makePurchasesMenu();
-            }
-    }
+   
 
 
    public static void addToCart(int productId, String name, int quantity, double price) {
@@ -261,18 +215,7 @@ public class Order {
     try (BufferedReader cartReader = new BufferedReader(new FileReader(CART_FILE_PATH))) {
         String line;
         double totalPrice = 0.0;
-        System.out.println("\n----- Cart Contents -----");
-        while ((line = cartReader.readLine()) != null) {
-            String[] cartDetails = line.split(",");
-            if (cartDetails[0].equals("Total Price")) {
-                totalPrice = Double.parseDouble(cartDetails[1]);
-            } else {
-                System.out.println("Product ID: " + cartDetails[0] +
-                        ", Name: " + cartDetails[1] +
-                        ", Quantity: " + cartDetails[2] +
-                        ", Price: " + cartDetails[3]);
-            }
-        }
+       
         System.out.println("Total Price: " + totalPrice);
     } catch (FileNotFoundException e) {
         System.out.println("Cart is empty.");
@@ -322,26 +265,7 @@ public static boolean createOrder(String customerId, String customerName, int pr
         String line;
         boolean productFound = false;
         
-        String headerLine = contentReader.readLine(); 
-        
-        while ((line = contentReader.readLine()) != null) {
-            String[] productDetails = line.split(",");
-            int id = Integer.parseInt(productDetails[0]);
-            String name = productDetails[1];
-            double price = Double.parseDouble(productDetails[3]);
-            String availability = productDetails[5];
-            int availableQuantity = Integer.parseInt(productDetails[6]);
-            
-            if (id == productId) {
-                productFound = true;
-                if (availability.equals("In Stock") && availableQuantity >= quantity) {
-                    addToCart(productId, name, quantity, price);
-                    saveOrder(customerId, customerName, productId, quantity, "pending");
-                    return true;
-                } else {
-                    System.out.println("Product is not available in the required quantity.");
-                    return false;
-                }
+       
             }
         }
         
