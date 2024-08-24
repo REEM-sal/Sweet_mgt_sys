@@ -224,24 +224,7 @@ public class Registration {
     }
 
     public void notFoundEmailCustomer(String email, String password) {
-        try (RandomAccessFile ref = new RandomAccessFile("src/main/resources/myData/BeneficiaryData.txt", "rw")) {
-            String s;
-            while ((s = ref.readLine()) != null) {
-                String[] loginCustomer = s.split(",");
-                TrueEmail = loginCustomer[1];
-                TruePassword = loginCustomer[2];
-
-                if (TrueEmail.equals(email) && !TruePassword.equals(password)) {
-                    notFoundPasswordCustomer(email,password);
-                    return;
-                }
-            }
-            logger.log(Level.WARNING,"Beneficiary Email is Wrong! Try Again");
-            whoIsLogin();
-
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+       
     }
 
     public void notFoundPasswordCustomer(String email, String password) {
