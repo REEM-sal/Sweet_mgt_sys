@@ -54,11 +54,10 @@ public class OrderSteps {
 
 	@When("the customer views their orders")
 	public void theCustomerViewsTheirOrders() {
-String[] orderDetails = null;
+		String[] orderDetails = {"Order1", "Pending", "Product1", "2024-08-21"};
 		order.canViewPendingOrders();
  order.printDeliveredOrder(orderDetails);
 	}
-
 	@Then("the pending order should be displayed")
 	public void thePendingOrderShouldBeDisplayed() {
 		 order.setIfCustomerShowPendingOrder(true);
