@@ -11,7 +11,6 @@ import java.util.logging.Logger;
 public class Product {
     private static final Logger logger = Logger.getLogger(Product.class.getName());
     private static final String CONTENT_FILE_PATH = "src/main/resources/myData/content.txt";
-
     private String productId;
     private String productName;
     private String description;
