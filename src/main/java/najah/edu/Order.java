@@ -103,7 +103,17 @@ public class Owner {
         public void owner_Menu(String ownerName) {
 	                Scanner scanner = new Scanner(System.in);
 	                int choice;
-	               
+	                do {
+	                    logger.log(Level.INFO, "\n\u001B[32m" + " -------  Welcome " + ownerName + " ---------" + "\n" +
+	                            "|                                   |\n" +
+	                            "|      1. Manage Products           |\n" +
+	                            "|      2. Monitor Sales             |\n" +
+	                            "|      3. Identify Best-selling Products |\n" +
+	                            "|      4. Manage Orders             |\n" +  	                            "|      5. Implement Dynamic Discount|\n" +
+	                            "|      6. Receive Notifications     |\n" +
+	                            "|      7. Exit                      |\n" +  	                            "|                                   |\n" +
+	                            "------------------------------------\n");
+	                    logger.log(Level.INFO, "Enter your choice: " + RESET_COLOR );
 	                    choice = scanner.nextInt();
 	                    switch (choice) {
 	                        case 1 -> {
