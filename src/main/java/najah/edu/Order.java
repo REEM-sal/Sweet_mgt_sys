@@ -133,9 +133,7 @@ public class Order {
 
     public void viewPendingOrder(String status, String idCustomer) {
         try (BufferedReader ordersReader = new BufferedReader(new FileReader("src/main/resources/myData/orders.txt"))) {
-            if (!orderFound) {
-                System.out.println("No pending orders found for customer ID: " + idCustomer);
-            }
+           
         } catch (IOException e) {
             logger.log(Level.SEVERE, "Error reading orders file", e);
         }
@@ -236,10 +234,7 @@ public class Order {
 }
 public static boolean createOrder(String customerId, String customerName, int productId, int quantity) {
     try (BufferedReader contentReader = new BufferedReader(new FileReader(CONTENT_FILE_PATH))) {  
-        if (!productFound) {
-            System.out.println("Product not found.");
-            return false;
-        }
+     
     } catch (IOException e) {
         logger.log(Level.SEVERE, "Error reading content file", e);
         return false;
