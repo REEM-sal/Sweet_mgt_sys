@@ -9,9 +9,7 @@ import java.util.Map;
 import java.util.Scanner;
 import java.util.UUID;
 import java.util.logging.Level;
-
 import io.cucumber.core.logging.Logger;
-
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.FileNotFoundException;
@@ -21,7 +19,6 @@ import java.io.IOException;
 import java.io.RandomAccessFile;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-
 import static najah.edu.Registration.logger;
 
 public class Order {
@@ -290,5 +287,4 @@ private static void saveOrder(String customerId, String customerName, int produc
     public boolean validateOption(Integer option1, Integer option2, Integer option3, Integer option4) {
         return option1 != null && option2 != null && option3 != null && option4 != null;
     }
-
 }
