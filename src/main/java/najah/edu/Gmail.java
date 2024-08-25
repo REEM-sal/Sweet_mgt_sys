@@ -11,11 +11,9 @@ public class Gmail {
     public Gmail(String email) {
         this.email = email;
     }
-
     public void sendEmail(String to, String subject, String msg) {
         String from = "saady9055@gmail.com";
         String password = System.getenv("GMAIL_PASSWORD"); 
-
         try {
             Properties properties = System.getProperties();
             properties.put("mail.smtp.host", "smtp.gmail.com");
