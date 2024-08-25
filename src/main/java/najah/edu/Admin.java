@@ -164,18 +164,7 @@ public class Admin {
         setRecipes(false);
         setAdminName(AdminName);
         int choice;
-        Scanner scanner = new Scanner(System.in);
-        logger.log(Level.INFO, "\n\u001B[37m" + "----------  Welcome " + AdminName + " -------" + "\n" +
-                "|    1. Manage user accounts                  |\n" +
-                "|    2. Manage feedback                       |\n" +
-                "|    3. Manage recipes                        |\n" +
-                "|    4. Manage posts                          |\n" +
-                "|    5. Generate financial reports            |\n" +
-                "|    6. Gather and display user statistics    |\n" +
-                "|    7. Identify best-selling products        |\n" +
-                "|    8. Exit                                 |\n" +
-                "----------------------------------------------\n");
-        logger.log(Level.INFO, ENTER_YOUR_CHOICE + RESET_COLOR);
+      
         choice = scanner.nextInt();
 
         switch (choice) {
