@@ -103,14 +103,7 @@ public class Order {
 
         try (RandomAccessFile ref = new RandomAccessFile("src/main/resources/myData/orders.txt", "rw")) {
             String line;
-            while ((line = ref.readLine()) != null) {
-                String[] orderDetails = line.split(",");
-                if (orderDetails[3].equalsIgnoreCase(status)) {
-                    countDelivered++;
-                    deliveredOrderFound = true;
-                    printDeliveredOrder(orderDetails);
-                }
-            }
+           
 
             if (!deliveredOrderFound) {
                 logger.info("No delivered orders found for status: " + status);
@@ -144,19 +137,7 @@ public class Order {
         try (BufferedReader ordersReader = new BufferedReader(new FileReader("src/main/resources/myData/orders.txt"))) {
             String line;
             boolean orderFound = false;
-            System.out.println("\n----- Pending Orders -----");
-            while ((line = ordersReader.readLine()) != null) {
-                String[] orderDetails = line.split(",");
-                System.out.println("Line read: " + line);
-                System.out.println("Order details length: " + orderDetails.length);
-                if (orderDetails.length > 5) {
-                    if (orderDetails[5].equals(status) && orderDetails[1].equals(idCustomer)) {
-                        System.out.println("Order ID: " + orderDetails[0] +
-                                           ", Customer ID: " + orderDetails[1] +
-                                           ", Customer Name: " + orderDetails[2] +
-                                           ", Product ID: " + orderDetails[3] +
-                                           ", Quantity: " + orderDetails[4] +
-                                           ", Status: " + orderDetails[5]);
+         
                         orderFound = true;
                     }
                 } else {
@@ -178,7 +159,7 @@ public class Order {
 
    
     public String getFileOrderName() {
-        return "orders.txt"; // Assuming the file name is orders.txt
+        return "orders.txt"; 
     }
 
     public boolean isIfOrderExist() {
@@ -198,38 +179,7 @@ public class Order {
         return "Admin"; 
     }
 
-    public void makePurchasesMenu() {
-    	 int choice;
-         Scanner scanner = new Scanner(System.in);
-         logger.log(Level.INFO, "\n\u001B[34m" + "----- Make Purchases -----" + "\n" +
-                 "|     1. add Product         |\n" +
-                 "|     2. view Cart          |\n" +
-                 "|     3. cancel Order         |\n" +
-                 "|     4. Back                 |\n" +
-                 "-----------------------------\n");
-         logger.log(Level.INFO, "Enter your choice: " + "\u001B[0m");
-         choice = scanner.nextInt();
-
-            switch (choice) {
-                case 1:
-                    break;
-                case 2:
-                	viewCart();
-                    break;
-                case 3:
-                    break;
     
-                   
-                case 4:
-                    logger.info("Exiting Purchase Menu...");
-                    break;
-                default:
-                    logger.warning("Invalid choice! Please enter a valid choice.");
-                    makePurchasesMenu();
-            }
-    }
-
-
    public static void addToCart(int productId, String name, int quantity, double price) {
     double newTotalPrice = price * quantity;
     double totalPrice = 0.0;
