@@ -164,7 +164,7 @@ public class Admin {
         setRecipes(false);
         setAdminName(AdminName);
         int choice;
-      
+        Scanner scanner = new Scanner(System.in);
         choice = scanner.nextInt();
 
         switch (choice) {
