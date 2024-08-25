@@ -208,7 +208,6 @@ public class Registration {
                 TruePassword = loginCustomer[2];
 
                 if (TrueEmail.equals(email) && TruePassword.equals(password)) {
-                    order.setGmailIs(email);
                     setCustomerLogin(true);
                     CustomerInInSystem();
                     customer.setTheCustomerIs(numberOfLine);
