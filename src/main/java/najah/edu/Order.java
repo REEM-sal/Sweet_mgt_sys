@@ -232,15 +232,6 @@ public class Order {
     }
     return false;
 }
-public static boolean createOrder(String customerId, String customerName, int productId, int quantity) {
-    try (BufferedReader contentReader = new BufferedReader(new FileReader(CONTENT_FILE_PATH))) {  
-     
-    } catch (IOException e) {
-        logger.log(Level.SEVERE, "Error reading content file", e);
-        return false;
-    }
-    return false;
-}
 private static void saveOrder(String customerId, String customerName, int productId, int quantity, String status) {
     try (BufferedWriter orderWriter = new BufferedWriter(new FileWriter(ORDERS_FILE_PATH, true))) {
     } catch (IOException e) {
@@ -248,19 +239,6 @@ private static void saveOrder(String customerId, String customerName, int produc
     }
 }
 
-   public boolean isOrderCreated() {
-    try (BufferedReader ordersReader = new BufferedReader(new FileReader(ORDERS_FILE_PATH))) {
-        String line;
-        while ((line = ordersReader.readLine()) != null) {
-            if (line.contains(idCustomer) && line.contains("pending")) {
-                return true;
-            }
-        }
-    } catch (IOException e) {
-        e.printStackTrace();
-    }
-    return false;
-}
 
    private void updateCartFile() throws IOException {
 }
