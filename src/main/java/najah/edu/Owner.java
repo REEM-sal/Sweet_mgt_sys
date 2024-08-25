@@ -103,6 +103,49 @@ public class Owner {
         public void owner_Menu(String ownerName) {
 	                Scanner scanner = new Scanner(System.in);
 	                int choice;
+	                do {
+	                    logger.log(Level.INFO, "\n\u001B[32m" + " -------  Welcome " + ownerName + " ---------" + "\n" +
+	                            "|                                   |\n" +
+	                            "|      1. Manage Products           |\n" +
+	                            "|      2. Monitor Sales             |\n" +
+	                            "|      3. Identify Best-selling Products |\n" +
+	                            "|      4. Manage Orders             |\n" +  	                            "|      5. Implement Dynamic Discount|\n" +
+	                            "|      6. Receive Notifications     |\n" +
+	                            "|      7. Exit                      |\n" +  	                            "|                                   |\n" +
+	                            "------------------------------------\n");
+	                    logger.log(Level.INFO, "Enter your choice: " + RESET_COLOR );
+	                    choice = scanner.nextInt();
+	                    switch (choice) {
+	                        case 1 -> {
+	                            manageProductsFlag = true;
+	                           
+	                        }
+	                        case 2 -> {
+	                            monitorSalesFlag = true;
+	                            monitorSales();
+	                        }
+	                        case 3 -> {
+	                            bestSellingProductsFlag = true;
+	                            identifyBestSellingProducts();
+	                        }
+	                        case 4 -> {
+	                            manageOrdersFlag = true;  
+	                            Order order = new Order(); 
+	                              	                        }
+	                        case 5 -> {
+	                            dynamicDiscountFlag = true;
+	                            implementDynamicDiscount();
+	                        }
+	                        case 6 -> {
+	                            notificationsFlag = true;
+	                            receiveNotifications("shipped");
+	                            receiveNotifications("delivered");
+	                           
+	                        }
+	                        case 7 -> logger.log(Level.INFO, "Exiting..."); 
+	                        default -> logger.log(Level.WARNING, BOLD + "\u001B[31mInvalid choice! Please enter a valid choice." + RESET_COLOR );
+	                    }
+	                } while (choice != 7); 
 	            }
 	    public void receiveNotifications(String orderStatus) {
 	        String email = "saady9055@gmail.com";
