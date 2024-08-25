@@ -1,5 +1,4 @@
 package najah.edu;
-
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.FileReader;
@@ -9,7 +8,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
 public class Product {
     private static final Logger logger = Logger.getLogger(Product.class.getName());
     private static final String CONTENT_FILE_PATH = "src/main/resources/myData/content.txt";
@@ -32,7 +30,6 @@ public class Product {
     private boolean showAllProductsFlag;
     private boolean searchProductFlag;
 
-    // Constructor
     public Product() {
         loadProductsFromFile(CONTENT_FILE_PATH);
     }
@@ -48,8 +45,6 @@ public class Product {
         
     }
 
-
-    // Getters and Setters
     public String getProductId() {
         return productId;
     }
@@ -215,11 +210,9 @@ public class Product {
 private void loadProductsFromFile(String filePath) {
     try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
         String line;
-        
-        // قراءة الخط الأول وتخزينه في متغير لتمثيل رؤوس الأعمدة
+
         String headerLine = reader.readLine(); 
-        
-        // تحقق من أن الرأس غير فارغ أو غير صالح
+
         if (headerLine != null && !headerLine.trim().isEmpty()) {
             while ((line = reader.readLine()) != null) {
                 String[] values = line.split(",");
@@ -290,7 +283,5 @@ private void loadProductsFromFile(String filePath) {
                              this.weight,
                              this.availability,
                              this.quantity);
-    }
-    
-    
+    } 
 }
