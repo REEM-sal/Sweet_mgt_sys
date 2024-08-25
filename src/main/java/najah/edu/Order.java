@@ -60,7 +60,7 @@ public class Order {
     public void setIdCustomer(String idCustomer) {
         this.idCustomer = idCustomer;
     }
-public class Order {
+
     public void viewCart() {    }
     public boolean canManageOrders() {
         return true;  }
