@@ -40,9 +40,7 @@ public class Order {
 
     public void viewOrders() {
         try (BufferedReader ordersReader = new BufferedReader(new FileReader(ORDERS_FILE_PATH))) {
-            // Actual reading and displaying logic here
         } catch (IOException e) {
-            // Log or handle the error
         }
     }
 
@@ -56,15 +54,21 @@ public class Order {
 
     public void viewPendingOrder(String status, String idCustomer) {
         try (BufferedReader ordersReader = new BufferedReader(new FileReader("src/main/resources/myData/orders.txt"))) {
-            // Actual reading and filtering logic here
         } catch (IOException e) {
-            // Log or handle the error
         }
     }
-
     public void setIdCustomer(String idCustomer) {
         this.idCustomer = idCustomer;
     }
+public class Order {
+    public void viewCart() {    }
+    public boolean canManageOrders() {
+        return true;  }
+    public void viewDeliveredOrder(String orderId) { }
+    public boolean canViewPendingOrders() {
+        return true; }
+
+    public void printDeliveredOrder(String[] orderDetails) { }}
 
     public boolean isIfOrderExist() {
         return ifOrderExist;
@@ -77,9 +81,7 @@ public class Order {
     public void searchAboutCustomer(String fileName, long orderId) {
         try (BufferedReader ref = new BufferedReader(new FileReader("src/main/resources/myData/" + fileName))) {
             setIfOrderExist(false);
-            // Actual search logic here
         } catch (IOException e) {
-            // Log or handle the error
         }
     }
 
@@ -112,7 +114,6 @@ public class Order {
                 }
             }
         } catch (IOException e) {
-            // Log or handle the error
         }
         return false;
     }
