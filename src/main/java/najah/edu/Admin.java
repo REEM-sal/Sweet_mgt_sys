@@ -39,7 +39,14 @@ public class Admin {
     private boolean viewUserStatsFlag ;
 
     public Admin() {
-      
+        adminLogin = true;
+        productFlag = false;
+        feedbackFlagFlag = false;
+        userAccountsFlag = false;
+        PostsFlag = false;
+        recipesFlag = false;
+        generateReportsFlag = false;
+        viewUserStatsFlag = false;
     }
     
    
