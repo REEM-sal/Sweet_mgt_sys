@@ -1,495 +1,581 @@
-//////////////// وهي الاونر ///////
 package najah.edu;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.InputMismatchException;
+import java.util.List;
+import java.util.Map;
+import java.util.Scanner;
+import java.util.UUID;
+import java.util.logging.Level;
+
+import io.cucumber.core.logging.Logger;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.RandomAccessFile;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
-import java.util.logging.Level;
-import java.util.Map;
-import java.util.HashMap;
-import io.cucumber.core.logging.Logger;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 
 import static najah.edu.Registration.logger;
 
+public class Order {
+    private static final String ORDERS_FILE_PATH = "src/main/resources/myData/orders.txt";
+    private Scanner scanner = new Scanner(System.in);
+    private static final String CART_FILE_PATH = "src/main/resources/myData/cart.txt";
+    private Map<Integer, Integer> cart = new HashMap<>(); 
+ private Product productManager;
+   
+    private int productId;
 
-public class Owner {
+    private String orderStatus = "pending";
+  
+    private static final Map<Integer, String> ORDER_STATUS = new HashMap<>();
+ 
+    private double totalAmount = 0.0;
+    private static final String CONTENT_FILE_PATH = "src/main/resources/myData/content.txt";
 
-	 private List<String> emailMessages = new ArrayList<>();
-	 private static final String CONTENT_FILE_PATH = "src/main/resources/myData/content.txt";
-	    private static final String SALES_FILE_PATH = "src/main/resources/myData/sales.txt";
-	    public static final String BOLD = "\u001B[1m";
-	    public static final String RESET_COLOR = "\u001B[0m";
-	    private String idCustomer;
-	    private String customerName;
-	    private String phoneCustomer;
-	    private String userName;
-	    private Gmail gmail;
-	    private String password;
-	    private String address;
-	    private int id;
-	    private int phone;
-	    private boolean manageProductsFlag;
-	    private boolean  manageOrdersFlag;
-	    private boolean monitorSalesFlag;
-	    private boolean bestSellingProductsFlag;
-	    
-	    private boolean dynamicDiscountFlag;
-	    private boolean notificationsFlag;
-	    private boolean trackOrdersFlag;
-	    private Product productManager = new Product();
+    private static String customerName = null;
+    private static String idCustomer = null;
+    private int orderId;
+    private String orderDate;
+    private String deliveryDate;
+    private String status;
+    private float orderPrice;
+    private boolean PendingOrderflag;
+    private boolean ifOrderExist;
+    private boolean ifOrderAdded; // Flag to check if order was added
+    private boolean ifOrderUpdated; // Flag to check if order was updated
+    private boolean ifOrderDeleted; // Flag to check if order was deleted
+    private boolean ifProductAdded; // Flag to check if product was added to order
+    private Order order;
+    private boolean viewOrdersFlag;
+    private String gmailIs;
+    boolean ifCustomerShowPending ;
 
-	    public Owner() {
-	    	 emailMessages = new ArrayList<>();
-	        manageProductsFlag = false;
-	        manageOrdersFlag=false;
-	        monitorSalesFlag = false;
-	        bestSellingProductsFlag = false;
-	        dynamicDiscountFlag = false;
-	        notificationsFlag = false;
-	        trackOrdersFlag = false;
-	        gmail = new Gmail();
-	      
-	    }
-	
-	  
-	    
+    public Order() {
+    	productManager = new Product();
+    }
 
-	    public String getIdCustomer() {
-	        return idCustomer;
-	    }
+    public Order(int orderId, String orderDate, String deliveryDate, String status) {
+        this.orderId = orderId;
+        this.orderDate = orderDate;
+        this.deliveryDate = deliveryDate;
+        this.status = status;
+    }
+   
+    public void setViewOrdersFlag(boolean flag) {
+        this.viewOrdersFlag = flag;
+    }
 
-	    public void setIdCustomer(String idCustomer) {
-	        this.idCustomer = idCustomer;
-	    }
-	    
-	    public String getCustomerName() {
-	        return customerName;
-	    }
-	    public boolean isProductsFlag() {
-	        return manageProductsFlag;
-	    }
-	    public void setProductsFlag(boolean productsFlag) {
-	        this.manageProductsFlag = productsFlag;
-	    }
-	    public void setCustomerName(String customerName) {
-	        this.customerName = customerName;
-	    }
-	    public String getPhoneCustomer() {
-	        return phoneCustomer;
-	    }
-	    private boolean ownerLogin;
-	    
-	    public boolean isOwnerLogin() {
-	        return ownerLogin;
-	    }
-	    public void setOwnerLogin(boolean ownerLogin) {
-	        this.ownerLogin = ownerLogin;
-	    }
-	    public void setPhoneCustomer(String phoneCustomer) {
-	        this.phoneCustomer = phoneCustomer;
-	    }
-	    public void login(String username, String password) {
-	        if (username.equals("Yara@gmail.com") && password.equals("121")) {
-	            setOwnerLogin(true); 
-	            }
-	    }
-	  
-        public void owner_Menu(String ownerName) {
-	                Scanner scanner = new Scanner(System.in);
-	                int choice;
-	                do {
-	                    logger.log(Level.INFO, "\n\u001B[32m" + " -------  Welcome " + ownerName + " ---------" + "\n" +
-	                            "|                                   |\n" +
-	                            "|      1. Manage Products           |\n" +
-	                            "|      2. Monitor Sales             |\n" +
-	                            "|      3. Identify Best-selling Products |\n" +
-	                            "|      4. Manage Orders             |\n" +  	                            "|      5. Implement Dynamic Discount|\n" +
-	                            "|      6. Receive Notifications     |\n" +
-	                            "|      7. Exit                      |\n" +  	                            "|                                   |\n" +
-	                            "------------------------------------\n");
-	                    logger.log(Level.INFO, "Enter your choice: " + RESET_COLOR );
-	                    choice = scanner.nextInt();
-	                    switch (choice) {
-	                        case 1 -> {
-	                            manageProductsFlag = true;
-	                           
-	                        }
-	                        case 2 -> {
-	                            monitorSalesFlag = true;
-	                            monitorSales();
-	                        }
-	                        case 3 -> {
-	                            bestSellingProductsFlag = true;
-	                            identifyBestSellingProducts();
-	                        }
-	                        case 4 -> {
-	                            manageOrdersFlag = true;  
-	                            Order order = new Order(); 
-	                              	                        }
-	                        case 5 -> {
-	                            dynamicDiscountFlag = true;
-	                            implementDynamicDiscount();
-	                        }
-	                        case 6 -> {
-	                            notificationsFlag = true;
-	                            receiveNotifications("shipped");
-	                            receiveNotifications("delivered");
-	                           
-	                        }
-	                        case 7 -> logger.log(Level.INFO, "Exiting..."); 
-	                        default -> logger.log(Level.WARNING, BOLD + "\u001B[31mInvalid choice! Please enter a valid choice." + RESET_COLOR );
-	                    }
-	                } while (choice != 7); 
-	            }
-	    public void receiveNotifications(String orderStatus) {
-	        String email = "saady9055@gmail.com";
-	        String subject = "Order Status Changed";
-	        String message;
+    public boolean isViewOrdersFlag() {
+        return this.viewOrdersFlag;
+    }
 
-	        switch (orderStatus) {
-	            case "shipped":
-	                message = "The order status has changed to shipped.";
-	                break;
-	           
-	          
-	            case "delivered":
-	                message = "The order has been delivered.";
-	                break;
-	           
-	            default:
-	                message = "The order status has changed.";
-	                break;
-	        }
+    public void viewOrders() {
+        try (BufferedReader ordersReader = new BufferedReader(new FileReader(ORDERS_FILE_PATH))) {
+            String line;
+            while ((line = ordersReader.readLine()) != null) {
+                System.out.println(line);             }
+        } catch (IOException e) {
+            logger.log(Level.SEVERE, "Error reading orders file", e);
+        }
+    }
 
-	        
-	        if (gmail != null) {
-	            gmail.sendEmail(email, subject, message);
-	            emailMessages.add(message);
-	        } else {
-	            throw new IllegalStateException("Gmail instance is not initialized.");
-	        }
-	        logger.log(Level.INFO, "Notification sent to owner about order status change to " + orderStatus);
-	    }
-	    
-	    public List<String> getEmailMessages() {
-	        return emailMessages;
-	    }
-	    private void resetFlags() {
-	        manageProductsFlag = false;
-	        monitorSalesFlag = false;
-	        bestSellingProductsFlag = false;
-	        dynamicDiscountFlag = false;
-	        notificationsFlag = false;
-	        trackOrdersFlag = false;
-	    }
+  
+    public void setCustomerName(String customerName) {
+        this.customerName = customerName;
+    }
 
+  
+    private void setOrderPrice(float orderPrice) {
+        this.orderPrice = orderPrice;
+    }
 
-	
+    public void viewDeliveredOrder(String status) {
+        boolean deliveredOrderFound = false;
+        int countDelivered = 0;
 
-	   
-	    public void monitorSales() {
-	       
-	       
-	        Map<String, Double> salesTotals = new HashMap<>();
-	        
-	        try (BufferedReader salesReader = new BufferedReader(new FileReader(SALES_FILE_PATH))) {
-	            String line;
-	            while ((line = salesReader.readLine()) != null) {
-	                String[] parts = line.split(", ");
-	                String productName = parts[1];
-	                int quantity = Integer.parseInt(parts[2]);
-	                double pricePerUnit = Double.parseDouble(parts[3]);
+        try (RandomAccessFile ref = new RandomAccessFile("src/main/resources/myData/orders.txt", "rw")) {
+            String line;
+            while ((line = ref.readLine()) != null) {
+                String[] orderDetails = line.split(",");
+                if (orderDetails[3].equalsIgnoreCase(status)) {
+                    countDelivered++;
+                    deliveredOrderFound = true;
+                    printDeliveredOrder(orderDetails);
+                }
+            }
 
-	                double totalSalesForProduct = quantity * pricePerUnit;
-	                salesTotals.put(productName, salesTotals.getOrDefault(productName, 0.0) + totalSalesForProduct);
-	            }
-	        } catch (IOException e) {
-	            logger.log(Level.SEVERE, "Error reading sales file", e);
-	        }
+            if (!deliveredOrderFound) {
+                logger.info("No delivered orders found for status: " + status);
+            } else {
+                logger.info("Total delivered orders found: " + countDelivered);
+            }
 
-	        logger.log(Level.INFO, "Sales Summary:");
-	        for (Map.Entry<String, Double> entry : salesTotals.entrySet()) {
-	            String productName = entry.getKey();
-	            double totalSales = entry.getValue();
-	            logger.log(Level.INFO, String.format("Product: %s, Total Sales: $%.2f", productName, totalSales));
-	        }
-	    }
-
-	    private Map<String, Double> loadProductPrices() {
-	        Map<String, Double> productPrices = new HashMap<>();
-	        try (BufferedReader contentReader = new BufferedReader(new FileReader(CONTENT_FILE_PATH))) {
-	            String line;
-	            while ((line = contentReader.readLine()) != null) {
-	                String[] parts = line.split(", ");
-	                String productName = parts[1];
-	                double price = Double.parseDouble(parts[3]);
-	                productPrices.put(productName, price);
-	            }
-	        } catch (IOException e) {
-	            logger.log(Level.SEVERE, "Error reading content file", e);
-	        }
-	        return productPrices;
-	    }
-
-	    public void identifyBestSellingProducts() {
-	        String salesFilePath = "src/main/resources/myData/sales.txt";
-
-	        Map<String, Integer> productSalesCount = new HashMap<>();
-
-	        try (BufferedReader reader = new BufferedReader(new FileReader(salesFilePath))) {
-	            String line;
-	            while ((line = reader.readLine()) != null) {
-	                if (!line.trim().isEmpty()) { 	                    String[] parts = line.split(", ");
-	                    if (parts.length >= 4) { 	                        String productName = parts[1];
-	                        int quantity = Integer.parseInt(parts[2]);
-
-	                        productSalesCount.merge(productName, quantity, Integer::sum);
-	                    } else {
-	                        logger.log(Level.WARNING, "Skipping invalid sales line: " + line);
-	                    }
-	                }
-	            }
-	        } catch (IOException e) {
-	            logger.log(Level.SEVERE, "Error reading sales file: " + e.getMessage());
-	            return;
-	        }
-
-	        String bestSellingProduct = null;
-	        int maxSales = 0;
-
-	        for (Map.Entry<String, Integer> entry : productSalesCount.entrySet()) {
-	            if (entry.getValue() > maxSales) {
-	                maxSales = entry.getValue();
-	                bestSellingProduct = entry.getKey();
-	            }
-	        }
-
-	        if (bestSellingProduct != null) {
-	            logger.log(Level.INFO, "Best Selling Product: " + bestSellingProduct + " with " + maxSales + " units sold.");
-	            bestSellingProductsFlag = true;
-	        } else {
-	            logger.log(Level.INFO, "No sales data available.");
-	            bestSellingProductsFlag = false;
-
-	        }
-	    }
-	    private double price;
-
-		private List<String> availableProducts; 
-	    public void applyDiscount(double discountPercentage) {
-	        if (discountPercentage < 0 || discountPercentage > 100) {
-	            throw new IllegalArgumentException("Discount percentage must be between 0 and 100.");
-	        }
-	        this.price = this.price * (1 - discountPercentage / 100);
-	    }
-	    public void implementDynamicDiscount() {
-	        Scanner scanner = new Scanner(System.in);
-	        logger.log(Level.INFO, "Enter discount percentage (e.g., 10 for 10%): ");
-	        String input = scanner.nextLine();
-
-	        try {
-	            double discountPercentage = Double.parseDouble(input.replaceAll("[^\\d.]", ""));
-
-	            if (discountPercentage < 0 || discountPercentage > 100) {
-	                logger.log(Level.WARNING, "Invalid discount percentage. Please enter a value between 0 and 100.");
-	                return;
-	            }
-
-	            String productsFilePath = "src/main/resources/myData/content.txt";
-	            List<String> updatedProducts = new ArrayList<>();
-
-	            try (BufferedReader reader = new BufferedReader(new FileReader(productsFilePath))) {
-	                String line;
-	                boolean isHeader = true;  // Flag to skip header line
-
-	                while ((line = reader.readLine()) != null) {
-	                    if (isHeader) {
-	                        updatedProducts.add(line);  // Add header line without modification
-	                        isHeader = false;
-	                    } else {
-	                        String[] parts = line.split(",");
-	                        if (parts.length == 7) { // Ensure there are 7 columns
-	                            String id = parts[0];
-	                            String name = parts[1];
-	                            String description = parts[2];
-	                            double price = Double.parseDouble(parts[3].trim());
-	                            String weight = parts[4];
-	                            String availability = parts[5];
-	                            int quantity = Integer.parseInt(parts[6].trim());
-
-	                            // Apply discount
-	                            double discountedPrice = price * (1 - discountPercentage / 100);
-	                            String updatedProductLine = String.format("%s,%s,%s,%.2f,%s,%s,%d",
-	                                    id, name, description, discountedPrice, weight, availability, quantity);
-	                            updatedProducts.add(updatedProductLine);
-	                        } else {
-	                            logger.log(Level.WARNING, "Skipping invalid product line: " + line);
-	                        }
-	                    }
-	                }
-	            } catch (IOException e) {
-	                logger.log(Level.SEVERE, "Error reading product file: " + e.getMessage());
-	                return;
-	            }
-
-	            try (BufferedWriter writer = new BufferedWriter(new FileWriter(productsFilePath))) {
-	                for (String product : updatedProducts) {
-	                    writer.write(product);
-	                    writer.newLine();
-	                }
-	                logger.log(Level.INFO, "Discount applied successfully!");
-	            } catch (IOException e) {
-	                logger.log(Level.SEVERE, "Error writing to product file: " + e.getMessage());
-	            }
-	        } catch (NumberFormatException e) {
-	            logger.log(Level.WARNING, "Invalid input. Please enter a valid discount percentage.");
-	        }
-	    }
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException(e);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+   
 
 
 
-	   
+    private void printDeliveredOrder(String[] orderDetails) {
+        logger.info("\u001B[34m Order ID: \u001B[35m " + orderDetails[0] + " |" +
+                "\u001B[34m Order Date: \u001B[35m " + orderDetails[1] + " |" +
+                "\u001B[34m Delivery Date: \u001B[35m " + orderDetails[2] + " |" +
+                "\u001B[34m Status: \u001B[35m " + orderDetails[3] + " |");
+    }
 
-	    public void setGmail(Gmail gmail) {
-	        this.gmail = gmail;
-	    }
+    public boolean isIfCustomerShowPendingOrder() {
+        return PendingOrderflag;
+    }
 
-	    
+    public void setIfCustomerShowPendingOrder(boolean flag) {
+        this.PendingOrderflag = flag;
+    }
 
-	    public String getUserName() {
-	        return userName;
-	    }
+    public void viewPendingOrder(String status, String idCustomer) {
+        try (BufferedReader ordersReader = new BufferedReader(new FileReader("src/main/resources/myData/orders.txt"))) {
+            String line;
+            boolean orderFound = false;
+            System.out.println("\n----- Pending Orders -----");
+            while ((line = ordersReader.readLine()) != null) {
+                String[] orderDetails = line.split(",");
+                System.out.println("Line read: " + line);
+                System.out.println("Order details length: " + orderDetails.length);
+                // Ensure there are enough elements in the array before accessing them
+                if (orderDetails.length > 5) {
+                    if (orderDetails[5].equals(status) && orderDetails[1].equals(idCustomer)) {
+                        System.out.println("Order ID: " + orderDetails[0] +
+                                           ", Customer ID: " + orderDetails[1] +
+                                           ", Customer Name: " + orderDetails[2] +
+                                           ", Product ID: " + orderDetails[3] +
+                                           ", Quantity: " + orderDetails[4] +
+                                           ", Status: " + orderDetails[5]);
+                        orderFound = true;
+                    }
+                } else {
+                    System.out.println("Skipping line due to insufficient fields: " + line);
+                }
+            }
+            if (!orderFound) {
+                System.out.println("No pending orders found for customer ID: " + idCustomer);
+            }
+        } catch (IOException e) {
+            logger.log(Level.SEVERE, "Error reading orders file", e);
+        }
+    }
+   
 
-	    public void setUserName(String userName) {
-	        this.userName = userName;
-	    }
+    
+    public void setIdCustomer(String idCustomer) {
+        this.idCustomer = idCustomer;
+    }
 
-	    public Gmail getGmail() {
-	        return gmail;
-	    }
+   
+    public String getFileOrderName() {
+        return "orders.txt"; // Assuming the file name is orders.txt
+    }
 
-	   
+    public boolean isIfOrderExist() {
+        return ifOrderExist;
+    }
 
-	    public String getPassword() {
-	        return password;
-	    }
+   public void setIfOrderExist(boolean flag) {
+        this.ifOrderExist = flag;
+    }
+    public void searchAboutCustomer(String fileName, long orderId) {
+        try (RandomAccessFile ref = new RandomAccessFile("src/main/resources/myData/" + fileName, "rw")) {
+            String line;
+            while ((line = ref.readLine()) != null) {
+                String[] orderDetails = line.split(",");
+                if (Long.parseLong(orderDetails[0]) == orderId) {
+                    setIfOrderExist(true);
+                    setCustomerName(orderDetails[4]);
+                    setIdCustomer(orderDetails[5]);
+                    setOrderPrice(Float.parseFloat(orderDetails[6]));
+                    return;
+                }
+            }
+            setIfOrderExist(false);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
 
-	    public void setPassword(String password) {
-	        this.password = password;
-	    }
+    public void setStatusOrder(String newStatus) {
+        this.status = newStatus;
+    }
 
-	    public String getAddress() {
-	        return address;
-	    }
+   
+    public void manageOrders() {
+        int choice;
+        Scanner scanner = new Scanner(System.in);
+        logger.log(Level.INFO, "\n\u001B[34m" + "----- Manage Orders -----" + "\n" +
+                "|     1. View Orders          |\n" +
+                "|     2. Update Order         |\n" +
+                "|     3. Delete Order         |\n" +
+                "|     4. Back                 |\n" +
+                "-----------------------------\n");
+        logger.log(Level.INFO, "Enter your choice: " + "\u001B[0m");
+        choice = scanner.nextInt();
 
-	    public void setAddress(String address) {
-	        this.address = address;
-	    }
+        switch (choice) {
+            case 1 -> viewOrders();
+            case 2 -> updateOrder();
+            case 3 -> deleteOrder();
+            case 4 -> Admin_menu(getAdminName());
+           
+            default -> {
+                logger.log(Level.WARNING, "\u001B[1m" + "\u001B[31mInvalid choice! Please enter a valid choice." + "\u001B[0m");
+                manageOrders();
+            }
+        }
+    }
 
-	    public int getId() {
-	        return id;
-	    }
+    private void deleteOrder() {
+        // Get the order ID to delete
+        System.out.println("Enter the ID of the order you want to delete:");
+        String idToDelete = scanner.nextLine().trim();
 
-	    public void setId(int id) {
-	        this.id = id;
-	    }
+        List<String> orders = new ArrayList<>();
+        boolean found = false;
+        try (BufferedReader reader = new BufferedReader(new FileReader(ORDERS_FILE_PATH))) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                String[] parts = line.split(",");
+                if (parts.length > 0 && parts[0].trim().equals(idToDelete)) {
+                    found = true; // Mark as found if ID matches
+                    continue; // Skip adding this line to the list
+                }
+                orders.add(line); // Add other orders to the list
+            }
+        } catch (IOException e) {
+            logger.log(Level.SEVERE, "Error reading orders file", e);
+        }
 
-	    public int getPhone() {
-	        return phone;
-	    }
+        if (found) {
+            try (BufferedWriter writer = new BufferedWriter(new FileWriter(ORDERS_FILE_PATH))) {
+                for (String order : orders) {
+                    writer.write(order);
+                    writer.newLine();
+                }
+                System.out.println("Order deleted successfully.");
+            } catch (IOException e) {
+                logger.log(Level.SEVERE, "Error writing to orders file", e);
+            }
+        } else {
+            System.out.println("Order with ID " + idToDelete + " not found.");
+        }
+    }
+    private boolean updateOrder() {
+        System.out.println("Enter the ID of the order you want to update:");
+        String idToUpdate = scanner.nextLine().trim();
 
-	    public void setPhone(int phone) {
-	        this.phone = phone;
-	    }
+        List<String> orders = new ArrayList<>();
+        boolean found = false;
 
-	    public boolean isManageProductsFlag() {
-	        return manageProductsFlag;
-	    }
+        try (BufferedReader reader = new BufferedReader(new FileReader(ORDERS_FILE_PATH))) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                String[] parts = line.split(",");
+                if (parts.length > 0 && parts[0].trim().equals(idToUpdate)) {
+                    found = true;
 
-	 
-	    public void setManageProductsFlag(boolean manageProductsFlag) {
-	        this.manageProductsFlag = manageProductsFlag;
-	    }
+                    System.out.println("Enter new order date (current: " + parts[1] + "):");
+                    String newOrderDate = scanner.nextLine().trim();
+                    if (newOrderDate.isEmpty()) {
+                        newOrderDate = parts[1];
+                    }
 
-	    public boolean isMonitorSalesFlag() {
-	        return monitorSalesFlag;
-	    }
+                    System.out.println("Enter new delivery date (current: " + parts[2] + "):");
+                    String newDeliveryDate = scanner.nextLine().trim();
+                    if (newDeliveryDate.isEmpty()) {
+                        newDeliveryDate = parts[2];
+                    }
 
-	    public void setMonitorSalesFlag(boolean monitorSalesFlag) {
-	        this.monitorSalesFlag = monitorSalesFlag;
-	    }
-	    public void whatAdminEnter(String AdminChoice){
-	        if (AdminChoice.equals("1")){
-	        	setManageProductsFlag(true);
-	        } else if (AdminChoice.equals("2")) {
-	        	setMonitorSalesFlag(true);
-	        } else if (AdminChoice.equals("3")) {
-	        	setBestSellingProductsFlag(true);
-	        }
-	        else if (AdminChoice.equals("4")) {
-	        	setTrackOrdersFlag(true);
-	        }
-	        
-	        else {
-	        	setManageProductsFlag(false);
-	        	setMonitorSalesFlag(false);
-	        	setBestSellingProductsFlag(false);
-	        	setTrackOrdersFlag(false);
-	        	
-	        }
-	    }
-	    public boolean isBestSellingProductsFlag() {
-	        return bestSellingProductsFlag;
-	    }
+                    System.out.println("Enter new status (current: " + parts[3] + "):");
+                    String newStatus = scanner.nextLine().trim();
+                    if (newStatus.isEmpty()) {
+                        newStatus = parts[3];
+                    }
 
-	    public void setBestSellingProductsFlag(boolean bestSellingProductsFlag) {
-	    	 this.bestSellingProductsFlag = bestSellingProductsFlag;
-	    }
-	   
+                    String updatedOrder = idToUpdate + "," + newOrderDate + "," + newDeliveryDate + "," + newStatus;
+                    orders.add(updatedOrder);
+                } else {
+                    orders.add(line);
+                }
+            }
+        } catch (IOException e) {
+            logger.log(Level.SEVERE, "Error reading orders file", e);
+            return false;
+        }
+
+        if (found) {
+            try (BufferedWriter writer = new BufferedWriter(new FileWriter(ORDERS_FILE_PATH))) {
+                for (String order : orders) {
+                    writer.write(order);
+                    writer.newLine();
+                }
+                System.out.println("Order updated successfully.");
+                return true;
+            } catch (IOException e) {
+                logger.log(Level.SEVERE, "Error writing to orders file", e);
+                return false;
+            }
+        } else {
+            System.out.println("Order with ID " + idToUpdate + " not found.");
+            return false;
+        }
+    }
+
+    public void Admin_menu(String adminName) {
+        System.out.println("Returning to admin menu for: " + adminName);
+    }
+
+    public String getAdminName() {
+        return "Admin"; 
+    }
+
+   public static void addToCart(int productId, String name, int quantity, double price) {
+    double newTotalPrice = price * quantity;
+    double totalPrice = 0.0;
+
+    try (BufferedReader cartReader = new BufferedReader(new FileReader(CART_FILE_PATH))) {
+        String line;
+        while ((line = cartReader.readLine()) != null) {
+            String[] cartDetails = line.split(",");
+            if (cartDetails.length == 4) {
+                totalPrice += Double.parseDouble(cartDetails[3]);
+            }
+        }
+    } catch (FileNotFoundException e) {
+        
+    } catch (IOException e) {
+        logger.log(Level.SEVERE, "Error reading cart file", e);
+    }
+
+    totalPrice += newTotalPrice;
+
+    try (BufferedWriter cartWriter = new BufferedWriter(new FileWriter(CART_FILE_PATH, true))) {
+        cartWriter.write(productId + "," + name + "," + quantity + "," + newTotalPrice + "\n");
+        cartWriter.write("Total Price," + totalPrice + "\n");
+    } catch (IOException e) {
+        logger.log(Level.SEVERE, "Error writing to cart file", e);
+    }
+}
+  public static void viewCart() {
+    try (BufferedReader cartReader = new BufferedReader(new FileReader(CART_FILE_PATH))) {
+        String line;
+        double totalPrice = 0.0;
+        System.out.println("\n----- Cart Contents -----");
+        while ((line = cartReader.readLine()) != null) {
+            String[] cartDetails = line.split(",");
+            if (cartDetails[0].equals("Total Price")) {
+                totalPrice = Double.parseDouble(cartDetails[1]);
+            } else {
+                System.out.println("Product ID: " + cartDetails[0] +
+                        ", Name: " + cartDetails[1] +
+                        ", Quantity: " + cartDetails[2] +
+                        ", Price: " + cartDetails[3]);
+            }
+        }
+        System.out.println("Total Price: " + totalPrice);
+    } catch (FileNotFoundException e) {
+        System.out.println("Cart is empty.");
+    } catch (IOException e) {
+        logger.log(Level.SEVERE, "Error reading cart file", e);
+    }
+}
 
 
-	    public boolean isDynamicDiscountFlag() {
-	        return dynamicDiscountFlag;
-	    }
 
-	    public void setDynamicDiscountFlag(boolean dynamicDiscountFlag) {
-	        this.dynamicDiscountFlag = dynamicDiscountFlag;
-	    }
+    public void addProductToOrder() {
+        ifProductAdded = true;
+        System.out.println("Product added to order.");
+    }
 
-	    public boolean isNotificationsFlag() {
-	        return notificationsFlag; 
-	    }
+    public void setGmailIs(String email) {
+        this.gmailIs = email;
+    }
 
-	    public void setNotificationsFlag(boolean notificationsFlag) {
-	        this.notificationsFlag = notificationsFlag;
-	    }
+    public boolean checkProductExistence(String productId) {
+        return productId != null && !productId.isEmpty();
+    }
 
-	    public boolean isTrackOrdersFlag() {
-	        return trackOrdersFlag;
-	    }
+    public boolean validateProductBeforeAdding() {
+        return checkProductExistence("someProductId");
+    }
 
-	    public void setTrackOrdersFlag(boolean trackOrdersFlag) {
-	        this.trackOrdersFlag = trackOrdersFlag;
-	    }
+    public String getStatusOrder() {
+        return this.status;
+    }
+
+    public String getIdCustomer() {
+        return this.idCustomer;
+    }
+
+    public boolean editProductQuantity() {
+        return true;
+    }
+   
+    public void setProductId(int productId) {
+        this.productId = productId;
+    }
+
+    public boolean editProductQuantity(int quantity) {
+    try (BufferedReader contentReader = new BufferedReader(new FileReader("src/main/resources/myData/content.txt"))) {
+        String line;
+        while ((line = contentReader.readLine()) != null) {
+            String[] parts = line.split(",");
+            if (Integer.parseInt(parts[0]) == productId) {
+                int availableQuantity = Integer.parseInt(parts[6]);
+                if (quantity <= availableQuantity && quantity > 0) {
+                    cart.put(productId, quantity);
+                    updateCartFile();
+                    return true;
+                }
+            }
+        }
+    } catch (IOException e) {
+        e.printStackTrace();
+    }
+    return false;
+}
+public static boolean createOrder(String customerId, String customerName, int productId, int quantity) {
+    try (BufferedReader contentReader = new BufferedReader(new FileReader(CONTENT_FILE_PATH))) {
+        String line;
+        boolean productFound = false;
+        
+        String headerLine = contentReader.readLine(); 
+        
+        while ((line = contentReader.readLine()) != null) {
+            String[] productDetails = line.split(",");
+            int id = Integer.parseInt(productDetails[0]);
+            String name = productDetails[1];
+            double price = Double.parseDouble(productDetails[3]);
+            String availability = productDetails[5];
+            int availableQuantity = Integer.parseInt(productDetails[6]);
+            
+            if (id == productId) {
+                productFound = true;
+                if (availability.equals("In Stock") && availableQuantity >= quantity) {
+                    addToCart(productId, name, quantity, price);
+                    saveOrder(customerId, customerName, productId, quantity, "pending");
+                    return true;
+                } else {
+                    System.out.println("Product is not available in the required quantity.");
+                    return false;
+                }
+            }
+        }
+        
+        if (!productFound) {
+            System.out.println("Product not found.");
+            return false;
+        }
+    } catch (IOException e) {
+        logger.log(Level.SEVERE, "Error reading content file", e);
+        return false;
+    }
+    return false;
+}
+private static void saveOrder(String customerId, String customerName, int productId, int quantity, String status) {
+    try (BufferedWriter orderWriter = new BufferedWriter(new FileWriter(ORDERS_FILE_PATH, true))) {
+        String orderId = UUID.randomUUID().toString().replace("-", "");
+        orderWriter.write(orderId + "," + customerId + "," + customerName + "," + productId + "," + quantity + "," + status + "\n");
+    } catch (IOException e) {
+        logger.log(Level.SEVERE, "Error writing to orders file", e);
+    }
+}
+
+   public boolean isOrderCreated() {
+    try (BufferedReader ordersReader = new BufferedReader(new FileReader(ORDERS_FILE_PATH))) {
+        String line;
+        while ((line = ordersReader.readLine()) != null) {
+            if (line.contains(idCustomer) && line.contains("pending")) {
+                return true;
+            }
+        }
+    } catch (IOException e) {
+        e.printStackTrace();
+    }
+    return false;
+}
+
+   private void updateCartFile() throws IOException {
+    // Update the cart file with the current cart data
+    try (BufferedWriter cartWriter = new BufferedWriter(new FileWriter(CART_FILE_PATH))) {
+        for (Map.Entry<Integer, Integer> entry : cart.entrySet()) {
+            cartWriter.write(entry.getKey() + "," + entry.getValue() + "\n");
+        }
+    } 
+}
 
 
+   public boolean isProductExisting() {
+    try (BufferedReader contentReader = new BufferedReader(new FileReader("src/main/resources/myData/content.txt"))) {
+        String line;
+        while ((line = contentReader.readLine()) != null) {
+            if (line.startsWith(String.valueOf(productId))) {
+                return true;
+            }
+        }
+    } catch (IOException e) {
+        e.printStackTrace();
+    }
+    return false;
+}
 
-	    public void displayAvailableProducts() {
-	        if (availableProducts == null || availableProducts.isEmpty()) {
-	            System.out.println("No products available.");
-	        } else {
-	            System.out.println("Available Products:");
-	            for (String product : availableProducts) {
-	                System.out.println(product);
-	            }
-	        }
-	    }
+    public void setOrderId(String orderId) {
+        this.idCustomer = orderId;
+    }
 
+    public boolean canManageOrders() {
+        return true; // Placeholder, replace with actual logic
+    }
+
+    public boolean canSendEmailNotifications() {
+        return true; 
+    }
+
+    public boolean canViewPendingOrders() {
+        return true; 
+    }
+
+
+    public boolean isValidOption(int option1, int option2, int option3, int option4) {
+        List<Integer> validOptions = Arrays.asList(option1, option2, option3, option4);
+        return validOptions.contains(Integer.parseInt(orderStatus));
+    }
+
+    public boolean editSpecificProductQuantity(Integer productId) {
+        return productId != null && productId > 0;
+    }
+
+    public boolean performOwnerOperations() {
+        return true;
+    }
+
+    public boolean sendEmailNotifications() {
+        return gmailIs != null && !gmailIs.isEmpty();
+    }
+
+    public double calculateTotalCost() {
+        return orderPrice;
+    }
+
+    public boolean validateOption(Integer option1, Integer option2, Integer option3, Integer option4) {
+        return option1 != null && option2 != null && option3 != null && option4 != null;
+    }
 
 }
