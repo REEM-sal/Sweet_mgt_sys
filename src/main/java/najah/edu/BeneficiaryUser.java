@@ -201,37 +201,17 @@ public class BeneficiaryUser {
 
    public void userAccountMenu(){
        if (browseProductsFlag){
-         
-           back();
        }
        else if (makePurchasesFlag) {
-           
-           order.makePurchasesMenu();
-           back();
+    
        }
-       
-       
-     
+   
        else {
            logger.log(Level.WARNING,BOLD+"\u001B[31mInvalid choice! Please enter a valid choice."+RESET_COLOR);
-           back();
+        
        }
    }
-   public void back() {
-       logger.log(Level.INFO, """
-
-               1) back\s
-               2) Exit""");
-       int choice;
-       Scanner scanner = new Scanner(System.in);
-       choice = scanner.nextInt();
-       if (choice == 1)
-           Customer_menu(getUserName());
-       System.exit(0);
-   }
-
-   
-
+  
    private List<String> readProductsFromFile() {
        List<String> products = new ArrayList<>();
        try (BufferedReader reader = new BufferedReader(new FileReader(CONTENT_FILE_PATH))) {
@@ -256,46 +236,11 @@ public void addNewCustomer(){
 
 }
 
-
-
-
- 
-
 public void setTheCustomerIs(int numberOfLineCustomer){
        setNumberOfLine(numberOfLineCustomer);
 }
 
   
-
-public void deleteLine() {
-   try {
-       RandomAccessFile raf = new RandomAccessFile("src/main/resources/myData/BeneficiaryData.txt", "rw");
-       long start = 0;
-       long currentPos = raf.getFilePointer();
-       int currentLine = -1;
-
-       while (currentLine < getNumberOfLine()){
-           start = currentPos;
-           raf.readLine();
-           currentPos = raf.getFilePointer();
-           currentLine++;
-       }
-
-       long end = raf.length();
-       byte[] remainingBytes = new byte[(int) (end - currentPos)];
-       raf.read(remainingBytes);
-
-       raf.seek(start);
-       raf.write(remainingBytes);
-       raf.setLength(start + remainingBytes.length);
-       raf.close();
-
-   } catch (IOException e) {
-       throw new RuntimeException(e);
-   }
-
-}
-
 
    public boolean isBrowseProductsFlag() {
        return browseProductsFlag;
