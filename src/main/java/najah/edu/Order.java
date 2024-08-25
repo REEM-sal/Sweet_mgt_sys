@@ -95,16 +95,7 @@ public class Order {
     }
 
     public void viewDeliveredOrder(String status) {
-        boolean deliveredOrderFound = false;
-        int countDelivered = 0;
-
         try (RandomAccessFile ref = new RandomAccessFile("src/main/resources/myData/orders.txt", "rw")) {
-
-            if (!deliveredOrderFound) {
-                logger.info("No delivered orders found for status: " + status);
-            } else {
-                logger.info("Total delivered orders found: " + countDelivered);
-            }
 
         } catch (FileNotFoundException e) {
             throw new RuntimeException(e);
