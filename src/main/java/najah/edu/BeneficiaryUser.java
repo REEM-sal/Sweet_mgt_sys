@@ -173,18 +173,9 @@ public class BeneficiaryUser {
 
 
        choice = scanner.nextInt();
-       if (choice == 1) 
+       if (choice == 1) {}
         
-         
-        else if (choice == 2) 
-          
 
-        else if (choice == 3) 
-    	  
-
-       
-       else if (choice == 4) 
-    	 
 
        
       
