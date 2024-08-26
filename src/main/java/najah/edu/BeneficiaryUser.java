@@ -151,7 +151,6 @@ public class BeneficiaryUser {
    public boolean isCustomerLogin() {
        return customerLogin;
    }
-
 public void Customer_menu(String CostName) {
     setUserName(CostName);
     setBrowseProductsFlag(false);
@@ -160,9 +159,27 @@ public void Customer_menu(String CostName) {
     
     int choice;
     Scanner scanner = new Scanner(System.in);
+
+    logWelcomeMessage(CostName);
+    displayMenuOptions();
     
+    logger.log(Level.INFO, ENTER_YOUR_CHOICE + RESET_COLOR);
     
-    logger.log(Level.INFO, getFormattedMessage(CostName));
+    choice = scanner.nextInt();
+    
+    if (choice == 1) {
+        logWelcomeMessage(CostName);
+    } else {
+        logger.log(Level.WARNING, BOLD + "\u001B[31mInvalid choice! Please enter one, two, or three.\u001B[0m");
+    }
+}
+
+
+private void logWelcomeMessage(String CostName) {
+    logger.log(Level.INFO, "\n\u001B[32m -------  Welcome " + CostName + " ---------\n");
+}
+
+private void displayMenuOptions() {
     logger.log(Level.INFO, "\n" +
             "|                                  |\n" +
             "|      1. Browse products           |\n" +
@@ -171,22 +188,7 @@ public void Customer_menu(String CostName) {
             "|      4. Provide feedback          |\n" +  
             "|                                  |\n" +
             "-----------------------------------\n");
-    logger.log(Level.INFO, ENTER_YOUR_CHOICE + RESET_COLOR);
-    
-    choice = scanner.nextInt();
-    
-    if (choice == 1) {
-        logger.log(Level.INFO, getFormattedMessage(CostName)); 
-    } else {
-        logger.log(Level.WARNING, BOLD + "\u001B[31mInvalid choice! Please enter one, two, or three.\u001B[0m");
-    }
 }
-
-
-private String getFormattedMessage(String CostName) {
-    return String.format("\n\u001B[32m -------  Welcome %s ---------\n", CostName);
-}
-
 
 
   
