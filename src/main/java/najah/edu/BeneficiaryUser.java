@@ -166,14 +166,16 @@ public class BeneficiaryUser {
                "|      1. Browse products           |\n" +
                "|      2. Make purchases            |\n" +
                "|      3. Manage personal account   |\n" +
-               "|      4. Provide feedback          |\n" +  // Added feedback option
+               "|      4. Provide feedback          |\n" +  
                "|                                  |\n" +
                "-----------------------------------\n");
     logger.log(Level.INFO, ENTER_YOUR_CHOICE + RESET_COLOR);
 
 
        choice = scanner.nextInt();
-       if (choice == 1) {}
+       if (choice == 1) {
+	   logger.log(Level.INFO, "\n\u001B[32m" + " -------  Welcome " +  CostName  + " ---------" + "\n" +    
+       }
         
 
 
