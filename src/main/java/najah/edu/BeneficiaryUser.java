@@ -173,20 +173,20 @@ public class BeneficiaryUser {
 
 
        choice = scanner.nextInt();
-       if (choice == 1) {
+       if (choice == 1) 
         
          
-       } else if (choice == 2) {
+        else if (choice == 2) 
           
 
-       } else if (choice == 3) {
+        else if (choice == 3) 
     	  
 
-       }
-       else if (choice == 4) {
+       
+       else if (choice == 4) 
     	 
 
-       }
+       
       
        else {
     	    logger.log(Level.WARNING,BOLD + "\u001B[31mInvalid choice! Please enter one, two, or three.\u001B[0m");
@@ -201,9 +201,9 @@ public class BeneficiaryUser {
    public void userAccountMenu(){
        if (browseProductsFlag){
        }
-       else if (makePurchasesFlag) {
+       else if (makePurchasesFlag) 
     
-       }
+       
    
        else {
            logger.log(Level.WARNING,BOLD+"\u001B[31mInvalid choice! Please enter a valid choice."+RESET_COLOR);
@@ -274,13 +274,6 @@ public void setTheCustomerIs(int numberOfLineCustomer){
 
   
    
-   private int parseInteger(String value) {
-	    try {
-	        return Integer.parseInt(value);
-	    } catch (NumberFormatException e) {
-	        logger.log(Level.WARNING, "Invalid number format: " + value, e);
-	        return -1; 
-	    }
-	}
+ 
 
 }
