@@ -174,7 +174,7 @@ public class BeneficiaryUser {
 
        choice = scanner.nextInt();
        if (choice == 1) {
-	   logger.log(Level.INFO, "\n\u001B[32m" + " -------  Welcome " +  CostName  + " ---------" + "\n" ;  
+	   logger.log(Level.INFO, "\n\u001B[32m" + " -------  Welcome " +  CostName  + " ---------" + "\n") ;  
        }
         
 
