@@ -499,18 +499,18 @@ private static void saveOrder(String customerId, String customerName, int produc
 }
 
    public boolean isOrderCreated() {
-    try (BufferedReader ordersReader = new BufferedReader(new FileReader(ORDERS_FILE_PATH))) {
-        String line;
-        while ((line = ordersReader.readLine()) != null) {
-            if (line.contains(idCustomer) && line.contains("pending")) {
-                return true;
+        try (BufferedReader ordersReader = new BufferedReader(new FileReader(ORDERS_FILE_PATH))) {
+            String line;
+            while ((line = ordersReader.readLine()) != null) {
+                if (line.contains(idCustomer) && line.contains("pending")) {
+                    return true;
+                }
             }
+        } catch (IOException e) {
+            logger.log(Level.SEVERE, "An error occurred while checking if the order is created", e);
         }
-    } catch (IOException e) {
-        e.printStackTrace();
+        return false;
     }
-    return false;
-}
 
    private void updateCartFile() throws IOException {
     // Update the cart file with the current cart data
