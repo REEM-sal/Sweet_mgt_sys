@@ -152,7 +152,6 @@ public class BeneficiaryUser {
        return customerLogin;
    }
 
-
 public void Customer_menu(String CostName) {
     setUserName(CostName);
     setBrowseProductsFlag(false);
@@ -163,7 +162,7 @@ public void Customer_menu(String CostName) {
     Scanner scanner = new Scanner(System.in);
     
     
-    logger.log(Level.INFO, formatWelcomeMessage(CostName));
+    logger.log(Level.INFO, getFormattedMessage(CostName));
     logger.log(Level.INFO, "\n" +
             "|                                  |\n" +
             "|      1. Browse products           |\n" +
@@ -177,19 +176,17 @@ public void Customer_menu(String CostName) {
     choice = scanner.nextInt();
     
     if (choice == 1) {
-        logger.log(Level.INFO, formatWelcomeMessage(CostName)); 
+        logger.log(Level.INFO, getFormattedMessage(CostName)); 
     } else {
         logger.log(Level.WARNING, BOLD + "\u001B[31mInvalid choice! Please enter one, two, or three.\u001B[0m");
     }
 }
 
-private String formatWelcomeMessage(String CostName) {
-	
-    return "\n\u001B[32m -------  Welcome " + CostName + " ---------\n";
-	
+
+private String getFormattedMessage(String CostName) {
+    return String.format("\n\u001B[32m -------  Welcome %s ---------\n", CostName);
 }
 
- 
 
 
   
