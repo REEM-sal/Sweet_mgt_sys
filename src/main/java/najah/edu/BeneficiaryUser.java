@@ -154,37 +154,43 @@ public class BeneficiaryUser {
 
 
 
-   public void Customer_menu (String CostName) {
-       setUserName(CostName);
-       setBrowseProductsFlag(false);
-       setMakePurchasesFlag(false);
-       setSettingFlag(false);
-       int choice;
-       Scanner scanner = new Scanner(System.in);
-       logger.log(Level.INFO, "\n\u001B[32m" + " -------  Welcome " +  CostName  + " ---------" + "\n" +
-               "|                                  |\n" +
-               "|      1. Browse products           |\n" +
-               "|      2. Make purchases            |\n" +
-               "|      3. Manage personal account   |\n" +
-               "|      4. Provide feedback          |\n" +  
-               "|                                  |\n" +
-               "-----------------------------------\n");
-    logger.log(Level.INFO, ENTER_YOUR_CHOICE + RESET_COLOR);
-
-
-       choice = scanner.nextInt();
-       if (choice == 1) {
-	   logger.log(Level.INFO, "\n\u001B[32m" + " -------  Welcome " +  CostName  + " ---------" + "\n") ;  
-       }
-        
-
-
        
       
-       else {
-    	    logger.log(Level.WARNING,BOLD + "\u001B[31mInvalid choice! Please enter one, two, or three.\u001B[0m");
-    	}
-   }
+دpublic void Customer_menu(String CostName) {
+    setUserName(CostName);
+    setBrowseProductsFlag(false);
+    setMakePurchasesFlag(false);
+    setSettingFlag(false);
+    
+    int choice;
+    Scanner scanner = new Scanner(System.in);
+    
+    // Display the main menu
+    logger.log(Level.INFO, formatWelcomeMessage(CostName));
+    logger.log(Level.INFO, "\n" +
+            "|                                  |\n" +
+            "|      1. Browse products           |\n" +
+            "|      2. Make purchases            |\n" +
+            "|      3. Manage personal account   |\n" +
+            "|      4. Provide feedback          |\n" +  
+            "|                                  |\n" +
+            "-----------------------------------\n");
+    logger.log(Level.INFO, ENTER_YOUR_CHOICE + RESET_COLOR);
+    
+    choice = scanner.nextInt();
+    
+    if (choice == 1) {
+        logger.log(Level.INFO, formatWelcomeMessage(CostName)); 
+    } else {
+        logger.log(Level.WARNING, BOLD + "\u001B[31mInvalid choice! Please enter one, two, or three.\u001B[0m");
+    }
+}
+
+// Method to format the welcome message
+private String formatWelcomeMessage(String CostName) {
+    return "\n\u001B[32m -------  Welcome " + CostName + " ---------\n";
+}
+
   
  
 
