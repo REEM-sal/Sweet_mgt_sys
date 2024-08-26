@@ -432,25 +432,25 @@ public class Order {
         this.productId = productId;
     }
 
-    public boolean editProductQuantity(int quantity) {
-    try (BufferedReader contentReader = new BufferedReader(new FileReader("src/main/resources/myData/content.txt"))) {
-        String line;
-        while ((line = contentReader.readLine()) != null) {
-            String[] parts = line.split(",");
-            if (Integer.parseInt(parts[0]) == productId) {
-                int availableQuantity = Integer.parseInt(parts[6]);
-                if (quantity <= availableQuantity && quantity > 0) {
-                    cart.put(productId, quantity);
-                    updateCartFile();
-                    return true;
+     public boolean editProductQuantity(int quantity) {
+        try (BufferedReader contentReader = new BufferedReader(new FileReader("src/main/resources/myData/content.txt"))) {
+            String line;
+            while ((line = contentReader.readLine()) != null) {
+                String[] parts = line.split(",");
+                if (Integer.parseInt(parts[0]) == productId) {
+                    int availableQuantity = Integer.parseInt(parts[6]);
+                    if (quantity <= availableQuantity && quantity > 0) {
+                        cart.put(productId, quantity);
+                        updateCartFile();
+                        return true;
+                    }
                 }
             }
+        } catch (IOException e) {
+            logger.log(Level.SEVERE, "An error occurred while editing product quantity", e);
         }
-    } catch (IOException e) {
-        e.printStackTrace();
+        return false;
     }
-    return false;
-}
 public static boolean createOrder(String customerId, String customerName, int productId, int quantity) {
     try (BufferedReader contentReader = new BufferedReader(new FileReader(CONTENT_FILE_PATH))) {
         String line;
