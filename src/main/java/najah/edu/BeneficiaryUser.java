@@ -192,7 +192,6 @@ public class BeneficiaryUser {
    public void userAccountMenu(){
        if (browseProductsFlag){
        }
-       else if (makePurchasesFlag) 
     
        
    
